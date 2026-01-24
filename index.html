@@ -3,101 +3,1140 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🌍 WorldClock - Explore 195 Countries</title></head>
-    <link rel="stylesheet" href="WorldClock.css">
-    <script src="WorldClock.js"></script>
-<body>
-    <div class="app-container">
-        <div class="max-w-container">
-            <!-- Header -->
-            <div class="header">
-                <div class="header-content">
-                    <svg class="globe-icon spin-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="10"></circle>
-                        <line x1="2" y1="12" x2="22" y2="12"></line>
-                        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-                    </svg>
-                    <h1 class="main-title">🌍 WorldClock</h1>
-                    <svg class="globe-icon spin-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="10"></circle>
-                        <line x1="2" y1="12" x2="22" y2="12"></line>
-                        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-                    </svg>
-                </div>
-                <p class="subtitle">⏰ Explore 195 Countries • 🔴 Live Updates • 📚 Fun Facts</p>
-            </div>
+    <title>Calculator Tools Suite</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-            <!-- Search Bar -->
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+            transition: background 0.8s ease;
+        }
+
+        body.dark-mode {
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+        }
+
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            animation: float 20s infinite;
+        }
+
+        .circle:nth-child(1) { width: 80px; height: 80px; left: 10%; animation-delay: 0s; }
+        .circle:nth-child(2) { width: 60px; height: 60px; left: 80%; animation-delay: 2s; }
+        .circle:nth-child(3) { width: 100px; height: 100px; left: 50%; animation-delay: 4s; }
+        .circle:nth-child(4) { width: 40px; height: 40px; left: 30%; animation-delay: 6s; }
+        .circle:nth-child(5) { width: 70px; height: 70px; left: 70%; animation-delay: 8s; }
+
+        /* Stars for dark mode */
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+
+        body.dark-mode .star {
+            opacity: 1;
+            animation: twinkle 3s infinite;
+        }
+
+        .shooting-star {
+            position: absolute;
+            height: 2px;
+            background: linear-gradient(90deg, #fff, transparent);
+            opacity: 0;
+        }
+
+        body.dark-mode .shooting-star {
+            animation: shoot 3s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        @keyframes shoot {
+            0% { opacity: 0; transform: translateX(0) translateY(0); }
+            10% { opacity: 1; }
+            100% { opacity: 0; transform: translateX(-300px) translateY(300px); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.3; }
+            50% { transform: translateY(-100vh) rotate(360deg); opacity: 0.6; }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+            animation: fadeInDown 0.8s ease;
+            position: relative;
+        }
+
+        .theme-toggle {
+            position: absolute;
+            top: -10px;
+            right: 20px;
+            cursor: pointer;
+            z-index: 1000;
+        }
+
+        .moon-container {
+            width: 80px;
+            height: 80px;
+            position: relative;
+            transition: transform 0.6s ease;
+        }
+
+        .moon-container:hover {
+            transform: scale(1.1) rotate(15deg);
+        }
+
+        .moon {
+            width: 80px;
+            height: 80px;
+            background: #f4f4f4;
+            border-radius: 50%;
+            position: relative;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.6), inset -10px -10px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.8s ease;
+            animation: moonFloat 4s ease-in-out infinite;
+        }
+
+        @keyframes moonFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .moon::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, transparent 30%, rgba(0, 0, 0, 0.05) 100%);
+        }
+
+        .crater {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+        }
+
+        .crater:nth-child(1) { width: 15px; height: 15px; top: 20px; left: 25px; }
+        .crater:nth-child(2) { width: 10px; height: 10px; top: 45px; left: 50px; }
+        .crater:nth-child(3) { width: 12px; height: 12px; top: 55px; left: 20px; }
+        .crater:nth-child(4) { width: 8px; height: 8px; top: 30px; left: 55px; }
+
+        body.dark-mode .moon {
+            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+            box-shadow: 0 0 60px rgba(255, 215, 0, 0.8), 0 0 100px rgba(255, 215, 0, 0.5);
+            transform: rotate(180deg);
+        }
+
+        body.dark-mode .crater {
+            background: rgba(255, 200, 0, 0.3);
+        }
+
+        .moon-glow {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 0.8s;
+        }
+
+        body.dark-mode .moon-glow {
+            opacity: 1;
+            box-shadow: 0 0 40px 10px rgba(255, 215, 0, 0.4);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.6; }
+            50% { transform: scale(1.2); opacity: 1; }
+        }
+
+        h1 {
+            font-size: 3em;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+
+        .search-container {
+            max-width: 700px;
+            margin: 0 auto;
+            animation: fadeIn 1s ease;
+        }
+
+        .search-wrapper {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 18px 50px 18px 50px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1em;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+            outline: none;
+            color: #333;
+        }
+
+        body.dark-mode .search-input {
+            background: rgba(30, 30, 60, 0.7);
+            color: white;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        body.dark-mode .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .search-input:focus {
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.25);
+            transform: translateY(-2px);
+        }
+
+        body.dark-mode .search-input:focus {
+            box-shadow: 0 15px 50px rgba(255, 215, 0, 0.3);
+            border-color: #ffd700;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #667eea;
+            pointer-events: none;
+        }
+
+        .search-count {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #667eea;
+            font-weight: 600;
+            font-size: 0.9em;
+        }
+
+        .filter-tags {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .tag {
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 25px;
+            color: white;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            user-select: none;
+        }
+
+        .tag:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .tag.active {
+            background: white;
+            color: #667eea;
+            border-color: white;
+            box-shadow: 0 5px 20px rgba(255, 255, 255, 0.3);
+        }
+
+        body.dark-mode .tag {
+            background: rgba(30, 30, 60, 0.5);
+            border-color: rgba(255, 215, 0, 0.3);
+        }
+
+        body.dark-mode .tag:hover {
+            background: rgba(40, 40, 80, 0.7);
+            border-color: rgba(255, 215, 0, 0.5);
+        }
+
+        body.dark-mode .tag.active {
+            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+            color: #1a1a2e;
+            border-color: #ffd700;
+            box-shadow: 0 5px 20px rgba(255, 215, 0, 0.5);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .tool-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            animation: fadeInUp 0.6s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        body.dark-mode .tool-card {
+            background: rgba(30, 30, 60, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        }
+
+        body.dark-mode .tool-card:hover {
+            background: rgba(40, 40, 80, 0.8);
+            border-color: rgba(255, 215, 0, 0.3);
+            box-shadow: 0 15px 40px rgba(255, 215, 0, 0.2);
+        }
+
+        .tool-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .tool-card:hover::before {
+            left: 100%;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .tool-card.hidden {
+            display: none;
+        }
+
+        .no-results {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 60px 20px;
+            color: white;
+            font-size: 1.3em;
+            display: none;
+        }
+
+        .no-results.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .no-results-icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+            opacity: 0.7;
+        }
+
+        .tool-card h3 {
+            color: #667eea;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: color 0.3s;
+        }
+
+        body.dark-mode .tool-card h3 {
+            color: #ffd700;
+        }
+
+        .icon {
+            font-size: 1.8em;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        body.dark-mode .input-group label {
+            color: #ccc;
+        }
+
+        .input-group input, .input-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1em;
+            transition: all 0.3s;
+            background: white;
+        }
+
+        body.dark-mode .input-group input,
+        body.dark-mode .input-group select {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        body.dark-mode .input-group input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .input-group input:focus, .input-group select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        body.dark-mode .input-group input:focus,
+        body.dark-mode .input-group select:focus {
+            border-color: #ffd700;
+            box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.2);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+
+        body.dark-mode .btn {
+            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+            color: #1a1a2e;
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+        }
+
+        body.dark-mode .btn:hover {
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.5);
+            transform: scale(1.02) translateY(-2px);
+        }
+
+        .btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 20px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border-radius: 10px;
+            color: white;
+            font-size: 1.2em;
+            font-weight: 600;
+            text-align: center;
+            display: none;
+            animation: slideIn 0.5s ease;
+        }
+
+        .result.show {
+            display: block;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .calc-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .calc-btn {
+            padding: 20px;
+            background: #f5f5f5;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: #333;
+        }
+
+        body.dark-mode .calc-btn {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .calc-btn:hover {
+            background: #e0e0e0;
+        }
+
+        body.dark-mode .calc-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .calc-btn.operator {
+            background: #667eea;
+            color: white;
+        }
+
+        body.dark-mode .calc-btn.operator {
+            background: rgba(255, 215, 0, 0.3);
+            color: #ffd700;
+            border-color: rgba(255, 215, 0, 0.5);
+        }
+
+        .calc-btn.equals {
+            grid-column: span 2;
+            background: #764ba2;
+            color: white;
+        }
+
+        body.dark-mode .calc-btn.equals {
+            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+            color: #1a1a2e;
+        }
+
+        #calcDisplay {
+            grid-column: span 4;
+            padding: 20px;
+            background: #f5f5f5;
+            border-radius: 10px;
+            text-align: right;
+            font-size: 1.5em;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            color: #333;
+        }
+
+        body.dark-mode #calcDisplay {
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffd700;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+        }
+
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2em; }
+            .tools-grid { grid-template-columns: 1fr; }
+            .two-col { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation">
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+    </div>
+
+    <div class="bg-animation" id="starsContainer"></div>
+
+    <div class="container">
+        <header>
+            <div class="theme-toggle" onclick="toggleDarkMode()">
+                <div class="moon-container">
+                    <div class="moon">
+                        <div class="moon-glow"></div>
+                        <div class="crater"></div>
+                        <div class="crater"></div>
+                        <div class="crater"></div>
+                        <div class="crater"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <h1>🧮 Calculator Tools Suite</h1>
+            <p class="subtitle">Powerful calculators for everyday needs</p>
+            
             <div class="search-container">
                 <div class="search-wrapper">
-                    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <circle cx="11" cy="11" r="8"></circle>
                         <path d="m21 21-4.35-4.35"></path>
                     </svg>
-                    <input 
-                        type="text" 
-                        id="searchInput" 
-                        class="search-input" 
-                        placeholder="Search countries or cities..."
-                    >
+                    <input type="text" id="searchInput" class="search-input" placeholder="Search calculators..." onkeyup="searchCalculators()">
+                    <div class="search-count" id="searchCount"></div>
+                </div>
+                <div class="filter-tags" id="filterTags">
+                    <span class="tag active" onclick="filterByTag('all')">All</span>
+                    <span class="tag" onclick="filterByTag('finance')">💰 Finance</span>
+                    <span class="tag" onclick="filterByTag('health')">⚖️ Health</span>
+                    <span class="tag" onclick="filterByTag('conversion')">🔄 Conversion</span>
+                    <span class="tag" onclick="filterByTag('math')">🔢 Math</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="tools-grid">
+            <!-- Basic Calculator -->
+            <div class="tool-card" data-category="math" data-keywords="basic calculator math arithmetic numbers addition subtraction multiplication division">
+                <h3><span class="icon">🔢</span> Basic Calculator</h3>
+                <div class="calc-grid">
+                    <div id="calcDisplay">0</div>
+                    <button class="calc-btn" onclick="appendCalc('7')">7</button>
+                    <button class="calc-btn" onclick="appendCalc('8')">8</button>
+                    <button class="calc-btn" onclick="appendCalc('9')">9</button>
+                    <button class="calc-btn operator" onclick="appendCalc('/')">÷</button>
+                    <button class="calc-btn" onclick="appendCalc('4')">4</button>
+                    <button class="calc-btn" onclick="appendCalc('5')">5</button>
+                    <button class="calc-btn" onclick="appendCalc('6')">6</button>
+                    <button class="calc-btn operator" onclick="appendCalc('*')">×</button>
+                    <button class="calc-btn" onclick="appendCalc('1')">1</button>
+                    <button class="calc-btn" onclick="appendCalc('2')">2</button>
+                    <button class="calc-btn" onclick="appendCalc('3')">3</button>
+                    <button class="calc-btn operator" onclick="appendCalc('-')">−</button>
+                    <button class="calc-btn" onclick="appendCalc('0')">0</button>
+                    <button class="calc-btn" onclick="appendCalc('.')">.</button>
+                    <button class="calc-btn" onclick="clearCalc()">C</button>
+                    <button class="calc-btn operator" onclick="appendCalc('+')">+</button>
+                    <button class="calc-btn equals" onclick="calculateCalc()">=</button>
                 </div>
             </div>
 
-            <!-- Tabs -->
-            <div class="tabs-container">
-                <div class="tabs-list">
-                    <button class="tab-button active" data-tab="countries">
-                        <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="12" cy="12" r="10"></circle>
-                            <line x1="2" y1="12" x2="22" y2="12"></line>
-                            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-                        </svg>
-                        Countries (<span id="countriesCount">0</span>)
-                    </button>
-                    <button class="tab-button" data-tab="cities">
-                        <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect>
-                            <path d="M9 22v-4h6v4M8 6h.01M16 6h.01M12 6h.01M12 10h.01M12 14h.01M16 10h.01M16 14h.01M8 10h.01M8 14h.01"></path>
-                        </svg>
-                        Cities (<span id="citiesCount">0</span>)
-                    </button>
+            <!-- BMI Calculator -->
+            <div class="tool-card" data-category="health" data-keywords="bmi body mass index weight height health fitness">
+                <h3><span class="icon">⚖️</span> BMI Calculator</h3>
+                <div class="input-group">
+                    <label>Weight (kg)</label>
+                    <input type="number" id="weight" placeholder="Enter weight">
                 </div>
+                <div class="input-group">
+                    <label>Height (cm)</label>
+                    <input type="number" id="height" placeholder="Enter height">
+                </div>
+                <button class="btn" onclick="calculateBMI()">Calculate BMI</button>
+                <div class="result" id="bmiResult"></div>
             </div>
 
-            <!-- Content -->
-            <div class="tab-content active" id="countriesTab">
-                <div class="grid-container" id="countriesGrid"></div>
-                <div class="empty-state" id="countriesEmpty" style="display: none;">
-                    <svg class="empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="10"></circle>
-                        <line x1="2" y1="12" x2="22" y2="12"></line>
-                        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-                    </svg>
-                    <p>No countries found!</p>
+            <!-- Age Calculator -->
+            <div class="tool-card" data-category="math" data-keywords="age calculator birthday birth date years months">
+                <h3><span class="icon">🎂</span> Age Calculator</h3>
+                <div class="input-group">
+                    <label>Date of Birth</label>
+                    <input type="date" id="dob">
                 </div>
+                <button class="btn" onclick="calculateAge()">Calculate Age</button>
+                <div class="result" id="ageResult"></div>
             </div>
 
-            <div class="tab-content" id="citiesTab">
-                <div class="grid-container cities-grid" id="citiesGrid"></div>
-                <div class="empty-state" id="citiesEmpty" style="display: none;">
-                    <svg class="empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect>
-                        <path d="M9 22v-4h6v4M8 6h.01M16 6h.01M12 6h.01M12 10h.01M12 14h.01M16 10h.01M16 14h.01M8 10h.01M8 14h.01"></path>
-                    </svg>
-                    <p>No cities found!</p>
+            <!-- Currency Converter -->
+            <div class="tool-card" data-category="conversion" data-keywords="currency converter money exchange rate usd inr eur gbp forex">
+                <h3><span class="icon">💱</span> Currency Converter</h3>
+                <div class="input-group">
+                    <label>Amount</label>
+                    <input type="number" id="currAmount" placeholder="Enter amount">
                 </div>
+                <div class="two-col">
+                    <div class="input-group">
+                        <label>From</label>
+                        <select id="fromCurr">
+                            <option value="1">USD</option>
+                            <option value="83.12">INR</option>
+                            <option value="0.85">EUR</option>
+                            <option value="0.73">GBP</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>To</label>
+                        <select id="toCurr">
+                            <option value="83.12">INR</option>
+                            <option value="1">USD</option>
+                            <option value="0.85">EUR</option>
+                            <option value="0.73">GBP</option>
+                        </select>
+                    </div>
+                </div>
+                <button class="btn" onclick="convertCurrency()">Convert</button>
+                <div class="result" id="currResult"></div>
+            </div>
+
+            <!-- Unit Converter -->
+            <div class="tool-card" data-category="conversion" data-keywords="unit converter cm inch kg lb meter feet conversion measurement">
+                <h3><span class="icon">📏</span> Unit Converter</h3>
+                <div class="input-group">
+                    <label>Value</label>
+                    <input type="number" id="unitValue" placeholder="Enter value">
+                </div>
+                <div class="input-group">
+                    <label>Conversion Type</label>
+                    <select id="unitType">
+                        <option value="cm-inch">CM to Inch</option>
+                        <option value="inch-cm">Inch to CM</option>
+                        <option value="kg-lb">KG to LB</option>
+                        <option value="lb-kg">LB to KG</option>
+                    </select>
+                </div>
+                <button class="btn" onclick="convertUnit()">Convert</button>
+                <div class="result" id="unitResult"></div>
+            </div>
+
+            <!-- Percentage Calculator -->
+            <div class="tool-card" data-category="math" data-keywords="percentage calculator percent math ratio proportion">
+                <h3><span class="icon">📊</span> Percentage Calculator</h3>
+                <div class="input-group">
+                    <label>Value</label>
+                    <input type="number" id="percValue" placeholder="Enter value">
+                </div>
+                <div class="input-group">
+                    <label>Percentage (%)</label>
+                    <input type="number" id="percPercent" placeholder="Enter percentage">
+                </div>
+                <button class="btn" onclick="calculatePercentage()">Calculate</button>
+                <div class="result" id="percResult"></div>
+            </div>
+
+            <!-- Tip Calculator -->
+            <div class="tool-card" data-category="finance" data-keywords="tip calculator gratuity restaurant bill split service charge">
+                <h3><span class="icon">💰</span> Tip Calculator</h3>
+                <div class="input-group">
+                    <label>Bill Amount</label>
+                    <input type="number" id="billAmount" placeholder="Enter bill amount">
+                </div>
+                <div class="input-group">
+                    <label>Tip Percentage (%)</label>
+                    <input type="number" id="tipPercent" placeholder="Enter tip %">
+                </div>
+                <div class="input-group">
+                    <label>Number of People</label>
+                    <input type="number" id="numPeople" placeholder="Split between" value="1">
+                </div>
+                <button class="btn" onclick="calculateTip()">Calculate Tip</button>
+                <div class="result" id="tipResult"></div>
+            </div>
+
+            <!-- Loan EMI Calculator -->
+            <div class="tool-card" data-category="finance" data-keywords="loan emi calculator interest rate mortgage payment installment finance">
+                <h3><span class="icon">🏦</span> Loan EMI Calculator</h3>
+                <div class="input-group">
+                    <label>Loan Amount</label>
+                    <input type="number" id="loanAmount" placeholder="Enter loan amount">
+                </div>
+                <div class="input-group">
+                    <label>Interest Rate (% per year)</label>
+                    <input type="number" id="interestRate" placeholder="Enter interest rate">
+                </div>
+                <div class="input-group">
+                    <label>Loan Tenure (months)</label>
+                    <input type="number" id="loanTenure" placeholder="Enter tenure in months">
+                </div>
+                <button class="btn" onclick="calculateEMI()">Calculate EMI</button>
+                <div class="result" id="emiResult"></div>
+            </div>
+
+            <!-- Discount Calculator -->
+            <div class="tool-card" data-category="finance" data-keywords="discount calculator sale price savings percentage off shopping">
+                <h3><span class="icon">🏷️</span> Discount Calculator</h3>
+                <div class="input-group">
+                    <label>Original Price</label>
+                    <input type="number" id="origPrice" placeholder="Enter original price">
+                </div>
+                <div class="input-group">
+                    <label>Discount (%)</label>
+                    <input type="number" id="discountPerc" placeholder="Enter discount %">
+                </div>
+                <button class="btn" onclick="calculateDiscount()">Calculate</button>
+                <div class="result" id="discResult"></div>
+            </div>
+
+            <!-- GST/Tax Calculator -->
+            <div class="tool-card" data-category="finance" data-keywords="gst tax calculator vat sales tax goods services finance">
+                <h3><span class="icon">📝</span> GST / Tax Calculator</h3>
+                <div class="input-group">
+                    <label>Amount</label>
+                    <input type="number" id="taxAmount" placeholder="Enter amount">
+                </div>
+                <div class="input-group">
+                    <label>Tax Rate (%)</label>
+                    <input type="number" id="taxRate" placeholder="Enter tax rate">
+                </div>
+                <div class="input-group">
+                    <label>Calculation Type</label>
+                    <select id="taxType">
+                        <option value="add">Add Tax</option>
+                        <option value="remove">Remove Tax</option>
+                    </select>
+                </div>
+                <button class="btn" onclick="calculateTax()">Calculate</button>
+                <div class="result" id="taxResult"></div>
+            </div>
+
+            <div class="no-results" id="noResults">
+                <div class="no-results-icon">🔍</div>
+                <div>No calculators found matching your search</div>
+                <div style="font-size: 0.9em; opacity: 0.8; margin-top: 10px;">Try a different keyword or browse all tools</div>
             </div>
         </div>
     </div>
 
-    <!-- Modal -->
-    <div class="modal-overlay" id="modalOverlay">
-        <div class="modal-content">
-            <button class="modal-close" id="modalClose">&times;</button>
-            <div id="modalBody"></div>
-        </div>
- </body> 
- <footer style="text-align: center; padding: 15px; background-color: #000000; font-weight: bold;">
-  JUNAID MAROOF MEMON
-</footer>
+    <script>
+        let calcDisplay = '0';
+
+        // Initialize stars and shooting stars
+        function initStars() {
+            const container = document.getElementById('starsContainer');
+            
+            // Create regular stars
+            for (let i = 0; i < 100; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.width = Math.random() * 3 + 'px';
+                star.style.height = star.style.width;
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                container.appendChild(star);
+            }
+
+            // Create shooting stars
+            for (let i = 0; i < 5; i++) {
+                const shootingStar = document.createElement('div');
+                shootingStar.className = 'shooting-star';
+                shootingStar.style.width = Math.random() * 100 + 50 + 'px';
+                shootingStar.style.left = Math.random() * 100 + '%';
+                shootingStar.style.top = Math.random() * 50 + '%';
+                shootingStar.style.animationDelay = Math.random() * 5 + 's';
+                shootingStar.style.animationDuration = Math.random() * 2 + 2 + 's';
+                container.appendChild(shootingStar);
+            }
+        }
+
+        // Toggle dark mode
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+        }
+
+        // Initialize on load
+        initStars();
+
+        function appendCalc(val) {
+            if (calcDisplay === '0' && val !== '.') {
+                calcDisplay = val;
+            } else {
+                calcDisplay += val;
+            }
+            document.getElementById('calcDisplay').textContent = calcDisplay;
+        }
+
+        function clearCalc() {
+            calcDisplay = '0';
+            document.getElementById('calcDisplay').textContent = calcDisplay;
+        }
+
+        function calculateCalc() {
+            try {
+                calcDisplay = eval(calcDisplay).toString();
+                document.getElementById('calcDisplay').textContent = calcDisplay;
+            } catch (e) {
+                calcDisplay = 'Error';
+                document.getElementById('calcDisplay').textContent = calcDisplay;
+                setTimeout(() => { calcDisplay = '0'; clearCalc(); }, 1500);
+            }
+        }
+
+        function calculateBMI() {
+            const weight = parseFloat(document.getElementById('weight').value);
+            const height = parseFloat(document.getElementById('height').value) / 100;
+            if (weight && height) {
+                const bmi = (weight / (height * height)).toFixed(2);
+                let category = '';
+                if (bmi < 18.5) category = 'Underweight';
+                else if (bmi < 25) category = 'Normal';
+                else if (bmi < 30) category = 'Overweight';
+                else category = 'Obese';
+                showResult('bmiResult', `BMI: ${bmi} (${category})`);
+            }
+        }
+
+        function calculateAge() {
+            const dob = new Date(document.getElementById('dob').value);
+            const today = new Date();
+            if (dob) {
+                let age = today.getFullYear() - dob.getFullYear();
+                const monthDiff = today.getMonth() - dob.getMonth();
+                if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dob.getDate())) {
+                    age--;
+                }
+                const months = monthDiff < 0 ? 12 + monthDiff : monthDiff;
+                showResult('ageResult', `${age} years and ${months} months old`);
+            }
+        }
+
+        function convertCurrency() {
+            const amount = parseFloat(document.getElementById('currAmount').value);
+            const from = parseFloat(document.getElementById('fromCurr').value);
+            const to = parseFloat(document.getElementById('toCurr').value);
+            if (amount) {
+                const result = ((amount / from) * to).toFixed(2);
+                showResult('currResult', `${result}`);
+            }
+        }
+
+        function convertUnit() {
+            const value = parseFloat(document.getElementById('unitValue').value);
+            const type = document.getElementById('unitType').value;
+            if (value) {
+                let result = 0;
+                switch(type) {
+                    case 'cm-inch': result = (value / 2.54).toFixed(2) + ' inches'; break;
+                    case 'inch-cm': result = (value * 2.54).toFixed(2) + ' cm'; break;
+                    case 'kg-lb': result = (value * 2.20462).toFixed(2) + ' lbs'; break;
+                    case 'lb-kg': result = (value / 2.20462).toFixed(2) + ' kg'; break;
+                }
+                showResult('unitResult', result);
+            }
+        }
+
+        function calculatePercentage() {
+            const value = parseFloat(document.getElementById('percValue').value);
+            const percent = parseFloat(document.getElementById('percPercent').value);
+            if (value && percent) {
+                const result = ((value * percent) / 100).toFixed(2);
+                showResult('percResult', `${percent}% of ${value} = ${result}`);
+            }
+        }
+
+        function calculateTip() {
+            const bill = parseFloat(document.getElementById('billAmount').value);
+            const tip = parseFloat(document.getElementById('tipPercent').value);
+            const people = parseInt(document.getElementById('numPeople').value) || 1;
+            if (bill && tip) {
+                const tipAmount = (bill * tip / 100).toFixed(2);
+                const total = (parseFloat(bill) + parseFloat(tipAmount)).toFixed(2);
+                const perPerson = (total / people).toFixed(2);
+                showResult('tipResult', `Tip: $${tipAmount} | Total: $${total} | Per Person: $${perPerson}`);
+            }
+        }
+
+        function calculateEMI() {
+            const principal = parseFloat(document.getElementById('loanAmount').value);
+            const rate = parseFloat(document.getElementById('interestRate').value) / 12 / 100;
+            const tenure = parseInt(document.getElementById('loanTenure').value);
+            if (principal && rate && tenure) {
+                const emi = (principal * rate * Math.pow(1 + rate, tenure)) / (Math.pow(1 + rate, tenure) - 1);
+                const total = (emi * tenure).toFixed(2);
+                const interest = (total - principal).toFixed(2);
+                showResult('emiResult', `EMI: ₹${emi.toFixed(2)} | Total: ₹${total} | Interest: ₹${interest}`);
+            }
+        }
+
+        function calculateDiscount() {
+            const price = parseFloat(document.getElementById('origPrice').value);
+            const discount = parseFloat(document.getElementById('discountPerc').value);
+            if (price && discount) {
+                const discAmount = (price * discount / 100).toFixed(2);
+                const final = (price - discAmount).toFixed(2);
+                const savings = ((discAmount / price) * 100).toFixed(1);
+                showResult('discResult', `You Save: $${discAmount} | Final Price: $${final} (${savings}% off)`);
+            }
+        }
+
+        function calculateTax() {
+            const amount = parseFloat(document.getElementById('taxAmount').value);
+            const rate = parseFloat(document.getElementById('taxRate').value);
+            const type = document.getElementById('taxType').value;
+            if (amount && rate) {
+                let result = '';
+                if (type === 'add') {
+                    const tax = (amount * rate / 100).toFixed(2);
+                    const total = (parseFloat(amount) + parseFloat(tax)).toFixed(2);
+                    result = `Tax: $${tax} | Total with Tax: $${total}`;
+                } else {
+                    const baseAmount = (amount / (1 + rate / 100)).toFixed(2);
+                    const tax = (amount - baseAmount).toFixed(2);
+                    result = `Base Amount: $${baseAmount} | Tax: $${tax}`;
+                }
+                showResult('taxResult', result);
+            }
+        }
+
+        function showResult(id, text) {
+            const el = document.getElementById(id);
+            el.textContent = text;
+            el.classList.add('show');
+        }
+
+        // Search functionality
+        function searchCalculators() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const cards = document.querySelectorAll('.tool-card');
+            let visibleCount = 0;
+
+            cards.forEach(card => {
+                const keywords = card.getAttribute('data-keywords') || '';
+                const title = card.querySelector('h3').textContent.toLowerCase();
+                
+                if (keywords.includes(searchTerm) || title.includes(searchTerm)) {
+                    card.classList.remove('hidden');
+                    visibleCount++;
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+
+            updateSearchCount(visibleCount, cards.length);
+            toggleNoResults(visibleCount === 0);
+        }
+
+        function filterByTag(category) {
+            const cards = document.querySelectorAll('.tool-card');
+            const tags = document.querySelectorAll('.tag');
+            let visibleCount = 0;
+
+            // Update active tag
+            tags.forEach(tag => tag.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Clear search
+            document.getElementById('searchInput').value = '';
+
+            cards.forEach(card => {
+                if (category === 'all' || card.getAttribute('data-category') === category) {
+                    card.classList.remove('hidden');
+                    visibleCount++;
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+
+            updateSearchCount(visibleCount, cards.length);
+            toggleNoResults(visibleCount === 0);
+        }
+
+        function updateSearchCount(visible, total) {
+            const countEl = document.getElementById('searchCount');
+            if (visible === total) {
+                countEl.textContent = '';
+            } else {
+                countEl.textContent = `${visible} of ${total}`;
+            }
+        }
+
+        function toggleNoResults(show) {
+            const noResults = document.getElementById('noResults');
+            if (show) {
+                noResults.classList.add('show');
+            } else {
+                noResults.classList.remove('show');
+            }
+        }
+    </script>
+</body>
 </html>
