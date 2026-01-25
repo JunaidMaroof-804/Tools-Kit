@@ -4,1073 +4,893 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tools Kit</title>
-   <style>
+    <link rel="stylesheet" href="style.css">
+    <style>
         * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
-            position: relative;
-            overflow-x: hidden;
-            transition: background 0.8s ease;
-        }
-
-        body.dark-mode {
-            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
-        }
-
-        .bg-animation {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            pointer-events: none;
-        }
-
-        .circle {
-            position: absolute;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            animation: float 20s infinite;
-        }
-
-        .circle:nth-child(1) { width: 80px; height: 80px; left: 10%; animation-delay: 0s; }
-        .circle:nth-child(2) { width: 60px; height: 60px; left: 80%; animation-delay: 2s; }
-        .circle:nth-child(3) { width: 100px; height: 100px; left: 50%; animation-delay: 4s; }
-        .circle:nth-child(4) { width: 40px; height: 40px; left: 30%; animation-delay: 6s; }
-        .circle:nth-child(5) { width: 70px; height: 70px; left: 70%; animation-delay: 8s; }
-
-        .star {
-            position: absolute;
-            background: white;
-            border-radius: 50%;
-            opacity: 0;
-            transition: opacity 0.5s;
-        }
-
-        body.dark-mode .star {
-            opacity: 1;
-            animation: twinkle 3s infinite;
-        }
-
-        .shooting-star {
-            position: absolute;
-            height: 2px;
-            background: linear-gradient(90deg, #fff, transparent);
-            opacity: 0;
-        }
-
-        body.dark-mode .shooting-star {
-            animation: shoot 3s infinite;
-        }@keyframes twinkle {
-            0%, 100% { opacity: 0.3; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.2); }
-        }
-
-        @keyframes shoot {
-            0% { opacity: 0; transform: translateX(0) translateY(0); }
-            10% { opacity: 1; }
-            100% { opacity: 0; transform: translateX(-300px) translateY(300px); }
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.3; }
-            50% { transform: translateY(-100vh) rotate(360deg); opacity: 0.6; }
-        }
-
-        @keyframes moonFloat {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-15px); }
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 0.6; }
-            50% { transform: scale(1.2); opacity: 1; }
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.95); }
-            to { opacity: 1; transform: scale(1); }
-        }
-
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateX(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }.container {
-            max-width: 1400px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 1;
-        }
-
-        header {
-            text-align: center;
-            color: white;
-            margin-bottom: 40px;
-            animation: fadeInDown 0.8s ease;
-            position: relative;
-        }
-
-        .theme-toggle {
-            position: absolute;
-            top: -10px;
-            right: 20px;
-            cursor: pointer;
-            z-index: 1000;
-        }
-
-        .moon-container {
-            width: 80px;
-            height: 80px;
-            position: relative;
-            transition: transform 0.6s ease;
-        }
-
-        .moon-container:hover {
-            transform: scale(1.1) rotate(15deg);
-        }
-
-        .moon {
-            width: 80px;
-            height: 80px;
-            background: #f4f4f4;
-            border-radius: 50%;
-            position: relative;
-            box-shadow: 0 0 30px rgba(255, 255, 255, 0.6), inset -10px -10px 20px rgba(0, 0, 0, 0.1);
-            transition: all 0.8s ease;
-            animation: moonFloat 4s ease-in-out infinite;
-        }
-
-        .moon::before {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background: radial-gradient(circle at 30% 30%, transparent 30%, rgba(0, 0, 0, 0.05) 100%);
-        }
-
-        .crater {
-            position: absolute;
-            background: rgba(0, 0, 0, 0.1);
-            border-radius: 50%;
-        }
-
-        .crater:nth-child(1) { width: 15px; height: 15px; top: 20px; left: 25px; }
-        .crater:nth-child(2) { width: 10px; height: 10px; top: 45px; left: 50px; }
-        .crater:nth-child(3) { width: 12px; height: 12px; top: 55px; left: 20px; }
-        .crater:nth-child(4) { width: 8px; height: 8px; top: 30px; left: 55px; }
-
-        body.dark-mode .moon {
-            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
-            box-shadow: 0 0 60px rgba(255, 215, 0, 0.8), 0 0 100px rgba(255, 215, 0, 0.5);
-            transform: rotate(180deg);
-        }
-
-        body.dark-mode .crater {
-            background: rgba(255, 200, 0, 0.3);
-        }
-
-        .moon-glow {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            opacity: 0;
-            transition: opacity 0.8s;
-        }
-
-        body.dark-mode .moon-glow {
-            opacity: 1;
-            box-shadow: 0 0 40px 10px rgba(255, 215, 0, 0.4);
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        h1 {
-            font-size: 3em;
-            font-weight: 700;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
-        }
-
-        .subtitle {
-            font-size: 1.2em;
-            opacity: 0.9;
-            margin-bottom: 30px;
-        }.search-container {
-            max-width: 700px;
-            margin: 0 auto;
-            animation: fadeIn 1s ease;
-        }
-
-        .search-wrapper {
-            position: relative;
-            margin-bottom: 20px;
-        }
-
-        .search-input {
-            width: 100%;
-            padding: 18px 50px 18px 50px;
-            border: none;
-            border-radius: 50px;
-            font-size: 1.1em;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
-            transition: all 0.3s ease;
-            outline: none;
-            color: #333;
-        }
-
-        body.dark-mode .search-input {
-            background: rgba(30, 30, 60, 0.7);
-            color: white;
-            border: 1px solid rgba(255, 215, 0, 0.3);
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-        }
-
-        body.dark-mode .search-input::placeholder {
-            color: rgba(255, 255, 255, 0.5);
-        }
-
-        .search-input:focus {
-            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.25);
-            transform: translateY(-2px);
-        }
-
-        body.dark-mode .search-input:focus {
-            box-shadow: 0 15px 50px rgba(255, 215, 0, 0.3);
-            border-color: #ffd700;
-        }
-
-        .search-icon {
-            position: absolute;
-            left: 18px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #667eea;
-            pointer-events: none;
-        }
-
-        .search-count {
-            position: absolute;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #667eea;
-            font-weight: 600;
-            font-size: 0.9em;
-        }
-
-        .filter-tags {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .tag {
-            padding: 10px 20px;
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-radius: 25px;
-            color: white;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            user-select: none;
-        }
-
-        .tag:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .tag.active {
-            background: white;
-            color: #667eea;
-            border-color: white;
-            box-shadow: 0 5px 20px rgba(255, 255, 255, 0.3);
-        }
-
-        body.dark-mode .tag {
-            background: rgba(30, 30, 60, 0.5);
-            border-color: rgba(255, 215, 0, 0.3);
-        }
-
-        body.dark-mode .tag:hover {
-            background: rgba(40, 40, 80, 0.7);
-            border-color: rgba(255, 215, 0, 0.5);
-        }
-
-        body.dark-mode .tag.active {
-            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
-            color: #1a1a2e;
-            border-color: #ffd700;
-            box-shadow: 0 5px 20px rgba(255, 215, 0, 0.5);
-        }.tools-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            margin-bottom: 30px;
-        }
-
-        .tool-card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-            cursor: pointer;
-            animation: fadeInUp 0.6s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        body.dark-mode .tool-card {
-            background: rgba(30, 30, 60, 0.7);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-        }
-
-        body.dark-mode .tool-card:hover {
-            background: rgba(40, 40, 80, 0.8);
-            border-color: rgba(255, 215, 0, 0.3);
-            box-shadow: 0 15px 40px rgba(255, 215, 0, 0.2);
-        }
-
-        .tool-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: left 0.5s;
-        }
-
-        .tool-card:hover::before {
-            left: 100%;
-        }
-
-        .tool-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
-        }
-
-        .tool-card.hidden {
-            display: none;
-        }
-
-        .no-results {
-            grid-column: 1 / -1;
-            text-align: center;
-            padding: 60px 20px;
-            color: white;
-            font-size: 1.3em;
-            display: none;
-        }
-
-        .no-results.show {
-            display: block;
-            animation: fadeIn 0.5s ease;
-        }
-
-        .no-results-icon {
-            font-size: 4em;
-            margin-bottom: 20px;
-            opacity: 0.7;
-        }
-
-        .tool-card h3 {
-            color: #667eea;
-            font-size: 1.5em;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transition: color 0.3s;
-        }
-
-        body.dark-mode .tool-card h3 {
-            color: #ffd700;
-        }
-
-        .icon {
-            font-size: 1.8em;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
-        }.input-group {
-            margin-bottom: 15px;
-        }
-
-        .input-group label {
-            display: block;
-            margin-bottom: 5px;
-            color: #555;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-
-        body.dark-mode .input-group label {
-            color: #ccc;
-        }
-
-        .input-group input, .input-group select {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            font-size: 1em;
-            transition: all 0.3s;
-            background: white;
-        }
-
-        body.dark-mode .input-group input,
-        body.dark-mode .input-group select {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.2);
-            color: white;
-        }
-
-        body.dark-mode .input-group input::placeholder {
-            color: rgba(255, 255, 255, 0.5);
-        }
-
-        .input-group input:focus, .input-group select:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-        }
-
-        body.dark-mode .input-group input:focus,
-        body.dark-mode .input-group select:focus {
-            border-color: #ffd700;
-            box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.2);
-        }
-
-        .btn {
-            width: 100%;
-            padding: 14px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 1.1em;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            margin-top: 10px;
-        }
-
-        body.dark-mode .btn {
-            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
-            color: #1a1a2e;
-            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
-        }
-
-        body.dark-mode .btn:hover {
-            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.5);
-            transform: scale(1.02) translateY(-2px);
-        }
-
-        .btn:hover {
-            transform: scale(1.02);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-        }
-
-        .btn:active {
-            transform: scale(0.98);
-        }
-
-        .result {
-            margin-top: 20px;
-            padding: 20px;
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            border-radius: 10px;
-            color: white;
-            font-size: 1.2em;
-            font-weight: 600;
-            text-align: center;
-            display: none;
-            animation: slideIn 0.5s ease;
-        }
-
-        .result.show {
-            display: block;
-        }.calc-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-            margin-top: 15px;
-        }
-
-        .calc-btn {
-            padding: 20px;
-            background: #f5f5f5;
-            border: none;
-            border-radius: 10px;
-            font-size: 1.2em;
-            cursor: pointer;
-            transition: all 0.2s;
-            color: #333;
-        }
-
-        body.dark-mode .calc-btn {
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .calc-btn:hover {
-            background: #e0e0e0;
-        }
-
-        body.dark-mode .calc-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
-
-        .calc-btn.operator {
-            background: #667eea;
-            color: white;
-        }
-
-        body.dark-mode .calc-btn.operator {
-            background: rgba(255, 215, 0, 0.3);
-            color: #ffd700;
-            border-color: rgba(255, 215, 0, 0.5);
-        }
-
-        .calc-btn.equals {
-            grid-column: span 2;
-            background: #764ba2;
-            color: white;
-        }
-
-        body.dark-mode .calc-btn.equals {
-            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
-            color: #1a1a2e;
-        }
-
-        #calcDisplay {
-            grid-column: span 4;
-            padding: 20px;
-            background: #f5f5f5;
-            border-radius: 10px;
-            text-align: right;
-            font-size: 1.5em;
-            min-height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            color: #333;
-        }
-
-        body.dark-mode #calcDisplay {
-            background: rgba(255, 255, 255, 0.1);
-            color: #ffd700;
-            border: 1px solid rgba(255, 215, 0, 0.3);
-        }
-
-        .two-col {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
-
-        .time-display {
-            font-size: 3em;
-            font-weight: 700;
-            text-align: center;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            margin: 15px 0;
-            color: #667eea;
-        }
-
-        body.dark-mode .time-display {
-            color: #ffd700;
-            border: 1px solid rgba(255, 215, 0, 0.3);
-        }
-
-        .clock-canvas {
-            width: 100%;
-            max-width: 250px;
-            height: 250px;
-            margin: 15px auto;
-            display: block;
-        }
-
-        .timer-controls {
-            display: flex;
-            gap: 10px;
-            margin-top: 15px;
-        }
-
-        .timer-controls .btn {
-            flex: 1;
-        }
-
-        .stopwatch-display {
-            font-size: 2.5em;
-            font-weight: 700;
-            text-align: center;
-            padding: 30px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            margin: 15px 0;
-        }
-
-        .alarm-list {
-            max-height: 200px;
-            overflow-y: auto;
-            margin-top: 15px;
-        }
-
-        .alarm-item {
-            padding: 10px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-            margin-bottom: 8px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        body.dark-mode .alarm-item {
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        .delete-btn {
-            padding: 5px 10px;
-            background: #f5576c;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 0.9em;
-        }
-
-        .world-clock-item {
-            padding: 15px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            margin-bottom: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        body.dark-mode .world-clock-item {
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        .pomodoro-timer {
-            text-align: center;
-        }
-
-        .pomodoro-display {
-            font-size: 4em;
-            font-weight: 700;
-            margin: 20px 0;
-            color: #667eea;
-        }
-
-        body.dark-mode .pomodoro-display {
-            color: #ffd700;
-        }
-
-        .pomodoro-mode {
-            font-size: 1.2em;
-            margin-bottom: 15px;
-            padding: 10px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-        }
-
-        footer {
-            text-align: center;
-            color: white;
-            padding: 30px 20px;
-            margin-top: 40px;
-            font-size: 1.1em;
-            font-weight: 500;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
-            animation: fadeIn 1s ease;
-        }/* Tablet Styles */
-        @media (max-width: 1024px) {
-            .container {
-                padding: 0 15px;
-            }
-
-            .tools-grid {
-                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-                gap: 20px;
-            }
-
-            h1 {
-                font-size: 2.5em;
-            }
-
-            .subtitle {
-                font-size: 1.1em;
-            }
-        }/* Mobile Styles */
-        @media (max-width: 768px) {
-            body {
-                padding: 15px 10px;
-            }
-
-            .container {
-                padding: 0;
-            }
-
-            header {
-                margin-bottom: 25px;
-            }
-
-            .theme-toggle {
-                top: -5px;
-                right: 10px;
-            }
-
-            .moon-container {
-                width: 60px;
-                height: 60px;
-            }
-
-            .moon {
-                width: 60px;
-                height: 60px;
-            }
-
-            .crater:nth-child(1) { width: 12px; height: 12px; top: 15px; left: 18px; }
-            .crater:nth-child(2) { width: 8px; height: 8px; top: 33px; left: 38px; }
-            .crater:nth-child(3) { width: 10px; height: 10px; top: 40px; left: 15px; }
-            .crater:nth-child(4) { width: 6px; height: 6px; top: 22px; left: 40px; }
-
-            h1 {
-                font-size: 2.2em;
-                margin-bottom: 8px;
-            }
-
-            .subtitle {
-                font-size: 1em;
-                margin-bottom: 20px;
-            }
-
-            .search-container {
-                max-width: 100%;
-                padding: 0 5px;
-            }
-
-            .search-input {
-                padding: 15px 45px 15px 45px;
-                font-size: 1em;
-            }
-
-            .search-icon {
-                left: 15px;
-            }
-
-            .search-count {
-                right: 15px;
-                font-size: 0.85em;
-            }
-
-            .filter-tags {
-                gap: 8px;
-                padding: 0 5px;
-            }
-
-            .tag {
-                padding: 8px 16px;
-                font-size: 0.9em;
-            }
-
-            .tools-grid {
-                grid-template-columns: 1fr;
-                gap: 18px;
-                margin-bottom: 20px;
-            }
-
-            .tool-card {
-                padding: 25px 20px;
-                border-radius: 18px;
-            }
-
-            .tool-card h3 {
-                font-size: 1.3em;
-                margin-bottom: 18px;
-            }
-
-            .icon {
-                font-size: 1.6em;
-            }
-
-            .input-group {
-                margin-bottom: 12px;
-            }
-
-            .input-group label {
-                font-size: 0.95em;
-                margin-bottom: 6px;
-            }
-
-            .input-group input,
-            .input-group select {
-                padding: 12px;
-                font-size: 0.95em;
-            }
-
-            .btn {
-                padding: 13px;
-                font-size: 1em;
-                margin-top: 8px;
-            }
-
-            .result {
-                padding: 18px;
-                font-size: 1.1em;
-                margin-top: 15px;
-            }
-
-            .calc-grid {
-                gap: 8px;
-                margin-top: 12px;
-            }
-
-            .calc-btn {
-                padding: 18px;
-                font-size: 1.1em;
-                border-radius: 8px;
-            }
-
-            #calcDisplay {
-                padding: 18px;
-                font-size: 1.3em;
-                min-height: 55px;
-            }
-
-            .time-display {
-                font-size: 2em;
-                padding: 18px;
-                margin: 12px 0;
-            }
-
-            .clock-canvas {
-                max-width: 200px;
-                height: 200px;
-                margin: 12px auto;
-            }
-
-            .stopwatch-display {
-                font-size: 2em;
-                padding: 25px;
-                margin: 12px 0;
-            }
-
-            .timer-controls {
-                gap: 8px;
-                margin-top: 12px;
-                flex-wrap: wrap;
-            }
-
-            .timer-controls .btn {
-                flex: 1;
-                min-width: calc(33.333% - 6px);
-            }
-
-            .pomodoro-display {
-                font-size: 2.8em;
-                margin: 18px 0;
-            }
-
-            .pomodoro-mode {
-                font-size: 1.1em;
-                margin-bottom: 12px;
-                padding: 10px;
-            }
-
-            .two-col {
-                grid-template-columns: 1fr;
-                gap: 8px;
-            }
-
-            .alarm-list {
-                max-height: 180px;
-                margin-top: 12px;
-            }
-
-            .alarm-item {
-                padding: 12px;
-                margin-bottom: 8px;
-                font-size: 0.95em718 AM;
-                 flex-wrap: wrap;
-               }.world-clock-item {
-            padding: 12px;
-            margin-bottom: 8px;
-            font-size: 0.95em;
-            flex-wrap: wrap;
-        }
-
-        .no-results {
-            padding: 50px 15px;
-            font-size: 1.1em;
-        }
-
-        .no-results-icon {
-            font-size: 3em;
-            margin-bottom: 15px;
-        }
-
-        footer {
-            padding: 25px 15px;
-            margin-top: 30px;
-            font-size: 1em;
-        }
-
-        .circle:nth-child(1) { width: 60px; height: 60px; }
-        .circle:nth-child(2) { width: 45px; height: 45px; }
-        .circle:nth-child(3) { width: 75px; height: 75px; }
-        .circle:nth-child(4) { width: 30px; height: 30px; }
-        .circle:nth-child(5) { width: 55px; height: 55px; }
-    }  /* Small Mobile Styles */
-        @media (max-width: 480px) {
-            h1 {
-                font-size: 1.8em;
-            }
-
-            .subtitle {
-                font-size: 0.95em;
-            }
-
-            .moon-container {
-                width: 50px;
-                height: 50px;
-            }
-
-            .moon {
-                width: 50px;
-                height: 50px;
-            }
-
-            .crater:nth-child(1) { width: 10px; height: 10px; top: 12px; left: 15px; }
-            .crater:nth-child(2) { width: 7px; height: 7px; top: 28px; left: 32px; }
-            .crater:nth-child(3) { width: 8px; height: 8px; top: 34px; left: 12px; }
-            .crater:nth-child(4) { width: 5px; height: 5px; top: 18px; left: 34px; }
-
-            .search-input {
-                padding: 13px 40px 13px 40px;
-                font-size: 0.95em;
-            }
-
-            .tag {
-                padding: 7px 14px;
-                font-size: 0.85em;
-            }
-
-            .tool-card {
-                padding: 20px 16px;
-            }
-
-            .tool-card h3 {
-                font-size: 1.2em;
-            }
-
-            .time-display {
-                font-size: 1.7em;
-                padding: 15px;
-            }
-
-            .pomodoro-display {
-                font-size: 2.5em;
-            }
-
-            .stopwatch-display {
-                font-size: 1.8em;
-                padding: 20px;
-            }
-
-            .clock-canvas {
-                max-width: 180px;
-                height: 180px;
-            }
-
-            .calc-btn {
-                padding: 15px;
-                font-size: 1em;
-            }
-
-            #calcDisplay {
-                font-size: 1.2em;
-                padding: 15px;
-            }
-        }
-
-        /* Landscape Mobile */
-        @media (max-width: 812px) and (orientation: landscape) {
-            .time-display {
-                font-size: 1.5em;
-                padding: 12px;
-            }
-
-            .pomodoro-display {
-                font-size: 2.2em;
-                margin: 12px 0;
-            }
-
-            .stopwatch-display {
-                font-size: 1.6em;
-                padding: 18px;
-            }
-
-            .clock-canvas {
-                max-width: 150px;
-                height: 150px;
-            }
-        }
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
+    position: relative;
+    overflow-x: hidden;
+    transition: background 0.8s ease;
+}
+
+body.dark-mode {
+    background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+}
+
+.bg-animation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.circle {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    animation: float 20s infinite;
+}
+
+.circle:nth-child(1) { width: 80px; height: 80px; left: 10%; animation-delay: 0s; }
+.circle:nth-child(2) { width: 60px; height: 60px; left: 80%; animation-delay: 2s; }
+.circle:nth-child(3) { width: 100px; height: 100px; left: 50%; animation-delay: 4s; }
+.circle:nth-child(4) { width: 40px; height: 40px; left: 30%; animation-delay: 6s; }
+.circle:nth-child(5) { width: 70px; height: 70px; left: 70%; animation-delay: 8s; }
+
+.star {
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+
+body.dark-mode .star {
+    opacity: 1;
+    animation: twinkle 3s infinite;
+}
+
+.shooting-star {
+    position: absolute;
+    height: 2px;
+    background: linear-gradient(90deg, #fff, transparent);
+    opacity: 0;
+}
+
+body.dark-mode .shooting-star {
+    animation: shoot 3s infinite;
+}
+
+@keyframes twinkle {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.2); }
+}
+
+@keyframes shoot {
+    0% { opacity: 0; transform: translateX(0) translateY(0); }
+    10% { opacity: 1; }
+    100% { opacity: 0; transform: translateX(-300px) translateY(300px); }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.3; }
+    50% { transform: translateY(-100vh) rotate(360deg); opacity: 0.6; }
+}
+
+@keyframes moonFloat {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 0.6; }
+    50% { transform: scale(1.2); opacity: 1; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+}
+
+header {
+    text-align: center;
+    color: white;
+    margin-bottom: 40px;
+    animation: fadeInDown 0.8s ease;
+    position: relative;
+}
+
+.theme-toggle {
+    position: absolute;
+    top: -10px;
+    right: 20px;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+.moon-container {
+    width: 80px;
+    height: 80px;
+    position: relative;
+    transition: transform 0.6s ease;
+}
+
+.moon-container:hover {
+    transform: scale(1.1) rotate(15deg);
+}
+
+.moon {
+    width: 80px;
+    height: 80px;
+    background: #f4f4f4;
+    border-radius: 50%;
+    position: relative;
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.6), inset -10px -10px 20px rgba(0, 0, 0, 0.1);
+    transition: all 0.8s ease;
+    animation: moonFloat 4s ease-in-out infinite;
+}
+
+.moon::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, transparent 30%, rgba(0, 0, 0, 0.05) 100%);
+}
+
+.crater {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+}
+
+.crater:nth-child(1) { width: 15px; height: 15px; top: 20px; left: 25px; }
+.crater:nth-child(2) { width: 10px; height: 10px; top: 45px; left: 50px; }
+.crater:nth-child(3) { width: 12px; height: 12px; top: 55px; left: 20px; }
+.crater:nth-child(4) { width: 8px; height: 8px; top: 30px; left: 55px; }
+
+body.dark-mode .moon {
+    background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+    box-shadow: 0 0 60px rgba(255, 215, 0, 0.8), 0 0 100px rgba(255, 215, 0, 0.5);
+    transform: rotate(180deg);
+}
+
+body.dark-mode .crater {
+    background: rgba(255, 200, 0, 0.3);
+}
+
+.moon-glow {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    opacity: 0;
+    transition: opacity 0.8s;
+}
+
+body.dark-mode .moon-glow {
+    opacity: 1;
+    box-shadow: 0 0 40px 10px rgba(255, 215, 0, 0.4);
+    animation: pulse 2s ease-in-out infinite;
+}
+
+h1 {
+    font-size: 3em;
+    font-weight: 700;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+}
+
+.subtitle {
+    font-size: 1.2em;
+    opacity: 0.9;
+    margin-bottom: 30px;
+}
+
+.search-container {
+    max-width: 700px;
+    margin: 0 auto;
+    animation: fadeIn 1s ease;
+}
+
+.search-wrapper {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.search-input {
+    width: 100%;
+    padding: 18px 50px 18px 50px;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.1em;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+    outline: none;
+    color: #333;
+}
+
+body.dark-mode .search-input {
+    background: rgba(30, 30, 60, 0.7);
+    color: white;
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .search-input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.search-input:focus {
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.25);
+    transform: translateY(-2px);
+}
+
+body.dark-mode .search-input:focus {
+    box-shadow: 0 15px 50px rgba(255, 215, 0, 0.3);
+    border-color: #ffd700;
+}
+
+.search-icon {
+    position: absolute;
+    left: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #667eea;
+    pointer-events: none;
+}
+
+body.dark-mode .search-icon {
+    color: #ffd700;
+}
+
+.search-count {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #667eea;
+    font-weight: 600;
+    font-size: 0.9em;
+}
+
+body.dark-mode .search-count {
+    color: #ffd700;
+}
+
+.filter-tags {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.tag {
+    padding: 10px 20px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 25px;
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    user-select: none;
+}
+
+.tag:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.tag.active {
+    background: white;
+    color: #667eea;
+    border-color: white;
+    box-shadow: 0 5px 20px rgba(255, 255, 255, 0.3);
+}
+
+body.dark-mode .tag {
+    background: rgba(30, 30, 60, 0.5);
+    border-color: rgba(255, 215, 0, 0.3);
+}
+
+body.dark-mode .tag:hover {
+    background: rgba(40, 40, 80, 0.7);
+    border-color: rgba(255, 215, 0, 0.5);
+}
+
+body.dark-mode .tag.active {
+    background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+    color: #1a1a2e;
+    border-color: #ffd700;
+    box-shadow: 0 5px 20px rgba(255, 215, 0, 0.5);
+}
+
+.tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    margin-bottom: 30px;
+}
+
+.tool-card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    animation: fadeInUp 0.6s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+body.dark-mode .tool-card {
+    background: rgba(30, 30, 60, 0.7);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+body.dark-mode .tool-card:hover {
+    background: rgba(40, 40, 80, 0.8);
+    border-color: rgba(255, 215, 0, 0.3);
+    box-shadow: 0 15px 40px rgba(255, 215, 0, 0.2);
+}
+
+.tool-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: left 0.5s;
+}
+
+.tool-card:hover::before {
+    left: 100%;
+}
+
+.tool-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+}
+
+.tool-card.hidden {
+    display: none;
+}
+
+.no-results {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 60px 20px;
+    color: white;
+    font-size: 1.3em;
+    display: none;
+}
+
+.no-results.show {
+    display: block;
+    animation: fadeIn 0.5s ease;
+}
+
+.no-results-icon {
+    font-size: 4em;
+    margin-bottom: 20px;
+    opacity: 0.7;
+}
+
+.tool-card h3 {
+    color: #667eea;
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: color 0.3s;
+}
+
+body.dark-mode .tool-card h3 {
+    color: #ffd700;
+}
+
+.icon {
+    font-size: 1.8em;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+}
+
+.input-group {
+    margin-bottom: 15px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #555;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+body.dark-mode .input-group label {
+    color: #ccc;
+}
+
+.input-group input, .input-group select, .input-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    font-size: 1em;
+    transition: all 0.3s;
+    background: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body.dark-mode .input-group input,
+body.dark-mode .input-group select,
+body.dark-mode .input-group textarea {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+body.dark-mode .input-group input::placeholder,
+body.dark-mode .input-group textarea::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.input-group input:focus, .input-group select:focus, .input-group textarea:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+body.dark-mode .input-group input:focus,
+body.dark-mode .input-group select:focus,
+body.dark-mode .input-group textarea:focus {
+    border-color: #ffd700;
+    box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.2);
+}
+
+.btn {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-top: 10px;
+}
+
+body.dark-mode .btn {
+    background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+    color: #1a1a2e;
+    box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+}
+
+body.dark-mode .btn:hover {
+    box-shadow: 0 8px 25px rgba(255, 215, 0, 0.5);
+    transform: scale(1.02) translateY(-2px);
+}
+
+.btn:hover {
+    transform: scale(1.02);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+.btn:active {
+    transform: scale(0.98);
+}
+
+.result {
+    margin-top: 20px;
+    padding: 20px;
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    border-radius: 10px;
+    color: white;
+    font-size: 1.2em;
+    font-weight: 600;
+    text-align: center;
+    display: none;
+    animation: slideIn 0.5s ease;
+}
+
+.result.show {
+    display: block;
+}
+
+.calc-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.calc-btn {
+    padding: 20px;
+    background: #f5f5f5;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: #333;
+}
+
+body.dark-mode .calc-btn {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.calc-btn:hover {
+    background: #e0e0e0;
+    transform: scale(1.05);
+}
+
+body.dark-mode .calc-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.calc-btn.operator {
+    background: #667eea;
+    color: white;
+}
+
+body.dark-mode .calc-btn.operator {
+    background: rgba(255, 215, 0, 0.3);
+    color: #ffd700;
+    border-color: rgba(255, 215, 0, 0.5);
+}
+
+.calc-btn.equals {
+    grid-column: span 2;
+    background: #764ba2;
+    color: white;
+}
+
+body.dark-mode .calc-btn.equals {
+    background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+    color: #1a1a2e;
+}
+
+#calcDisplay {
+    grid-column: span 4;
+    padding: 20px;
+    background: #f5f5f5;
+    border-radius: 10px;
+    text-align: right;
+    font-size: 1.5em;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    color: #333;
+}
+
+body.dark-mode #calcDisplay {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffd700;
+    border: 1px solid rgba(255, 215, 0, 0.3);
+}
+
+.two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.time-display, .countdown-display {
+    font-size: 2.5em;
+    font-weight: 700;
+    text-align: center;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    margin: 15px 0;
+    color: #667eea;
+}
+
+body.dark-mode .time-display,
+body.dark-mode .countdown-display {
+    color: #ffd700;
+    border: 1px solid rgba(255, 215, 0, 0.3);
+}
+
+.timer-controls {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    flex-wrap: wrap;
+}
+
+.timer-controls .btn {
+    flex: 1;
+    min-width: 100px;
+}
+
+.alarm-list, .lap-list {
+    max-height: 200px;
+    overflow-y: auto;
+    margin-top: 15px;
+}
+
+.alarm-item, .lap-item {
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    animation: slideIn 0.3s ease;
+}
+
+body.dark-mode .alarm-item,
+body.dark-mode .lap-item {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.delete-btn {
+    padding: 6px 12px;
+    background: #f5576c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: all 0.3s;
+}
+
+.delete-btn:hover {
+    background: #d43f54;
+    transform: scale(1.1);
+}
+
+.camera-container {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    margin: 15px auto;
+    border-radius: 10px;
+    overflow: hidden;
+    display: none;
+}
+
+.camera-container.show {
+    display: block;
+}
+
+#qrVideo {
+    width: 100%;
+    border-radius: 10px;
+}
+
+#qrResult {
+    margin-top: 15px;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    min-height: 60px;
+    display: none;
+    word-wrap: break-word;
+}
+
+#qrResult.show {
+    display: block;
+    animation: fadeIn 0.5s ease;
+}
+
+footer {
+    text-align: center;
+    color: white;
+    padding: 40px 20px;
+    margin-top: 50px;
+    font-size: 1.1em;
+    font-weight: 500;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    animation: fadeIn 1s ease;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+body.dark-mode footer {
+    background: rgba(30, 30, 60, 0.5);
+    border: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+footer::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+    animation: footerShine 3s infinite;
+}
+
+@keyframes footerShine {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.footer-name {
+    font-size: 1.5em;
+    font-weight: 700;
+    margin-bottom: 10px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: bounce 2s infinite;
+}
+
+body.dark-mode .footer-name {
+    background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.footer-text {
+    position: relative;
+    z-index: 1;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    body {
+        padding: 15px 10px;
+    }
+
+    h1 {
+        font-size: 2.2em;
+    }
+
+    .subtitle {
+        font-size: 1em;
+    }
+
+    .moon-container, .moon {
+        width: 60px;
+        height: 60px;
+    }
+
+    .search-input {
+        padding: 15px 45px;
+        font-size: 1em;
+    }
+
+    .tag {
+        padding: 8px 16px;
+        font-size: 0.9em;
+    }
+
+    .tools-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .tool-card {
+        padding: 25px 20px;
+    }
+
+    .time-display, .countdown-display {
+        font-size: 2em;
+        padding: 18px;
+    }
+
+    .timer-controls .btn {
+        flex: 1;
+        min-width: calc(50% - 5px);
+    }
+
+    footer {
+        padding: 30px 15px;
+    }
+
+    .footer-name {
+        font-size: 1.3em;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.8em;
+    }
+
+    .subtitle {
+        font-size: 0.95em;
+    }
+
+    .moon-container, .moon {
+        width: 50px;
+        height: 50px;
+    }
+
+    .time-display, .countdown-display {
+        font-size: 1.7em;
+        padding: 15px;
+    }
+
+    .calc-btn {
+        padding: 15px;
+        font-size: 1em;
+    }
+}
     </style>
 </head>
 <body>
@@ -1116,6 +936,8 @@
                     <span class="tag" onclick="filterByTag('health')">⚖️ Health</span>
                     <span class="tag" onclick="filterByTag('conversion')">🔄 Conversion</span>
                     <span class="tag" onclick="filterByTag('math')">🔢 Math</span>
+                    <span class="tag" onclick="filterByTag('time')">⏰ Time</span>
+                    <span class="tag" onclick="filterByTag('tools')">🔧 Tools</span>
                 </div>
             </div>
         </header>
@@ -1313,6 +1135,157 @@
                 <div class="result" id="taxResult"></div>
             </div>
 
+            <!-- Stopwatch -->
+            <div class="tool-card" data-category="time" data-keywords="stopwatch timer lap time counter chrono">
+                <h3><span class="icon">⏱️</span> Stopwatch</h3>
+                <div class="time-display" id="stopwatchDisplay">00:00:00.00</div>
+                <div class="timer-controls">
+                    <button class="btn" onclick="startStopwatch()">Start</button>
+                    <button class="btn" onclick="pauseStopwatch()">Pause</button>
+                    <button class="btn" onclick="lapStopwatch()">Lap</button>
+                    <button class="btn" onclick="resetStopwatch()">Reset</button>
+                </div>
+                <div class="lap-list" id="lapList"></div>
+            </div>
+
+            <!-- Alarm Clock -->
+            <div class="tool-card" data-category="time" data-keywords="alarm clock wake up reminder time alert">
+                <h3><span class="icon">⏰</span> Alarm Clock</h3>
+                <div class="input-group">
+                    <label>Set Alarm Time</label>
+                    <input type="time" id="alarmTime">
+                </div>
+                <div class="input-group">
+                    <label>Alarm Name (Optional)</label>
+                    <input type="text" id="alarmName" placeholder="e.g., Wake up">
+                </div>
+                <button class="btn" onclick="setAlarm()">Set Alarm</button>
+                <div class="alarm-list" id="alarmList"></div>
+            </div>
+
+            <!-- Date Difference Calculator -->
+            <div class="tool-card" data-category="math" data-keywords="date difference calculator days between duration">
+                <h3><span class="icon">📅</span> Date Difference</h3>
+                <div class="input-group">
+                    <label>Start Date</label>
+                    <input type="date" id="startDate">
+                </div>
+                <div class="input-group">
+                    <label>End Date</label>
+                    <input type="date" id="endDate">
+                </div>
+                <button class="btn" onclick="calculateDateDiff()">Calculate</button>
+                <div class="result" id="dateDiffResult"></div>
+            </div>
+
+            <!-- Birthday Countdown -->
+            <div class="tool-card" data-category="time" data-keywords="birthday countdown days left celebration">
+                <h3><span class="icon">🎉</span> Birthday Countdown</h3>
+                <div class="input-group">
+                    <label>Birthday Date</label>
+                    <input type="date" id="birthdayDate">
+                </div>
+                <button class="btn" onclick="startBirthdayCountdown()">Start Countdown</button>
+                <div class="countdown-display" id="birthdayCountdown">--</div>
+            </div>
+
+            <!-- Work Hours Calculator -->
+            <div class="tool-card" data-category="math" data-keywords="work hours calculator time shift salary wage">
+                <h3><span class="icon">💼</span> Work Hours Calculator</h3>
+                <div class="input-group">
+                    <label>Start Time</label>
+                    <input type="time" id="workStart">
+                </div>
+                <div class="input-group">
+                    <label>End Time</label>
+                    <input type="time" id="workEnd">
+                </div>
+                <div class="input-group">
+                    <label>Hourly Rate (Optional)</label>
+                    <input type="number" id="hourlyRate" placeholder="Enter rate">
+                </div>
+                <button class="btn" onclick="calculateWorkHours()">Calculate</button>
+                <div class="result" id="workHoursResult"></div>
+            </div>
+
+            <!-- Study Timer (Pomodoro) -->
+            <div class="tool-card" data-category="time" data-keywords="study timer pomodoro focus productivity work">
+                <h3><span class="icon">📚</span> Study Timer (Pomodoro)</h3>
+                <div class="input-group">
+                    <label>Work Duration (minutes)</label>
+                    <input type="number" id="workDuration" value="25" min="1">
+                </div>
+                <div class="input-group">
+                    <label>Break Duration (minutes)</label>
+                    <input type="number" id="breakDuration" value="5" min="1">
+                </div>
+                <div class="countdown-display" id="pomodoroDisplay">25:00</div>
+                <div class="timer-controls">
+                    <button class="btn" onclick="startPomodoro()">Start</button>
+                    <button class="btn" onclick="pausePomodoro()">Pause</button>
+                    <button class="btn" onclick="resetPomodoro()">Reset</button>
+                </div>
+                <div class="result" id="pomodoroStatus" style="display: block; margin-top: 10px; background: rgba(255,255,255,0.1);">Work Session</div>
+            </div>
+
+            <!-- Average Calculator -->
+            <div class="tool-card" data-category="math" data-keywords="average calculator mean numbers statistics">
+                <h3><span class="icon">📊</span> Average Calculator</h3>
+                <div class="input-group">
+                    <label>Enter Numbers (comma separated)</label>
+                    <textarea id="avgNumbers" rows="4" placeholder="e.g., 10, 20, 30, 40, 50"></textarea>
+                </div>
+                <button class="btn" onclick="calculateAverage()">Calculate Average</button>
+                <div class="result" id="avgResult"></div>
+            </div>
+
+            <!-- Percentage Splitter -->
+            <div class="tool-card" data-category="math" data-keywords="percentage splitter divide split share portion">
+                <h3><span class="icon">🍰</span> Percentage Splitter</h3>
+                <div class="input-group">
+                    <label>Total Amount</label>
+                    <input type="number" id="splitTotal" placeholder="Enter total">
+                </div>
+                <div class="input-group">
+                    <label>Number of Parts</label>
+                    <input type="number" id="splitParts" placeholder="Split into">
+                </div>
+                <div class="input-group">
+                    <label>Percentages (comma separated, must sum to 100)</label>
+                    <input type="text" id="splitPercentages" placeholder="e.g., 50, 30, 20">
+                </div>
+                <button class="btn" onclick="calculateSplit()">Calculate Split</button>
+                <div class="result" id="splitResult"></div>
+            </div>
+
+            <!-- Focus Timer -->
+            <div class="tool-card" data-category="time" data-keywords="focus timer countdown deadline task">
+                <h3><span class="icon">🎯</span> Focus Timer</h3>
+                <div class="input-group">
+                    <label>Duration (minutes)</label>
+                    <input type="number" id="focusDuration" placeholder="Enter minutes" value="30">
+                </div>
+                <div class="countdown-display" id="focusDisplay">30:00</div>
+                <div class="timer-controls">
+                    <button class="btn" onclick="startFocusTimer()">Start</button>
+                    <button class="btn" onclick="pauseFocusTimer()">Pause</button>
+                    <button class="btn" onclick="resetFocusTimer()">Reset</button>
+                </div>
+            </div>
+
+            <!-- QR Code Scanner -->
+            <div class="tool-card" data-category="tools" data-keywords="qr code scanner reader barcode camera scan">
+                <h3><span class="icon">📱</span> QR Code Scanner</h3>
+                <p style="margin-bottom: 15px; color: #666; font-size: 0.9em;">Note: Requires camera access and jsQR library</p>
+                <button class="btn" onclick="startQRScanner()">Start Camera</button>
+                <button class="btn" onclick="stopQRScanner()">Stop Camera</button>
+                <div class="camera-container" id="cameraContainer">
+                    <video id="qrVideo" autoplay></video>
+                </div>
+                <canvas id="qrCanvas" style="display:none;"></canvas>
+                <div id="qrResult"></div>
+            </div>
+
             <div class="no-results" id="noResults">
                 <div class="no-results-icon">🔍</div>
                 <div>No calculators found matching your search</div>
@@ -1321,258 +1294,625 @@
         </div>
     </div>
 
+    <footer>
+        <div class="footer-text">
+            <div class="footer-name">JUNAID MAROOF MEMON</div>
+            <div>Made with ❤️ for productivity and convenience</div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
     <script>
-        let calcDisplay = '0';
+// Global Variables
+let calcDisplay = '0';
+let stopwatchInterval = null;
+let stopwatchTime = 0;
+let stopwatchRunning = false;
+let lapCounter = 1;
+let alarms = [];
+let pomodoroInterval = null;
+let pomodoroTime = 0;
+let pomodoroRunning = false;
+let pomodoroMode = 'work';
+let focusInterval = null;
+let focusTime = 0;
+let focusRunning = false;
+let qrStream = null;
+let birthdayInterval = null;
 
-        // Initialize stars and shooting stars
-        function initStars() {
-            const container = document.getElementById('starsContainer');
-            
-            // Create regular stars
-            for (let i = 0; i < 100; i++) {
-                const star = document.createElement('div');
-                star.className = 'star';
-                star.style.width = Math.random() * 3 + 'px';
-                star.style.height = star.style.width;
-                star.style.left = Math.random() * 100 + '%';
-                star.style.top = Math.random() * 100 + '%';
-                star.style.animationDelay = Math.random() * 3 + 's';
-                container.appendChild(star);
-            }
+// Initialize stars and shooting stars
+function initStars() {
+    const container = document.getElementById('starsContainer');
+    
+    // Create regular stars
+    for (let i = 0; i < 100; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        star.style.width = Math.random() * 3 + 'px';
+        star.style.height = star.style.width;
+        star.style.left = Math.random() * 100 + '%';
+        star.style.top = Math.random() * 100 + '%';
+        star.style.animationDelay = Math.random() * 3 + 's';
+        container.appendChild(star);
+    }
 
-            // Create shooting stars
-            for (let i = 0; i < 5; i++) {
-                const shootingStar = document.createElement('div');
-                shootingStar.className = 'shooting-star';
-                shootingStar.style.width = Math.random() * 100 + 50 + 'px';
-                shootingStar.style.left = Math.random() * 100 + '%';
-                shootingStar.style.top = Math.random() * 50 + '%';
-                shootingStar.style.animationDelay = Math.random() * 5 + 's';
-                shootingStar.style.animationDuration = Math.random() * 2 + 2 + 's';
-                container.appendChild(shootingStar);
-            }
+    // Create shooting stars
+    for (let i = 0; i < 5; i++) {
+        const shootingStar = document.createElement('div');
+        shootingStar.className = 'shooting-star';
+        shootingStar.style.width = Math.random() * 100 + 50 + 'px';
+        shootingStar.style.left = Math.random() * 100 + '%';
+        shootingStar.style.top = Math.random() * 50 + '%';
+        shootingStar.style.animationDelay = Math.random() * 5 + 's';
+        shootingStar.style.animationDuration = Math.random() * 2 + 2 + 's';
+        container.appendChild(shootingStar);
+    }
+}
+
+// Toggle dark mode
+function toggleDarkMode() {
+    document.body.classList.toggle('dark-mode');
+}
+
+// Initialize on load
+window.addEventListener('DOMContentLoaded', () => {
+    initStars();
+    resetFocusTimer();
+    checkAlarms();
+});
+
+// ========== CALCULATOR FUNCTIONS ==========
+function appendCalc(val) {
+    if (calcDisplay === '0' && val !== '.') {
+        calcDisplay = val;
+    } else {
+        calcDisplay += val;
+    }
+    document.getElementById('calcDisplay').textContent = calcDisplay;
+}
+
+function clearCalc() {
+    calcDisplay = '0';
+    document.getElementById('calcDisplay').textContent = calcDisplay;
+}
+
+function calculateCalc() {
+    try {
+        calcDisplay = eval(calcDisplay).toString();
+        document.getElementById('calcDisplay').textContent = calcDisplay;
+    } catch (e) {
+        calcDisplay = 'Error';
+        document.getElementById('calcDisplay').textContent = calcDisplay;
+        setTimeout(() => { calcDisplay = '0'; clearCalc(); }, 1500);
+    }
+}
+
+// ========== BMI CALCULATOR ==========
+function calculateBMI() {
+    const weight = parseFloat(document.getElementById('weight').value);
+    const height = parseFloat(document.getElementById('height').value) / 100;
+    if (weight && height) {
+        const bmi = (weight / (height * height)).toFixed(2);
+        let category = '';
+        if (bmi < 18.5) category = 'Underweight';
+        else if (bmi < 25) category = 'Normal';
+        else if (bmi < 30) category = 'Overweight';
+        else category = 'Obese';
+        showResult('bmiResult', `BMI: ${bmi} (${category})`);
+    }
+}
+
+// ========== AGE CALCULATOR ==========
+function calculateAge() {
+    const dob = new Date(document.getElementById('dob').value);
+    const today = new Date();
+    if (dob) {
+        let age = today.getFullYear() - dob.getFullYear();
+        const monthDiff = today.getMonth() - dob.getMonth();
+        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dob.getDate())) {
+            age--;
         }
+        const months = monthDiff < 0 ? 12 + monthDiff : monthDiff;
+        showResult('ageResult', `${age} years and ${months} months old`);
+    }
+}
 
-        // Toggle dark mode
-        function toggleDarkMode() {
-            document.body.classList.toggle('dark-mode');
+// ========== CURRENCY CONVERTER ==========
+function convertCurrency() {
+    const amount = parseFloat(document.getElementById('currAmount').value);
+    const from = parseFloat(document.getElementById('fromCurr').value);
+    const to = parseFloat(document.getElementById('toCurr').value);
+    if (amount) {
+        const result = ((amount / from) * to).toFixed(2);
+        showResult('currResult', `${result}`);
+    }
+}
+
+// ========== UNIT CONVERTER ==========
+function convertUnit() {
+    const value = parseFloat(document.getElementById('unitValue').value);
+    const type = document.getElementById('unitType').value;
+    if (value) {
+        let result = 0;
+        switch(type) {
+            case 'cm-inch': result = (value / 2.54).toFixed(2) + ' inches'; break;
+            case 'inch-cm': result = (value * 2.54).toFixed(2) + ' cm'; break;
+            case 'kg-lb': result = (value * 2.20462).toFixed(2) + ' lbs'; break;
+            case 'lb-kg': result = (value / 2.20462).toFixed(2) + ' kg'; break;
         }
+        showResult('unitResult', result);
+    }
+}
 
-        // Initialize on load
-        initStars();
+// ========== PERCENTAGE CALCULATOR ==========
+function calculatePercentage() {
+    const value = parseFloat(document.getElementById('percValue').value);
+    const percent = parseFloat(document.getElementById('percPercent').value);
+    if (value && percent) {
+        const result = ((value * percent) / 100).toFixed(2);
+        showResult('percResult', `${percent}% of ${value} = ${result}`);
+    }
+}
 
-        function appendCalc(val) {
-            if (calcDisplay === '0' && val !== '.') {
-                calcDisplay = val;
+// ========== TIP CALCULATOR ==========
+function calculateTip() {
+    const bill = parseFloat(document.getElementById('billAmount').value);
+    const tip = parseFloat(document.getElementById('tipPercent').value);
+    const people = parseInt(document.getElementById('numPeople').value) || 1;
+    if (bill && tip) {
+        const tipAmount = (bill * tip / 100).toFixed(2);
+        const total = (parseFloat(bill) + parseFloat(tipAmount)).toFixed(2);
+        const perPerson = (total / people).toFixed(2);
+        showResult('tipResult', `Tip: $${tipAmount} | Total: $${total} | Per Person: $${perPerson}`);
+    }
+}
+
+// ========== EMI CALCULATOR ==========
+function calculateEMI() {
+    const principal = parseFloat(document.getElementById('loanAmount').value);
+    const rate = parseFloat(document.getElementById('interestRate').value) / 12 / 100;
+    const tenure = parseInt(document.getElementById('loanTenure').value);
+    if (principal && rate && tenure) {
+        const emi = (principal * rate * Math.pow(1 + rate, tenure)) / (Math.pow(1 + rate, tenure) - 1);
+        const total = (emi * tenure).toFixed(2);
+        const interest = (total - principal).toFixed(2);
+        showResult('emiResult', `EMI: ₹${emi.toFixed(2)} | Total: ₹${total} | Interest: ₹${interest}`);
+    }
+}
+
+// ========== DISCOUNT CALCULATOR ==========
+function calculateDiscount() {
+    const price = parseFloat(document.getElementById('origPrice').value);
+    const discount = parseFloat(document.getElementById('discountPerc').value);
+    if (price && discount) {
+        const discAmount = (price * discount / 100).toFixed(2);
+        const final = (price - discAmount).toFixed(2);
+        const savings = ((discAmount / price) * 100).toFixed(1);
+        showResult('discResult', `You Save: $${discAmount} | Final Price: $${final} (${savings}% off)`);
+    }
+}
+
+// ========== TAX CALCULATOR ==========
+function calculateTax() {
+    const amount = parseFloat(document.getElementById('taxAmount').value);
+    const rate = parseFloat(document.getElementById('taxRate').value);
+    const type = document.getElementById('taxType').value;
+    if (amount && rate) {
+        let result = '';
+        if (type === 'add') {
+            const tax = (amount * rate / 100).toFixed(2);
+            const total = (parseFloat(amount) + parseFloat(tax)).toFixed(2);
+            result = `Tax: $${tax} | Total with Tax: $${total}`;
+        } else {
+            const baseAmount = (amount / (1 + rate / 100)).toFixed(2);
+            const tax = (amount - baseAmount).toFixed(2);
+            result = `Base Amount: $${baseAmount} | Tax: $${tax}`;
+        }
+        showResult('taxResult', result);
+    }
+}
+
+// ========== STOPWATCH FUNCTIONS ==========
+function startStopwatch() {
+    if (!stopwatchRunning) {
+        stopwatchRunning = true;
+        stopwatchInterval = setInterval(() => {
+            stopwatchTime += 10;
+            updateStopwatchDisplay();
+        }, 10);
+    }
+}
+
+function pauseStopwatch() {
+    stopwatchRunning = false;
+    clearInterval(stopwatchInterval);
+}
+
+function resetStopwatch() {
+    stopwatchRunning = false;
+    clearInterval(stopwatchInterval);
+    stopwatchTime = 0;
+    lapCounter = 1;
+    updateStopwatchDisplay();
+    document.getElementById('lapList').innerHTML = '';
+}
+
+function lapStopwatch() {
+    if (stopwatchTime > 0) {
+        const lapTime = formatTime(stopwatchTime);
+        const lapList = document.getElementById('lapList');
+        const lapItem = document.createElement('div');
+        lapItem.className = 'lap-item';
+        lapItem.innerHTML = `<span>Lap ${lapCounter}</span><span>${lapTime}</span>`;
+        lapList.insertBefore(lapItem, lapList.firstChild);
+        lapCounter++;
+    }
+}
+
+function updateStopwatchDisplay() {
+    document.getElementById('stopwatchDisplay').textContent = formatTime(stopwatchTime);
+}
+
+function formatTime(ms) {
+    const totalSeconds = Math.floor(ms / 1000);
+    const hours = Math.floor(totalSeconds / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const seconds = totalSeconds % 60;
+    const milliseconds = Math.floor((ms % 1000) / 10);
+    return `${pad(hours)}:${pad(minutes)}:${pad(seconds)}.${pad(milliseconds)}`;
+}
+
+function pad(num) {
+    return num.toString().padStart(2, '0');
+}
+
+// ========== ALARM FUNCTIONS ==========
+function setAlarm() {
+    const time = document.getElementById('alarmTime').value;
+    const name = document.getElementById('alarmName').value || 'Alarm';
+    if (time) {
+        const alarm = { time, name, id: Date.now() };
+        alarms.push(alarm);
+        displayAlarms();
+        document.getElementById('alarmTime').value = '';
+        document.getElementById('alarmName').value = '';
+    }
+}
+
+function displayAlarms() {
+    const list = document.getElementById('alarmList');
+    list.innerHTML = '';
+    alarms.forEach(alarm => {
+        const item = document.createElement('div');
+        item.className = 'alarm-item';
+        item.innerHTML = `
+            <span>${alarm.name} - ${alarm.time}</span>
+            <button class="delete-btn" onclick="deleteAlarm(${alarm.id})">Delete</button>
+        `;
+        list.appendChild(item);
+    });
+}
+
+function deleteAlarm(id) {
+    alarms = alarms.filter(a => a.id !== id);
+    displayAlarms();
+}
+
+function checkAlarms() {
+    setInterval(() => {
+        const now = new Date();
+        const currentTime = `${pad(now.getHours())}:${pad(now.getMinutes())}`;
+        alarms.forEach(alarm => {
+            if (alarm.time === currentTime) {
+                alert(`⏰ Alarm: ${alarm.name}`);
+                deleteAlarm(alarm.id);
+            }
+        });
+    }, 1000);
+}
+
+// ========== DATE DIFFERENCE ==========
+function calculateDateDiff() {
+    const start = new Date(document.getElementById('startDate').value);
+    const end = new Date(document.getElementById('endDate').value);
+    if (start && end) {
+        const diff = Math.abs(end - start);
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const weeks = Math.floor(days / 7);
+        const months = Math.floor(days / 30);
+        const years = Math.floor(days / 365);
+        showResult('dateDiffResult', `${days} days (${weeks} weeks, ${months} months, ${years} years)`);
+    }
+}
+
+// ========== BIRTHDAY COUNTDOWN ==========
+function startBirthdayCountdown() {
+    const birthday = new Date(document.getElementById('birthdayDate').value);
+    if (birthday) {
+        clearInterval(birthdayInterval);
+        birthdayInterval = setInterval(() => {
+            const now = new Date();
+            let nextBirthday = new Date(now.getFullYear(), birthday.getMonth(), birthday.getDate());
+            if (nextBirthday < now) {
+                nextBirthday.setFullYear(now.getFullYear() + 1);
+            }
+            const diff = nextBirthday - now;
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            document.getElementById('birthdayCountdown').textContent = 
+                `${days}d ${hours}h ${minutes}m ${seconds}s`;
+        }, 1000);
+    }
+}
+
+// ========== WORK HOURS CALCULATOR ==========
+function calculateWorkHours() {
+    const start = document.getElementById('workStart').value;
+    const end = document.getElementById('workEnd').value;
+    const rate = parseFloat(document.getElementById('hourlyRate').value);
+    
+    if (start && end) {
+        const startTime = new Date(`2000-01-01 ${start}`);
+        const endTime = new Date(`2000-01-01 ${end}`);
+        let diff = (endTime - startTime) / (1000 * 60 * 60);
+        
+        if (diff < 0) diff += 24;
+        
+        let result = `Total Hours: ${diff.toFixed(2)} hours`;
+        if (rate) {
+            const earnings = (diff * rate).toFixed(2);
+            result += ` | Earnings: $${earnings}`;
+        }
+        showResult('workHoursResult', result);
+    }
+}
+
+// ========== POMODORO TIMER ==========
+function startPomodoro() {
+    if (!pomodoroRunning) {
+        pomodoroRunning = true;
+        if (pomodoroTime === 0) {
+            const duration = parseInt(document.getElementById('workDuration').value);
+            pomodoroTime = duration * 60;
+        }
+        pomodoroInterval = setInterval(() => {
+            if (pomodoroTime > 0) {
+                pomodoroTime--;
+                updatePomodoroDisplay();
             } else {
-                calcDisplay += val;
+                pomodoroComplete();
             }
-            document.getElementById('calcDisplay').textContent = calcDisplay;
-        }
+        }, 1000);
+    }
+}
 
-        function clearCalc() {
-            calcDisplay = '0';
-            document.getElementById('calcDisplay').textContent = calcDisplay;
-        }
+function pausePomodoro() {
+    pomodoroRunning = false;
+    clearInterval(pomodoroInterval);
+}
 
-        function calculateCalc() {
-            try {
-                calcDisplay = eval(calcDisplay).toString();
-                document.getElementById('calcDisplay').textContent = calcDisplay;
-            } catch (e) {
-                calcDisplay = 'Error';
-                document.getElementById('calcDisplay').textContent = calcDisplay;
-                setTimeout(() => { calcDisplay = '0'; clearCalc(); }, 1500);
-            }
-        }
+function resetPomodoro() {
+    pomodoroRunning = false;
+    clearInterval(pomodoroInterval);
+    pomodoroTime = 0;
+    pomodoroMode = 'work';
+    const duration = parseInt(document.getElementById('workDuration').value);
+    pomodoroTime = duration * 60;
+    updatePomodoroDisplay();
+    document.getElementById('pomodoroStatus').textContent = 'Work Session';
+}
 
-        function calculateBMI() {
-            const weight = parseFloat(document.getElementById('weight').value);
-            const height = parseFloat(document.getElementById('height').value) / 100;
-            if (weight && height) {
-                const bmi = (weight / (height * height)).toFixed(2);
-                let category = '';
-                if (bmi < 18.5) category = 'Underweight';
-                else if (bmi < 25) category = 'Normal';
-                else if (bmi < 30) category = 'Overweight';
-                else category = 'Obese';
-                showResult('bmiResult', `BMI: ${bmi} (${category})`);
-            }
-        }
+function updatePomodoroDisplay() {
+    const minutes = Math.floor(pomodoroTime / 60);
+    const seconds = pomodoroTime % 60;
+    document.getElementById('pomodoroDisplay').textContent = `${pad(minutes)}:${pad(seconds)}`;
+}
 
-        function calculateAge() {
-            const dob = new Date(document.getElementById('dob').value);
-            const today = new Date();
-            if (dob) {
-                let age = today.getFullYear() - dob.getFullYear();
-                const monthDiff = today.getMonth() - dob.getMonth();
-                if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dob.getDate())) {
-                    age--;
-                }
-                const months = monthDiff < 0 ? 12 + monthDiff : monthDiff;
-                showResult('ageResult', `${age} years and ${months} months old`);
-            }
-        }
+function pomodoroComplete() {
+    clearInterval(pomodoroInterval);
+    pomodoroRunning = false;
+    
+    if (pomodoroMode === 'work') {
+        alert('🎉 Work session complete! Time for a break!');
+        pomodoroMode = 'break';
+        pomodoroTime = parseInt(document.getElementById('breakDuration').value) * 60;
+        document.getElementById('pomodoroStatus').textContent = 'Break Time';
+    } else {
+        alert('✅ Break complete! Ready for another work session?');
+        pomodoroMode = 'work';
+        pomodoroTime = parseInt(document.getElementById('workDuration').value) * 60;
+        document.getElementById('pomodoroStatus').textContent = 'Work Session';
+    }
+    updatePomodoroDisplay();
+}
 
-        function convertCurrency() {
-            const amount = parseFloat(document.getElementById('currAmount').value);
-            const from = parseFloat(document.getElementById('fromCurr').value);
-            const to = parseFloat(document.getElementById('toCurr').value);
-            if (amount) {
-                const result = ((amount / from) * to).toFixed(2);
-                showResult('currResult', `${result}`);
-            }
-        }
+// ========== AVERAGE CALCULATOR ==========
+function calculateAverage() {
+    const input = document.getElementById('avgNumbers').value;
+    const numbers = input.split(',').map(n => parseFloat(n.trim())).filter(n => !isNaN(n));
+    
+    if (numbers.length > 0) {
+        const sum = numbers.reduce((a, b) => a + b, 0);
+        const avg = (sum / numbers.length).toFixed(2);
+        const min = Math.min(...numbers);
+        const max = Math.max(...numbers);
+        showResult('avgResult', `Average: ${avg} | Sum: ${sum} | Count: ${numbers.length} | Min: ${min} | Max: ${max}`);
+    }
+}
 
-        function convertUnit() {
-            const value = parseFloat(document.getElementById('unitValue').value);
-            const type = document.getElementById('unitType').value;
-            if (value) {
-                let result = 0;
-                switch(type) {
-                    case 'cm-inch': result = (value / 2.54).toFixed(2) + ' inches'; break;
-                    case 'inch-cm': result = (value * 2.54).toFixed(2) + ' cm'; break;
-                    case 'kg-lb': result = (value * 2.20462).toFixed(2) + ' lbs'; break;
-                    case 'lb-kg': result = (value / 2.20462).toFixed(2) + ' kg'; break;
-                }
-                showResult('unitResult', result);
-            }
-        }
-
-        function calculatePercentage() {
-            const value = parseFloat(document.getElementById('percValue').value);
-            const percent = parseFloat(document.getElementById('percPercent').value);
-            if (value && percent) {
-                const result = ((value * percent) / 100).toFixed(2);
-                showResult('percResult', `${percent}% of ${value} = ${result}`);
-            }
-        }
-
-        function calculateTip() {
-            const bill = parseFloat(document.getElementById('billAmount').value);
-            const tip = parseFloat(document.getElementById('tipPercent').value);
-            const people = parseInt(document.getElementById('numPeople').value) || 1;
-            if (bill && tip) {
-                const tipAmount = (bill * tip / 100).toFixed(2);
-                const total = (parseFloat(bill) + parseFloat(tipAmount)).toFixed(2);
-                const perPerson = (total / people).toFixed(2);
-                showResult('tipResult', `Tip: $${tipAmount} | Total: $${total} | Per Person: $${perPerson}`);
-            }
-        }
-
-        function calculateEMI() {
-            const principal = parseFloat(document.getElementById('loanAmount').value);
-            const rate = parseFloat(document.getElementById('interestRate').value) / 12 / 100;
-            const tenure = parseInt(document.getElementById('loanTenure').value);
-            if (principal && rate && tenure) {
-                const emi = (principal * rate * Math.pow(1 + rate, tenure)) / (Math.pow(1 + rate, tenure) - 1);
-                const total = (emi * tenure).toFixed(2);
-                const interest = (total - principal).toFixed(2);
-                showResult('emiResult', `EMI: ₹${emi.toFixed(2)} | Total: ₹${total} | Interest: ₹${interest}`);
-            }
-        }
-
-        function calculateDiscount() {
-            const price = parseFloat(document.getElementById('origPrice').value);
-            const discount = parseFloat(document.getElementById('discountPerc').value);
-            if (price && discount) {
-                const discAmount = (price * discount / 100).toFixed(2);
-                const final = (price - discAmount).toFixed(2);
-                const savings = ((discAmount / price) * 100).toFixed(1);
-                showResult('discResult', `You Save: $${discAmount} | Final Price: $${final} (${savings}% off)`);
-            }
-        }
-
-        function calculateTax() {
-            const amount = parseFloat(document.getElementById('taxAmount').value);
-            const rate = parseFloat(document.getElementById('taxRate').value);
-            const type = document.getElementById('taxType').value;
-            if (amount && rate) {
-                let result = '';
-                if (type === 'add') {
-                    const tax = (amount * rate / 100).toFixed(2);
-                    const total = (parseFloat(amount) + parseFloat(tax)).toFixed(2);
-                    result = `Tax: $${tax} | Total with Tax: $${total}`;
-                } else {
-                    const baseAmount = (amount / (1 + rate / 100)).toFixed(2);
-                    const tax = (amount - baseAmount).toFixed(2);
-                    result = `Base Amount: $${baseAmount} | Tax: $${tax}`;
-                }
-                showResult('taxResult', result);
-            }
-        }
-
-        function showResult(id, text) {
-            const el = document.getElementById(id);
-            el.textContent = text;
-            el.classList.add('show');
-        }
-
-        // Search functionality
-        function searchCalculators() {
-            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-            const cards = document.querySelectorAll('.tool-card');
-            let visibleCount = 0;
-
-            cards.forEach(card => {
-                const keywords = card.getAttribute('data-keywords') || '';
-                const title = card.querySelector('h3').textContent.toLowerCase();
-                
-                if (keywords.includes(searchTerm) || title.includes(searchTerm)) {
-                    card.classList.remove('hidden');
-                    visibleCount++;
-                } else {
-                    card.classList.add('hidden');
-                }
+// ========== PERCENTAGE SPLITTER ==========
+function calculateSplit() {
+    const total = parseFloat(document.getElementById('splitTotal').value);
+    const parts = parseInt(document.getElementById('splitParts').value);
+    const percInput = document.getElementById('splitPercentages').value;
+    
+    if (total && percInput) {
+        const percentages = percInput.split(',').map(p => parseFloat(p.trim())).filter(p => !isNaN(p));
+        const sum = percentages.reduce((a, b) => a + b, 0);
+        
+        if (Math.abs(sum - 100) < 0.01) {
+            let result = 'Split: ';
+            percentages.forEach((perc, i) => {
+                const amount = ((total * perc) / 100).toFixed(2);
+                result += `Part ${i + 1}: $${amount} (${perc}%) | `;
             });
-
-            updateSearchCount(visibleCount, cards.length);
-            toggleNoResults(visibleCount === 0);
+            showResult('splitResult', result.slice(0, -3));
+        } else {
+            showResult('splitResult', `Error: Percentages must sum to 100 (current: ${sum})`);
         }
+    } else if (total && parts) {
+        const each = (total / parts).toFixed(2);
+        showResult('splitResult', `Each part: $${each} (${(100/parts).toFixed(2)}%)`);
+    }
+}
 
-        function filterByTag(category) {
-            const cards = document.querySelectorAll('.tool-card');
-            const tags = document.querySelectorAll('.tag');
-            let visibleCount = 0;
-
-            // Update active tag
-            tags.forEach(tag => tag.classList.remove('active'));
-            event.target.classList.add('active');
-
-            // Clear search
-            document.getElementById('searchInput').value = '';
-
-            cards.forEach(card => {
-                if (category === 'all' || card.getAttribute('data-category') === category) {
-                    card.classList.remove('hidden');
-                    visibleCount++;
-                } else {
-                    card.classList.add('hidden');
-                }
-            });
-
-            updateSearchCount(visibleCount, cards.length);
-            toggleNoResults(visibleCount === 0);
+// ========== FOCUS TIMER ==========
+function startFocusTimer() {
+    if (!focusRunning) {
+        focusRunning = true;
+        if (focusTime === 0) {
+            const duration = parseInt(document.getElementById('focusDuration').value);
+            focusTime = duration * 60;
         }
-
-        function updateSearchCount(visible, total) {
-            const countEl = document.getElementById('searchCount');
-            if (visible === total) {
-                countEl.textContent = '';
+        focusInterval = setInterval(() => {
+            if (focusTime > 0) {
+                focusTime--;
+                updateFocusDisplay();
             } else {
-                countEl.textContent = `${visible} of ${total}`;
+                clearInterval(focusInterval);
+                focusRunning = false;
+                alert('⏰ Focus session complete!');
             }
-        }
+        }, 1000);
+    }
+}
 
-        function toggleNoResults(show) {
-            const noResults = document.getElementById('noResults');
-            if (show) {
-                noResults.classList.add('show');
-            } else {
-                noResults.classList.remove('show');
-            }
+function pauseFocusTimer() {
+    focusRunning = false;
+    clearInterval(focusInterval);
+}
+
+function resetFocusTimer() {
+    focusRunning = false;
+    clearInterval(focusInterval);
+    const duration = parseInt(document.getElementById('focusDuration').value) || 30;
+    focusTime = duration * 60;
+    updateFocusDisplay();
+}
+
+function updateFocusDisplay() {
+    const minutes = Math.floor(focusTime / 60);
+    const seconds = focusTime % 60;
+    document.getElementById('focusDisplay').textContent = `${pad(minutes)}:${pad(seconds)}`;
+}
+
+// ========== QR CODE SCANNER ==========
+async function startQRScanner() {
+    try {
+        const container = document.getElementById('cameraContainer');
+        const video = document.getElementById('qrVideo');
+        const result = document.getElementById('qrResult');
+        
+        qrStream = await navigator.mediaDevices.getUserMedia({ 
+            video: { facingMode: 'environment' } 
+        });
+        
+        video.srcObject = qrStream;
+        container.classList.add('show');
+        result.textContent = '📷 Camera active - Position QR code in view';
+        result.classList.add('show');
+        
+        // Note: Actual QR scanning requires jsQR library
+        setTimeout(() => {
+            result.textContent = '⚠️ QR scanning requires jsQR library. Camera preview active.';
+        }, 2000);
+        
+    } catch (err) {
+        alert('❌ Camera access denied or not available: ' + err.message);
+    }
+}
+
+function stopQRScanner() {
+    if (qrStream) {
+        qrStream.getTracks().forEach(track => track.stop());
+        document.getElementById('cameraContainer').classList.remove('show');
+        document.getElementById('qrResult').classList.remove('show');
+    }
+}
+
+// ========== UTILITY FUNCTIONS ==========
+function showResult(id, text) {
+    const el = document.getElementById(id);
+    el.textContent = text;
+    el.classList.add('show');
+}
+
+// ========== SEARCH & FILTER ==========
+function searchCalculators() {
+    const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+    const cards = document.querySelectorAll('.tool-card');
+    let visibleCount = 0;
+
+    cards.forEach(card => {
+        const keywords = card.getAttribute('data-keywords') || '';
+        const title = card.querySelector('h3').textContent.toLowerCase();
+        
+        if (keywords.includes(searchTerm) || title.includes(searchTerm)) {
+            card.classList.remove('hidden');
+            visibleCount++;
+        } else {
+            card.classList.add('hidden');
         }
+    });
+
+    updateSearchCount(visibleCount, cards.length);
+    toggleNoResults(visibleCount === 0);
+}
+
+function filterByTag(category) {
+    const cards = document.querySelectorAll('.tool-card');
+    const tags = document.querySelectorAll('.tag');
+    let visibleCount = 0;
+
+    // Update active tag
+    tags.forEach(tag => tag.classList.remove('active'));
+    event.target.classList.add('active');
+
+    // Clear search
+    document.getElementById('searchInput').value = '';
+
+    cards.forEach(card => {
+        if (category === 'all' || card.getAttribute('data-category') === category) {
+            card.classList.remove('hidden');
+            visibleCount++;
+        } else {
+            card.classList.add('hidden');
+        }
+    });
+
+    updateSearchCount(visibleCount, cards.length);
+    toggleNoResults(visibleCount === 0);
+}
+
+function updateSearchCount(visible, total) {
+    const countEl = document.getElementById('searchCount');
+    if (visible === total) {
+        countEl.textContent = '';
+    } else {
+        countEl.textContent = `${visible} of ${total}`;
+    }
+}
+
+function toggleNoResults(show) {
+    const noResults = document.getElementById('noResults');
+    if (show) {
+        noResults.classList.add('show');
+    } else {
+        noResults.classList.remove('show');
+    }
+}
     </script>
 </body>
 </html>
-
