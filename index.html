@@ -891,6 +891,351 @@ body.dark-mode .footer-name {
         font-size: 1em;
     }
 }
+/* Additional styles for new tools */
+
+/* Range slider styling for TTS controls */
+input[type="range"] {
+    width: 100%;
+    height: 6px;
+    border-radius: 5px;
+    background: #e0e0e0;
+    outline: none;
+    -webkit-appearance: none;
+     appearance: none;
+}
+
+body.dark-mode input[type="range"] {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+body.dark-mode input[type="range"]::-webkit-slider-thumb {
+    background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+}
+
+input[type="range"]::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    cursor: pointer;
+    border: none;
+    transition: all 0.3s;
+}
+
+body.dark-mode input[type="range"]::-moz-range-thumb {
+    background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+}
+
+input[type="range"]::-moz-range-thumb:hover {
+    transform: scale(1.2);
+}
+
+/* Planner task styling */
+.planner-task {
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    margin-bottom: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    animation: slideIn 0.3s ease;
+    transition: all 0.3s;
+}
+
+body.dark-mode .planner-task {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.planner-task:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateX(5px);
+}
+
+body.dark-mode .planner-task:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+/* Priority badges */
+.priority-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.8em;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.priority-high {
+    background: #f5576c;
+    color: white;
+}
+
+.priority-medium {
+    background: #ffa726;
+    color: white;
+}
+
+.priority-low {
+    background: #66bb6a;
+    color: white;
+}
+
+/* Checkbox styling */
+input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    accent-color: #667eea;
+    transition: transform 0.2s;
+}
+
+body.dark-mode input[type="checkbox"] {
+    accent-color: #ffd700;
+}
+
+input[type="checkbox"]:hover {
+    transform: scale(1.1);
+}
+
+/* Habit progress bar */
+.habit-progress {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    height: 8px;
+    overflow: hidden;
+    margin: 8px 0;
+}
+
+body.dark-mode .habit-progress {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.habit-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #667eea, #764ba2);
+    transition: width 0.3s ease;
+    border-radius: 10px;
+}
+
+body.dark-mode .habit-progress-fill {
+    background: linear-gradient(90deg, #ffd700, #ffed4e);
+}
+
+/* Streak badge animation */
+.streak-badge {
+    background: #667eea;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.8em;
+    display: inline-block;
+    animation: pulse 2s infinite;
+}
+
+body.dark-mode .streak-badge {
+    background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+    color: #1a1a2e;
+}
+
+/* Category icons */
+.category-icon {
+    font-size: 1.2em;
+    margin-right: 8px;
+}
+
+/* Task completed state */
+.task-completed {
+    opacity: 0.6;
+    text-decoration: line-through;
+}
+
+/* Habit card styling */
+.habit-card {
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    margin-bottom: 10px;
+    border-left: 4px solid #667eea;
+    transition: all 0.3s;
+}
+
+body.dark-mode .habit-card {
+    background: rgba(255, 255, 255, 0.03);
+    border-left-color: #ffd700;
+}
+
+.habit-card:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateX(5px);
+}
+
+body.dark-mode .habit-card:hover {
+    background: rgba(255, 255, 255, 0.06);
+}
+
+/* Stats display */
+.stats-display {
+    padding: 15px;
+    background: rgba(102, 126, 234, 0.1);
+    border-radius: 10px;
+    margin-top: 15px;
+    font-size: 0.9em;
+    line-height: 1.6;
+}
+
+body.dark-mode .stats-display {
+    background: rgba(255, 215, 0, 0.1);
+    border: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+/* Timer controls for TTS */
+.timer-controls {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    flex-wrap: wrap;
+}
+
+.timer-controls .btn {
+    flex: 1;
+    min-width: 100px;
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+    .timer-controls {
+        flex-direction: column;
+    }
+    
+    .timer-controls .btn {
+        width: 100%;
+    }
+    
+    .two-col {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .habit-card {
+        padding: 12px;
+    }
+    
+    .planner-task {
+        padding: 10px;
+    }
+    
+    input[type="checkbox"] {
+        width: 18px;
+        height: 18px;
+    }
+}
+
+/* === NEW TOOLS DARK MODE SUPPORT === */
+.stat-box {
+    background: rgba(102,126,234,0.1);
+    border-radius: 10px;
+    padding: 12px;
+    text-align: center;
+}
+body.dark-mode .stat-box {
+    background: rgba(255,215,0,0.1);
+}
+.stat-box .stat-num {
+    font-size: 1.8em;
+    font-weight: 700;
+    color: #667eea;
+}
+body.dark-mode .stat-box .stat-num {
+    color: #ffd700;
+}
+.stat-box .stat-label {
+    font-size: 0.85em;
+    color: #888;
+}
+body.dark-mode .stat-box .stat-label {
+    color: #aaa;
+}
+.color-value-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.color-value-row .cv-label {
+    font-weight: 600;
+    color: #555;
+}
+body.dark-mode .color-value-row .cv-label {
+    color: #ccc;
+}
+.color-value-row .cv-val {
+    font-family: monospace;
+    font-size: 1.1em;
+    color: #667eea;
+    cursor: pointer;
+}
+body.dark-mode .color-value-row .cv-val {
+    color: #ffd700;
+}
+.sci-display {
+    background: rgba(255,255,255,0.1);
+    border-radius: 12px;
+    padding: 15px;
+    text-align: right;
+    font-size: 1.4em;
+    font-weight: 700;
+    color: #667eea;
+    min-height: 55px;
+    margin-bottom: 12px;
+    word-break: break-all;
+}
+body.dark-mode .sci-display {
+    color: #ffd700;
+    border: 1px solid rgba(255,215,0,0.3);
+    background: rgba(255,255,255,0.05);
+}
+.tool-note {
+    color: #888;
+    font-size: 0.88em;
+    margin-bottom: 12px;
+}
+body.dark-mode .tool-note {
+    color: #aaa;
+}
+.pass-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+.pass-options label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #555;
+    cursor: pointer;
+}
+body.dark-mode .pass-options label {
+    color: #ccc;
+}
+
     </style>
 </head>
 <body>
@@ -931,13 +1276,14 @@ body.dark-mode .footer-name {
                     <div class="search-count" id="searchCount"></div>
                 </div>
                 <div class="filter-tags" id="filterTags">
-                    <span class="tag active" onclick="filterByTag('all')">All</span>
-                    <span class="tag" onclick="filterByTag('finance')">💰 Finance</span>
-                    <span class="tag" onclick="filterByTag('health')">⚖️ Health</span>
-                    <span class="tag" onclick="filterByTag('conversion')">🔄 Conversion</span>
-                    <span class="tag" onclick="filterByTag('math')">🔢 Math</span>
-                    <span class="tag" onclick="filterByTag('time')">⏰ Time</span>
-                    <span class="tag" onclick="filterByTag('tools')">🔧 Tools</span>
+                    <span class="tag active" onclick="filterByTag('all',this)">All</span>
+                    <span class="tag" onclick="filterByTag('finance',this)">💰 Finance</span>
+                    <span class="tag" onclick="filterByTag('health',this)">⚖️ Health</span>
+                    <span class="tag" onclick="filterByTag('conversion',this)">🔄 Conversion</span>
+                    <span class="tag" onclick="filterByTag('math',this)">🔢 Math</span>
+                    <span class="tag" onclick="filterByTag('time',this)">⏰ Time</span>
+                    <span class="tag" onclick="filterByTag('tools',this)">🔧 Tools</span>
+                    <span class="tag" onclick="filterByTag('productivity',this)">📋 Productivity</span>
                 </div>
             </div>
         </header>
@@ -1256,7 +1602,96 @@ body.dark-mode .footer-name {
                 </div>
                 <button class="btn" onclick="calculateSplit()">Calculate Split</button>
                 <div class="result" id="splitResult"></div>
-            </div>
+            </div><!-- Text to Speech Tool -->
+<div class="tool-card" data-category="tools" data-keywords="text to speech tts voice audio read aloud accessibility">
+    <h3><span class="icon">🔊</span> Text to Speech</h3>
+    <div class="input-group">
+        <label>Enter Text</label>
+        <textarea id="ttsText" rows="5" placeholder="Type or paste text here to hear it spoken..."></textarea>
+    </div>
+    <div class="input-group">
+        <label>Voice Speed</label>
+        <input type="range" id="ttsSpeed" min="0.5" max="2" step="0.1" value="1">
+        <span id="speedValue" style="display: block; text-align: center; margin-top: 5px;">1.0x</span>
+    </div>
+    <div class="input-group">
+        <label>Voice Pitch</label>
+        <input type="range" id="ttsPitch" min="0.5" max="2" step="0.1" value="1">
+        <span id="pitchValue" style="display: block; text-align: center; margin-top: 5px;">1.0x</span>
+    </div>
+    <div class="input-group">
+        <label>Voice</label>
+        <select id="ttsVoice"></select>
+    </div>
+    <div class="timer-controls">
+        <button class="btn" onclick="speakText()">▶️ Speak</button>
+        <button class="btn" onclick="pauseSpeech()">⏸️ Pause</button>
+        <button class="btn" onclick="resumeSpeech()">▶️ Resume</button>
+        <button class="btn" onclick="stopSpeech()">⏹️ Stop</button>
+    </div>
+    <div class="result" id="ttsStatus" style="display: none; margin-top: 10px;"></div>
+</div>
+
+<!-- Daily Planner Tool -->
+<div class="tool-card" data-category="productivity" data-keywords="daily planner schedule tasks todo agenda organizer calendar">
+    <h3><span class="icon">📅</span> Daily Planner</h3>
+    <div class="input-group">
+        <label>Date</label>
+        <input type="date" id="plannerDate">
+    </div>
+    <div class="input-group">
+        <label>Task</label>
+        <input type="text" id="plannerTask" placeholder="Enter task">
+    </div>
+    <div class="two-col">
+        <div class="input-group">
+            <label>Start Time</label>
+            <input type="time" id="plannerStartTime">
+        </div>
+        <div class="input-group">
+            <label>End Time</label>
+            <input type="time" id="plannerEndTime">
+        </div>
+    </div>
+    <div class="input-group">
+        <label>Priority</label>
+        <select id="plannerPriority">
+            <option value="low">Low</option>
+            <option value="medium" selected>Medium</option>
+            <option value="high">High</option>
+        </select>
+    </div>
+    <button class="btn" onclick="addPlannerTask()">➕ Add Task</button>
+    <div class="alarm-list" id="plannerList" style="max-height: 300px;"></div>
+    <button class="btn" onclick="clearCompletedTasks()" style="margin-top: 10px; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">🗑️ Clear Completed</button>
+</div>
+
+<!-- Habit Tracker Tool -->
+<div class="tool-card" data-category="productivity" data-keywords="habit tracker goals daily routine streak progress consistency">
+    <h3><span class="icon">✅</span> Habit Tracker</h3>
+    <div class="input-group">
+        <label>Habit Name</label>
+        <input type="text" id="habitName" placeholder="e.g., Exercise, Read, Meditate">
+    </div>
+    <div class="input-group">
+        <label>Goal (times per day)</label>
+        <input type="number" id="habitGoal" value="1" min="1">
+    </div>
+    <div class="input-group">
+        <label>Category</label>
+        <select id="habitCategory">
+            <option value="health">💪 Health & Fitness</option>
+            <option value="productivity">📚 Productivity</option>
+            <option value="mindfulness">🧘 Mindfulness</option>
+            <option value="social">👥 Social</option>
+            <option value="creative">🎨 Creative</option>
+            <option value="other">📌 Other</option>
+        </select>
+    </div>
+    <button class="btn" onclick="addHabit()">➕ Add Habit</button>
+    <div class="alarm-list" id="habitList" style="max-height: 350px;"></div>
+    <div id="habitStats" class="result" style="display: none; margin-top: 15px;"></div>
+</div>
 
             <!-- Focus Timer -->
             <div class="tool-card" data-category="time" data-keywords="focus timer countdown deadline task">
@@ -1284,6 +1719,286 @@ body.dark-mode .footer-name {
                 </div>
                 <canvas id="qrCanvas" style="display:none;"></canvas>
                 <div id="qrResult"></div>
+            </div>
+
+            <!-- Password Generator -->
+            <div class="tool-card" data-category="tools" data-keywords="password generator random secure strong characters symbols uppercase lowercase numbers">
+                <h3><span class="icon">🔐</span> Password Generator</h3>
+                <div class="input-group">
+                    <label>Password Length: <span id="passLenVal">16</span></label>
+                    <input type="range" id="passLength" min="4" max="64" value="16" oninput="document.getElementById('passLenVal').textContent=this.value">
+                </div>
+                <div class="pass-options">
+                    <label><input type="checkbox" id="passUpper" checked> Uppercase (A-Z)</label>
+                    <label><input type="checkbox" id="passLower" checked> Lowercase (a-z)</label>
+                    <label><input type="checkbox" id="passNumbers" checked> Numbers (0-9)</label>
+                    <label><input type="checkbox" id="passSymbols"> Symbols (!@#$)</label>
+                </div>
+                <button class="btn" onclick="generatePassword()">🔑 Generate Password</button>
+                <div class="result" id="passResult" style="word-break:break-all; font-family:monospace; font-size:1em; letter-spacing:1px;"></div>
+                <button class="btn" id="copyPassBtn" onclick="copyPassword()" style="display:none; margin-top:8px; background:linear-gradient(135deg,#43e97b,#38f9d7);">📋 Copy Password</button>
+            </div>
+
+            <!-- Scientific Calculator -->
+            <div class="tool-card" data-category="math" data-keywords="scientific calculator sin cos tan log sqrt power pi trigonometry advanced">
+                <h3><span class="icon">🔬</span> Scientific Calculator</h3>
+                <div class="sci-display" id="sciDisplay">0</div>
+                <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;">
+                    <button class="calc-btn operator" onclick="sciOp('sin(')">sin</button>
+                    <button class="calc-btn operator" onclick="sciOp('cos(')">cos</button>
+                    <button class="calc-btn operator" onclick="sciOp('tan(')">tan</button>
+                    <button class="calc-btn operator" onclick="sciOp('Math.PI')">π</button>
+                    <button class="calc-btn operator" onclick="sciOp('Math.log10(')">log</button>
+                    <button class="calc-btn operator" onclick="sciOp('Math.log(')">ln</button>
+                    <button class="calc-btn operator" onclick="sciOp('Math.sqrt(')">√</button>
+                    <button class="calc-btn operator" onclick="sciOp('**2')">x²</button>
+                    <button class="calc-btn" onclick="sciAppend('7')">7</button>
+                    <button class="calc-btn" onclick="sciAppend('8')">8</button>
+                    <button class="calc-btn" onclick="sciAppend('9')">9</button>
+                    <button class="calc-btn operator" onclick="sciAppend('/')">÷</button>
+                    <button class="calc-btn" onclick="sciAppend('4')">4</button>
+                    <button class="calc-btn" onclick="sciAppend('5')">5</button>
+                    <button class="calc-btn" onclick="sciAppend('6')">6</button>
+                    <button class="calc-btn operator" onclick="sciAppend('*')">×</button>
+                    <button class="calc-btn" onclick="sciAppend('1')">1</button>
+                    <button class="calc-btn" onclick="sciAppend('2')">2</button>
+                    <button class="calc-btn" onclick="sciAppend('3')">3</button>
+                    <button class="calc-btn operator" onclick="sciAppend('-')">−</button>
+                    <button class="calc-btn" onclick="sciAppend('0')">0</button>
+                    <button class="calc-btn" onclick="sciAppend('.')">.</button>
+                    <button class="calc-btn" onclick="sciClear()">C</button>
+                    <button class="calc-btn operator" onclick="sciAppend('+')">+</button>
+                    <button class="calc-btn equals" style="grid-column:span 4;" onclick="sciCalc()">=</button>
+                </div>
+            </div>
+
+            <!-- Word Counter & Text Analyzer -->
+            <div class="tool-card" data-category="tools" data-keywords="word counter text analyzer character count sentence paragraph reading time">
+                <h3><span class="icon">📝</span> Word Counter & Analyzer</h3>
+                <div class="input-group">
+                    <label>Enter or paste your text</label>
+                    <textarea id="wordText" rows="6" placeholder="Type or paste text here..." oninput="analyzeText()"></textarea>
+                </div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px;">
+                    <div class="stat-box">
+                        <div class="stat-num" id="wordCount">0</div>
+                        <div class="stat-label">Words</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-num" id="charCount">0</div>
+                        <div class="stat-label">Characters</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-num" id="sentCount">0</div>
+                        <div class="stat-label">Sentences</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-num" id="readTime">0 min</div>
+                        <div class="stat-label">Read Time</div>
+                    </div>
+                </div>
+                <button class="btn" onclick="document.getElementById('wordText').value='';analyzeText();" style="margin-top:12px;background:linear-gradient(135deg,#f093fb,#f5576c);">🗑️ Clear Text</button>
+            </div>
+
+            <!-- Color Converter -->
+            <div class="tool-card" data-category="tools" data-keywords="color converter hex rgb hsl picker palette design css">
+                <h3><span class="icon">🎨</span> Color Converter</h3>
+                <div class="input-group">
+                    <label>Pick a Color</label>
+                    <input type="color" id="colorPicker" value="#667eea" oninput="convertColor()" style="width:100%;height:55px;border:none;border-radius:10px;cursor:pointer;padding:4px;">
+                </div>
+                <div style="background:rgba(255,255,255,0.1);border-radius:12px;padding:15px;margin-top:10px;">
+                    <div style="display:flex;flex-direction:column;gap:10px;">
+                        <div class="color-value-row">
+                            <span class="cv-label">HEX</span>
+                            <span class="cv-val" id="hexVal" onclick="copyColorVal('hexVal')">#667eea</span>
+                        </div>
+                        <div class="color-value-row">
+                            <span class="cv-label">RGB</span>
+                            <span class="cv-val" id="rgbVal" onclick="copyColorVal('rgbVal')">rgb(102,126,234)</span>
+                        </div>
+                        <div class="color-value-row">
+                            <span class="cv-label">HSL</span>
+                            <span class="cv-val" id="hslVal" onclick="copyColorVal('hslVal')">hsl(231,74%,66%)</span>
+                        </div>
+                    </div>
+                </div>
+                <div id="colorPreview" style="height:50px;border-radius:10px;margin-top:12px;background:#667eea;transition:background 0.3s;"></div>
+                <div class="result" id="colorCopyMsg" style="display:none;margin-top:8px;"></div>
+            </div>
+
+            <!-- Number Base Converter -->
+            <div class="tool-card" data-category="tools" data-keywords="number base converter binary decimal hexadecimal octal programming conversion">
+                <h3><span class="icon">💻</span> Number Base Converter</h3>
+                <div class="input-group">
+                    <label>Decimal (Base 10)</label>
+                    <input type="number" id="decInput" placeholder="Enter decimal number" oninput="convertBase('dec')">
+                </div>
+                <div class="input-group">
+                    <label>Binary (Base 2)</label>
+                    <input type="text" id="binInput" placeholder="e.g., 1010" oninput="convertBase('bin')">
+                </div>
+                <div class="input-group">
+                    <label>Octal (Base 8)</label>
+                    <input type="text" id="octInput" placeholder="e.g., 17" oninput="convertBase('oct')">
+                </div>
+                <div class="input-group">
+                    <label>Hexadecimal (Base 16)</label>
+                    <input type="text" id="hexInput" placeholder="e.g., FF" oninput="convertBase('hex')">
+                </div>
+                <div class="result" id="baseResult" style="display:none;"></div>
+            </div>
+
+            <!-- Temperature Converter -->
+            <div class="tool-card" data-category="conversion" data-keywords="temperature converter celsius fahrenheit kelvin degree weather">
+                <h3><span class="icon">🌡️</span> Temperature Converter</h3>
+                <div class="input-group">
+                    <label>Celsius (°C)</label>
+                    <input type="number" id="tempC" placeholder="Enter Celsius" oninput="convertTemp('c')">
+                </div>
+                <div class="input-group">
+                    <label>Fahrenheit (°F)</label>
+                    <input type="number" id="tempF" placeholder="Enter Fahrenheit" oninput="convertTemp('f')">
+                </div>
+                <div class="input-group">
+                    <label>Kelvin (K)</label>
+                    <input type="number" id="tempK" placeholder="Enter Kelvin" oninput="convertTemp('k')">
+                </div>
+                <div class="result" id="tempResult" style="display:none;"></div>
+            </div>
+
+            <!-- Calorie / TDEE Calculator -->
+            <div class="tool-card" data-category="health" data-keywords="calorie calculator tdee bmr daily needs diet nutrition fitness weight loss">
+                <h3><span class="icon">🔥</span> Calorie / TDEE Calculator</h3>
+                <div class="two-col">
+                    <div class="input-group">
+                        <label>Age (years)</label>
+                        <input type="number" id="calAge" placeholder="Age">
+                    </div>
+                    <div class="input-group">
+                        <label>Gender</label>
+                        <select id="calGender">
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="two-col">
+                    <div class="input-group">
+                        <label>Weight (kg)</label>
+                        <input type="number" id="calWeight" placeholder="Weight">
+                    </div>
+                    <div class="input-group">
+                        <label>Height (cm)</label>
+                        <input type="number" id="calHeight" placeholder="Height">
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>Activity Level</label>
+                    <select id="calActivity">
+                        <option value="1.2">Sedentary (little/no exercise)</option>
+                        <option value="1.375">Lightly active (1-3 days/week)</option>
+                        <option value="1.55" selected>Moderately active (3-5 days/week)</option>
+                        <option value="1.725">Very active (6-7 days/week)</option>
+                        <option value="1.9">Extra active (physical job)</option>
+                    </select>
+                </div>
+                <button class="btn" onclick="calculateCalories()">🔥 Calculate Calories</button>
+                <div class="result" id="calResult"></div>
+            </div>
+
+            <!-- Speed / Distance / Time Calculator -->
+            <div class="tool-card" data-category="math" data-keywords="speed distance time calculator velocity travel physics motion">
+                <h3><span class="icon">🚀</span> Speed / Distance / Time</h3>
+                <p class="tool-note">Fill two fields — the third is calculated automatically.</p>
+                <div class="input-group">
+                    <label>Speed (km/h)</label>
+                    <input type="number" id="sdtSpeed" placeholder="Enter speed">
+                </div>
+                <div class="input-group">
+                    <label>Distance (km)</label>
+                    <input type="number" id="sdtDist" placeholder="Enter distance">
+                </div>
+                <div class="input-group">
+                    <label>Time (hours)</label>
+                    <input type="number" id="sdtTime" placeholder="Enter time">
+                </div>
+                <button class="btn" onclick="calcSDT()">⚡ Calculate</button>
+                <div class="result" id="sdtResult"></div>
+            </div>
+
+            <!-- Random Number Generator -->
+            <div class="tool-card" data-category="math" data-keywords="random number generator lottery dice luck chance probability">
+                <h3><span class="icon">🎲</span> Random Number Generator</h3>
+                <div class="two-col">
+                    <div class="input-group">
+                        <label>Minimum</label>
+                        <input type="number" id="rngMin" value="1">
+                    </div>
+                    <div class="input-group">
+                        <label>Maximum</label>
+                        <input type="number" id="rngMax" value="100">
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>How many numbers?</label>
+                    <input type="number" id="rngCount" value="1" min="1" max="20">
+                </div>
+                <div class="input-group">
+                    <label>Allow duplicates?</label>
+                    <select id="rngDupes">
+                        <option value="yes">Yes</option>
+                        <option value="no">No (unique numbers)</option>
+                    </select>
+                </div>
+                <button class="btn" onclick="generateRandom()">🎲 Generate!</button>
+                <div class="result" id="rngResult" style="font-size:1.5em;letter-spacing:3px;"></div>
+            </div>
+
+            <!-- Quick Notes -->
+            <div class="tool-card" data-category="productivity" data-keywords="quick notes notepad memo sticky save text productivity reminder">
+                <h3><span class="icon">📋</span> Quick Notes</h3>
+                <div class="input-group">
+                    <label>Note Title</label>
+                    <input type="text" id="noteTitle" placeholder="Note title...">
+                </div>
+                <div class="input-group">
+                    <label>Note Content</label>
+                    <textarea id="noteContent" rows="4" placeholder="Write your note here..."></textarea>
+                </div>
+                <div class="timer-controls">
+                    <button class="btn" onclick="saveNote()" style="background:linear-gradient(135deg,#43e97b,#38f9d7);color:#1a1a2e;">💾 Save Note</button>
+                    <button class="btn" onclick="clearNoteForm()" style="background:linear-gradient(135deg,#f093fb,#f5576c);">🗑️ Clear</button>
+                </div>
+                <div class="alarm-list" id="notesList" style="max-height:280px;margin-top:15px;"></div>
+            </div>
+
+            <!-- Mortgage Calculator -->
+            <div class="tool-card" data-category="finance" data-keywords="mortgage calculator home loan house payment monthly interest principal real estate">
+                <h3><span class="icon">🏠</span> Mortgage Calculator</h3>
+                <div class="input-group">
+                    <label>Home Price ($)</label>
+                    <input type="number" id="mortPrice" placeholder="Enter home price">
+                </div>
+                <div class="input-group">
+                    <label>Down Payment ($)</label>
+                    <input type="number" id="mortDown" placeholder="Enter down payment">
+                </div>
+                <div class="input-group">
+                    <label>Annual Interest Rate (%)</label>
+                    <input type="number" id="mortRate" placeholder="e.g., 6.5" step="0.1">
+                </div>
+                <div class="input-group">
+                    <label>Loan Term (years)</label>
+                    <select id="mortTerm">
+                        <option value="10">10 years</option>
+                        <option value="15">15 years</option>
+                        <option value="20">20 years</option>
+                        <option value="30" selected>30 years</option>
+                    </select>
+                </div>
+                <button class="btn" onclick="calculateMortgage()">🏠 Calculate Mortgage</button>
+                <div class="result" id="mortResult"></div>
             </div>
 
             <div class="no-results" id="noResults">
@@ -1319,6 +2034,8 @@ let focusTime = 0;
 let focusRunning = false;
 let qrStream = null;
 let birthdayInterval = null;
+let plannerTasks = [];
+let habits = [];
 
 // Initialize stars and shooting stars
 function initStars() {
@@ -1845,7 +2562,8 @@ function stopQRScanner() {
 // ========== UTILITY FUNCTIONS ==========
 function showResult(id, text) {
     const el = document.getElementById(id);
-    el.textContent = text;
+    if (!el) return;
+    el.innerHTML = text;
     el.classList.add('show');
 }
 
@@ -1871,14 +2589,14 @@ function searchCalculators() {
     toggleNoResults(visibleCount === 0);
 }
 
-function filterByTag(category) {
+function filterByTag(category, el) {
     const cards = document.querySelectorAll('.tool-card');
     const tags = document.querySelectorAll('.tag');
     let visibleCount = 0;
 
     // Update active tag
     tags.forEach(tag => tag.classList.remove('active'));
-    event.target.classList.add('active');
+    if (el) el.classList.add('active');
 
     // Clear search
     document.getElementById('searchInput').value = '';
@@ -1912,8 +2630,772 @@ function toggleNoResults(show) {
     } else {
         noResults.classList.remove('show');
     }
+}function toggleTaskComplete(id) {
+    const task = plannerTasks.find(t => t.id === id);
+    if (task) {
+        task.completed = !task.completed;
+        savePlannerTasks();
+        displayPlannerTasks();
+    }
 }
+
+function deletePlannerTask(id) {
+    if (confirm('Delete this task?')) {
+        plannerTasks = plannerTasks.filter(t => t.id !== id);
+        savePlannerTasks();
+        displayPlannerTasks();
+    }
+}
+
+function clearCompletedTasks() {
+    const completedCount = plannerTasks.filter(t => t.completed).length;
+    if (completedCount === 0) {
+        alert('No completed tasks to clear');
+        return;
+    }
+    
+    if (confirm(`Clear ${completedCount} completed task(s)?`)) {
+        plannerTasks = plannerTasks.filter(t => !t.completed);
+        savePlannerTasks();
+        displayPlannerTasks();
+    }
+}
+
+function getPriorityColor(priority) {
+    switch(priority) {
+        case 'high': return '#f5576c';
+        case 'medium': return '#ffa726';
+        case 'low': return '#66bb6a';
+        default: return '#999';
+    }
+}
+
+function formatDate(dateStr) {
+    const date = new Date(dateStr);
+    const options = { month: 'short', day: 'numeric', year: 'numeric' };
+    return date.toLocaleDateString('en-US', options);
+}
+
+function savePlannerTasks() {
+    localStorage.setItem('plannerTasks', JSON.stringify(plannerTasks));
+}
+
+function loadPlannerTasks() {
+    const saved = localStorage.getItem('plannerTasks');
+    if (saved) {
+        plannerTasks = JSON.parse(saved);
+        displayPlannerTasks();
+    }
+}
+
+// ========== HABIT TRACKER FUNCTIONS ==========
+
+function addHabit() {
+    const name = document.getElementById('habitName').value;
+    const goal = parseInt(document.getElementById('habitGoal').value) || 1;
+    const category = document.getElementById('habitCategory').value;
+    
+    if (!name) {
+        alert('Please enter habit name');
+        return;
+    }
+    
+    const newHabit = {
+        id: Date.now(),
+        name,
+        goal,
+        category,
+        streak: 0,
+        lastCompleted: null,
+        completions: [],
+        createdDate: new Date().toISOString()
+    };
+    
+    habits.push(newHabit);
+    saveHabits();
+    displayHabits();
+    
+    // Clear inputs
+    document.getElementById('habitName').value = '';
+    document.getElementById('habitGoal').value = 1;
+}
+
+function displayHabits() {
+    const list = document.getElementById('habitList');
+    if (!list) return;
+    
+    list.innerHTML = '';
+    
+    if (habits.length === 0) {
+        list.innerHTML = '<div style="text-align: center; padding: 20px; color: #999;">No habits yet. Add one to get started!</div>';
+        return;
+    }
+    
+    habits.forEach(habit => {
+        const today = new Date().toDateString();
+        const todayCompletions = habit.completions.filter(c => 
+            new Date(c).toDateString() === today
+        ).length;
+        
+        const item = document.createElement('div');
+        item.className = 'alarm-item';
+        item.style.flexDirection = 'column';
+        item.style.gap = '10px';
+        
+        const categoryIcon = getCategoryIcon(habit.category);
+        const progress = Math.min((todayCompletions / habit.goal) * 100, 100);
+        
+        item.innerHTML = `
+            <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                <div style="flex: 1;">
+                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 5px; flex-wrap: wrap;">
+                        <span style="font-size: 1.2em;">${categoryIcon}</span>
+                        <strong>${habit.name}</strong>
+                        <span style="background: #667eea; color: white; padding: 2px 8px; border-radius: 12px; font-size: 0.8em;">
+                            🔥 ${habit.streak} day streak
+                        </span>
+                    </div>
+                    <div style="font-size: 0.85em; color: #888;">
+                        Today: ${todayCompletions} / ${habit.goal} | Total: ${habit.completions.length} times
+                    </div>
+                </div>
+                <button class="delete-btn" onclick="deleteHabit(${habit.id})">Delete</button>
+            </div>
+            
+            <div style="width: 100%; background: rgba(0,0,0,0.1); border-radius: 10px; height: 8px; overflow: hidden;">
+                <div style="width: ${progress}%; background: linear-gradient(90deg, #667eea, #764ba2); height: 100%; transition: width 0.3s;"></div>
+            </div>
+            
+            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                <button class="btn" style="flex: 1; padding: 10px; font-size: 0.9em; min-width: 120px;" onclick="completeHabit(${habit.id})">
+                    ✅ Mark Complete
+                </button>
+                <button class="btn" style="flex: 1; padding: 10px; font-size: 0.9em; min-width: 120px;" onclick="viewHabitHistory(${habit.id})">
+                    📊 History
+                </button>
+            </div>
+        `;
+        list.appendChild(item);
+    });
+    
+    updateHabitStats();
+}
+
+function completeHabit(id) {
+    const habit = habits.find(h => h.id === id);
+    if (!habit) return;
+    
+    const now = new Date();
+    const today = now.toDateString();
+    
+    // Check if already at goal for today
+    const todayCompletions = habit.completions.filter(c => 
+        new Date(c).toDateString() === today
+    ).length;
+    
+    if (todayCompletions >= habit.goal) {
+        alert('🎉 You already reached your goal for today!');
+        return;
+    }
+    
+    habit.completions.push(now.toISOString());
+    
+    // Update streak
+    const yesterday = new Date(now);
+    yesterday.setDate(yesterday.getDate() - 1);
+    const yesterdayStr = yesterday.toDateString();
+    
+    const completedYesterday = habit.completions.some(c => 
+        new Date(c).toDateString() === yesterdayStr
+    );
+    
+    const completedToday = habit.completions.some(c => 
+        new Date(c).toDateString() === today
+    );
+    
+    if (completedToday && (completedYesterday || habit.streak === 0)) {
+        habit.streak++;
+    } else if (!completedYesterday && habit.lastCompleted) {
+        const lastDate = new Date(habit.lastCompleted).toDateString();
+        if (lastDate !== today && lastDate !== yesterdayStr) {
+            habit.streak = 1;
+        }
+    }
+    
+    habit.lastCompleted = now.toISOString();
+    
+    saveHabits();
+    displayHabits();
+    
+    if (todayCompletions + 1 >= habit.goal) {
+        showResult('habitStats', `🎉 Goal completed for "${habit.name}"!`);
+        setTimeout(() => {
+            updateHabitStats();
+        }, 3000);
+    }
+}
+
+function deleteHabit(id) {
+    if (confirm('Are you sure you want to delete this habit?')) {
+        habits = habits.filter(h => h.id !== id);
+        saveHabits();
+        displayHabits();
+    }
+}
+
+function viewHabitHistory(id) {
+    const habit = habits.find(h => h.id === id);
+    if (!habit) return;
+    
+    const last7Days = habit.completions.slice(-21).map(c => {
+        const date = new Date(c);
+        return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    }).join(', ') || 'No completions yet';
+    
+    const totalDays = Math.ceil((new Date() - new Date(habit.createdDate)) / (1000 * 60 * 60 * 24));
+    const completionRate = totalDays > 0 ? ((habit.completions.length / totalDays) * 100).toFixed(1) : 0;
+    
+    const statsEl = document.getElementById('habitStats');
+    statsEl.innerHTML = `
+        <strong>📊 ${habit.name} Statistics</strong><br>
+        🔥 Streak: ${habit.streak} days | ✅ Total: ${habit.completions.length} times<br>
+        📈 Completion Rate: ${completionRate}%<br>
+        📅 Recent: ${last7Days}
+    `;
+    statsEl.style.display = 'block';
+}
+
+function getCategoryIcon(category) {
+    const icons = {
+        health: '💪',
+        productivity: '📚',
+        mindfulness: '🧘',
+        social: '👥',
+        creative: '🎨',
+        other: '📌'
+    };
+    return icons[category] || '📌';
+}
+
+function updateHabitStats() {
+    const statsEl = document.getElementById('habitStats');
+    if (!statsEl) return;
+    
+    if (habits.length > 0) {
+        const totalHabits = habits.length;
+        const totalCompletions = habits.reduce((sum, h) => sum + h.completions.length, 0);
+        const avgStreak = (habits.reduce((sum, h) => sum + h.streak, 0) / totalHabits).toFixed(1);
+        const maxStreak = Math.max(...habits.map(h => h.streak), 0);
+        
+        statsEl.innerHTML = `📈 Stats: ${totalHabits} habits | ${totalCompletions} completions | Avg streak: ${avgStreak} | Best: ${maxStreak} days`;
+        statsEl.style.display = 'block';
+    } else {
+        statsEl.style.display = 'none';
+    }
+}
+
+function saveHabits() {
+    localStorage.setItem('habits', JSON.stringify(habits));
+}
+
+function loadHabits() {
+    const saved = localStorage.getItem('habits');
+    if (saved) {
+        habits = JSON.parse(saved);
+        displayHabits();
+    }
+}
+
+// ========== PLANNER FUNCTIONS (MISSING FROM script.js) ==========
+function addPlannerTask() {
+    const date = document.getElementById('plannerDate').value;
+    const task = document.getElementById('plannerTask').value.trim();
+    const startTime = document.getElementById('plannerStartTime').value;
+    const endTime = document.getElementById('plannerEndTime').value;
+    const priority = document.getElementById('plannerPriority').value;
+
+    if (!task) { alert('Please enter a task!'); return; }
+
+    const newTask = {
+        id: Date.now(),
+        date, task, startTime, endTime, priority,
+        completed: false,
+        createdAt: new Date().toISOString()
+    };
+
+    plannerTasks.push(newTask);
+    savePlannerTasks();
+    displayPlannerTasks();
+
+    document.getElementById('plannerTask').value = '';
+    document.getElementById('plannerStartTime').value = '';
+    document.getElementById('plannerEndTime').value = '';
+}
+
+function displayPlannerTasks() {
+    const list = document.getElementById('plannerList');
+    if (!list) return;
+    list.innerHTML = '';
+
+    const sorted = [...plannerTasks].sort((a, b) => {
+        const pOrder = { high: 0, medium: 1, low: 2 };
+        return pOrder[a.priority] - pOrder[b.priority];
+    });
+
+    if (sorted.length === 0) {
+        list.innerHTML = '<div style="text-align:center;padding:20px;color:#999;">No tasks yet. Add one above!</div>';
+        return;
+    }
+
+    sorted.forEach(task => {
+        const item = document.createElement('div');
+        item.className = 'planner-task';
+        if (task.completed) item.style.opacity = '0.6';
+
+        const timeStr = task.startTime && task.endTime
+            ? ` | ${task.startTime} – ${task.endTime}`
+            : task.startTime ? ` | ${task.startTime}` : '';
+
+        item.innerHTML = `
+            <div style="display:flex;align-items:center;gap:10px;justify-content:space-between;flex-wrap:wrap;">
+                <div style="display:flex;align-items:center;gap:10px;flex:1;">
+                    <input type="checkbox" ${task.completed ? 'checked' : ''} onchange="toggleTaskComplete(${task.id})">
+                    <div>
+                        <div style="${task.completed ? 'text-decoration:line-through;' : ''}font-weight:600;">${task.task}</div>
+                        <div style="font-size:0.8em;color:#888;">${task.date || ''}${timeStr}</div>
+                    </div>
+                </div>
+                <div style="display:flex;align-items:center;gap:8px;">
+                    <span class="priority-badge priority-${task.priority}">${task.priority}</span>
+                    <button class="delete-btn" onclick="deletePlannerTask(${task.id})">Delete</button>
+                </div>
+            </div>
+        `;
+        list.appendChild(item);
+    });
+}
+
+// ========== TEXT TO SPEECH (MISSING FROM script.js) ==========
+let ttsUtterance = null;
+
+function loadTTSVoices() {
+    const select = document.getElementById('ttsVoice');
+    if (!select) return;
+    function populate() {
+        const voices = window.speechSynthesis.getVoices();
+        select.innerHTML = '';
+        voices.forEach((v, i) => {
+            const opt = document.createElement('option');
+            opt.value = i;
+            opt.textContent = `${v.name} (${v.lang})`;
+            select.appendChild(opt);
+        });
+        if (voices.length === 0) {
+            select.innerHTML = '<option>Default Voice</option>';
+        }
+    }
+    populate();
+    window.speechSynthesis.onvoiceschanged = populate;
+    // Also update slider value labels
+    const speedSlider = document.getElementById('ttsSpeed');
+    const pitchSlider = document.getElementById('ttsPitch');
+    if (speedSlider) speedSlider.oninput = () => { document.getElementById('speedValue').textContent = parseFloat(speedSlider.value).toFixed(1) + 'x'; };
+    if (pitchSlider) pitchSlider.oninput = () => { document.getElementById('pitchValue').textContent = parseFloat(pitchSlider.value).toFixed(1) + 'x'; };
+}
+
+function speakText() {
+    const text = document.getElementById('ttsText').value.trim();
+    if (!text) { alert('Please enter some text!'); return; }
+
+    window.speechSynthesis.cancel();
+    ttsUtterance = new SpeechSynthesisUtterance(text);
+
+    const speed = parseFloat(document.getElementById('ttsSpeed').value);
+    const pitch = parseFloat(document.getElementById('ttsPitch').value);
+    const voiceIdx = parseInt(document.getElementById('ttsVoice').value);
+    const voices = window.speechSynthesis.getVoices();
+
+    ttsUtterance.rate = speed;
+    ttsUtterance.pitch = pitch;
+    if (voices[voiceIdx]) ttsUtterance.voice = voices[voiceIdx];
+
+    ttsUtterance.onstart = () => showResult('ttsStatus', '🔊 Speaking...');
+    ttsUtterance.onend = () => showResult('ttsStatus', '✅ Done!');
+    ttsUtterance.onerror = (e) => showResult('ttsStatus', '❌ Error: ' + e.error);
+
+    window.speechSynthesis.speak(ttsUtterance);
+}
+
+function pauseSpeech() {
+    if (window.speechSynthesis.speaking) {
+        window.speechSynthesis.pause();
+        showResult('ttsStatus', '⏸️ Paused');
+    }
+}
+
+function resumeSpeech() {
+    if (window.speechSynthesis.paused) {
+        window.speechSynthesis.resume();
+        showResult('ttsStatus', '▶️ Resumed');
+    }
+}
+
+function stopSpeech() {
+    window.speechSynthesis.cancel();
+    showResult('ttsStatus', '⏹️ Stopped');
+}
+
+// ========== PASSWORD GENERATOR ==========
+let generatedPassword = '';
+function generatePassword() {
+    const length = parseInt(document.getElementById('passLength').value);
+    const upper = document.getElementById('passUpper').checked;
+    const lower = document.getElementById('passLower').checked;
+    const numbers = document.getElementById('passNumbers').checked;
+    const symbols = document.getElementById('passSymbols').checked;
+
+    if (!upper && !lower && !numbers && !symbols) {
+        alert('Please select at least one character type!');
+        return;
+    }
+
+    let chars = '';
+    if (upper) chars += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    if (lower) chars += 'abcdefghijklmnopqrstuvwxyz';
+    if (numbers) chars += '0123456789';
+    if (symbols) chars += '!@#$%^&*()_+-=[]{}|;:,.<>?';
+
+    let password = '';
+    // Ensure at least one from each selected type
+    if (upper) password += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'[Math.floor(Math.random() * 26)];
+    if (lower) password += 'abcdefghijklmnopqrstuvwxyz'[Math.floor(Math.random() * 26)];
+    if (numbers) password += '0123456789'[Math.floor(Math.random() * 10)];
+    if (symbols) password += '!@#$%^&*'[Math.floor(Math.random() * 8)];
+
+    for (let i = password.length; i < length; i++) {
+        password += chars[Math.floor(Math.random() * chars.length)];
+    }
+
+    // Shuffle the password
+    password = password.split('').sort(() => Math.random() - 0.5).join('');
+    generatedPassword = password;
+
+    const strength = length < 8 ? '🔴 Weak' : length < 12 ? '🟡 Fair' : length < 16 ? '🟢 Strong' : '💪 Very Strong';
+    showResult('passResult', `${password}<br><small style="font-size:0.75em;opacity:0.8;">${strength} • ${length} characters</small>`);
+    document.getElementById('copyPassBtn').style.display = 'block';
+}
+
+function copyPassword() {
+    if (generatedPassword) {
+        navigator.clipboard.writeText(generatedPassword).then(() => {
+            showResult('passResult', `✅ Copied: ${generatedPassword}`);
+        }).catch(() => {
+            const el = document.createElement('textarea');
+            el.value = generatedPassword;
+            document.body.appendChild(el);
+            el.select();
+            document.execCommand('copy');
+            document.body.removeChild(el);
+            showResult('passResult', `✅ Copied: ${generatedPassword}`);
+        });
+    }
+}
+
+// ========== SCIENTIFIC CALCULATOR ==========
+let sciDisplayVal = '0';
+function sciAppend(val) {
+    if (sciDisplayVal === '0' && !isNaN(val)) sciDisplayVal = val;
+    else sciDisplayVal += val;
+    document.getElementById('sciDisplay').textContent = sciDisplayVal;
+}
+function sciOp(op) {
+    if (op === 'Math.PI') { sciDisplayVal = Math.PI.toString(); }
+    else { sciDisplayVal += op; }
+    document.getElementById('sciDisplay').textContent = sciDisplayVal;
+}
+function sciClear() { sciDisplayVal = '0'; document.getElementById('sciDisplay').textContent = '0'; }
+function sciCalc() {
+    try {
+        let expr = sciDisplayVal
+            .replace(/sin\(/g,'Math.sin(')
+            .replace(/cos\(/g,'Math.cos(')
+            .replace(/tan\(/g,'Math.tan(');
+        const result = eval(expr);
+        sciDisplayVal = parseFloat(result.toFixed(10)).toString();
+        document.getElementById('sciDisplay').textContent = sciDisplayVal;
+    } catch(e) {
+        document.getElementById('sciDisplay').textContent = 'Error';
+        sciDisplayVal = '0';
+    }
+}
+
+// ========== WORD COUNTER ==========
+function analyzeText() {
+    const text = document.getElementById('wordText').value;
+    const words = text.trim() === '' ? 0 : text.trim().split(/\s+/).length;
+    const chars = text.length;
+    const sentences = text.trim() === '' ? 0 : (text.match(/[.!?]+/g) || []).length;
+    const readTime = Math.ceil(words / 200);
+    document.getElementById('wordCount').textContent = words;
+    document.getElementById('charCount').textContent = chars;
+    document.getElementById('sentCount').textContent = sentences;
+    document.getElementById('readTime').textContent = readTime + ' min';
+}
+
+// ========== COLOR CONVERTER ==========
+function convertColor() {
+    const hex = document.getElementById('colorPicker').value;
+    const r = parseInt(hex.slice(1,3),16);
+    const g = parseInt(hex.slice(3,5),16);
+    const b = parseInt(hex.slice(5,7),16);
+
+    // RGB
+    document.getElementById('hexVal').textContent = hex.toUpperCase();
+    document.getElementById('rgbVal').textContent = `rgb(${r}, ${g}, ${b})`;
+
+    // HSL
+    const rN=r/255, gN=g/255, bN=b/255;
+    const max=Math.max(rN,gN,bN), min=Math.min(rN,gN,bN);
+    let h, s, l=(max+min)/2;
+    if(max===min){ h=s=0; }
+    else {
+        const d=max-min;
+        s=l>0.5?d/(2-max-min):d/(max+min);
+        switch(max){
+            case rN: h=((gN-bN)/d+(gN<bN?6:0))/6; break;
+            case gN: h=((bN-rN)/d+2)/6; break;
+            default: h=((rN-gN)/d+4)/6;
+        }
+    }
+    document.getElementById('hslVal').textContent = `hsl(${Math.round(h*360)}, ${Math.round(s*100)}%, ${Math.round(l*100)}%)`;
+    document.getElementById('colorPreview').style.background = hex;
+}
+
+function copyColorVal(id) {
+    const val = document.getElementById(id).textContent;
+    navigator.clipboard.writeText(val).then(() => {
+        showResult('colorCopyMsg', `✅ Copied: ${val}`);
+    }).catch(() => {
+        showResult('colorCopyMsg', `✅ Value: ${val}`);
+    });
+}
+
+// ========== NUMBER BASE CONVERTER ==========
+function convertBase(from) {
+    try {
+        let dec;
+        if (from === 'dec') dec = parseInt(document.getElementById('decInput').value, 10);
+        else if (from === 'bin') dec = parseInt(document.getElementById('binInput').value, 2);
+        else if (from === 'oct') dec = parseInt(document.getElementById('octInput').value, 8);
+        else if (from === 'hex') dec = parseInt(document.getElementById('hexInput').value, 16);
+
+        if (isNaN(dec)) return;
+
+        if (from !== 'dec') document.getElementById('decInput').value = dec;
+        if (from !== 'bin') document.getElementById('binInput').value = dec.toString(2);
+        if (from !== 'oct') document.getElementById('octInput').value = dec.toString(8);
+        if (from !== 'hex') document.getElementById('hexInput').value = dec.toString(16).toUpperCase();
+    } catch(e) {}
+}
+
+// ========== TEMPERATURE CONVERTER ==========
+function convertTemp(from) {
+    let c, f, k;
+    if (from === 'c') {
+        c = parseFloat(document.getElementById('tempC').value);
+        if (isNaN(c)) return;
+        f = c * 9/5 + 32;
+        k = c + 273.15;
+        document.getElementById('tempF').value = f.toFixed(2);
+        document.getElementById('tempK').value = k.toFixed(2);
+    } else if (from === 'f') {
+        f = parseFloat(document.getElementById('tempF').value);
+        if (isNaN(f)) return;
+        c = (f - 32) * 5/9;
+        k = c + 273.15;
+        document.getElementById('tempC').value = c.toFixed(2);
+        document.getElementById('tempK').value = k.toFixed(2);
+    } else {
+        k = parseFloat(document.getElementById('tempK').value);
+        if (isNaN(k)) return;
+        c = k - 273.15;
+        f = c * 9/5 + 32;
+        document.getElementById('tempC').value = c.toFixed(2);
+        document.getElementById('tempF').value = f.toFixed(2);
+    }
+    showResult('tempResult', `${c ? c.toFixed(2) : ''}°C = ${f ? f.toFixed(2) : ''}°F = ${k ? k.toFixed(2) : ''} K`);
+}
+
+// ========== CALORIE / TDEE CALCULATOR ==========
+function calculateCalories() {
+    const age = parseFloat(document.getElementById('calAge').value);
+    const gender = document.getElementById('calGender').value;
+    const weight = parseFloat(document.getElementById('calWeight').value);
+    const height = parseFloat(document.getElementById('calHeight').value);
+    const activity = parseFloat(document.getElementById('calActivity').value);
+
+    if (!age || !weight || !height) { alert('Please fill in all fields!'); return; }
+
+    let bmr;
+    if (gender === 'male') bmr = 10 * weight + 6.25 * height - 5 * age + 5;
+    else bmr = 10 * weight + 6.25 * height - 5 * age - 161;
+
+    const tdee = bmr * activity;
+    const lose = tdee - 500;
+    const gain = tdee + 500;
+
+    showResult('calResult',
+        `🔥 BMR: ${bmr.toFixed(0)} cal/day<br>
+         ⚡ TDEE: ${tdee.toFixed(0)} cal/day<br>
+         📉 Lose weight: ${lose.toFixed(0)} cal/day<br>
+         📈 Gain weight: ${gain.toFixed(0)} cal/day`
+    );
+}
+
+// ========== SPEED / DISTANCE / TIME ==========
+function calcSDT() {
+    const s = parseFloat(document.getElementById('sdtSpeed').value);
+    const d = parseFloat(document.getElementById('sdtDist').value);
+    const t = parseFloat(document.getElementById('sdtTime').value);
+
+    const filled = [!isNaN(s) && s > 0, !isNaN(d) && d > 0, !isNaN(t) && t > 0];
+    const count = filled.filter(Boolean).length;
+
+    if (count < 2) { alert('Please fill at least 2 fields!'); return; }
+
+    let result = '';
+    if (!filled[0]) {
+        const speed = d / t;
+        result = `🚀 Speed: ${speed.toFixed(2)} km/h`;
+        document.getElementById('sdtSpeed').value = speed.toFixed(2);
+    } else if (!filled[1]) {
+        const dist = s * t;
+        result = `📍 Distance: ${dist.toFixed(2)} km`;
+        document.getElementById('sdtDist').value = dist.toFixed(2);
+    } else {
+        const time = d / s;
+        const hrs = Math.floor(time);
+        const mins = Math.round((time - hrs) * 60);
+        result = `⏱️ Time: ${hrs}h ${mins}m (${time.toFixed(2)} hours)`;
+        document.getElementById('sdtTime').value = time.toFixed(2);
+    }
+    showResult('sdtResult', result);
+}
+
+// ========== RANDOM NUMBER GENERATOR ==========
+function generateRandom() {
+    const min = parseInt(document.getElementById('rngMin').value);
+    const max = parseInt(document.getElementById('rngMax').value);
+    const count = Math.min(parseInt(document.getElementById('rngCount').value) || 1, 20);
+    const allowDupes = document.getElementById('rngDupes').value === 'yes';
+
+    if (min >= max) { alert('Max must be greater than Min!'); return; }
+
+    let numbers = [];
+    if (!allowDupes) {
+        const range = max - min + 1;
+        if (count > range) { alert(`Can't generate ${count} unique numbers in range ${min}-${max}!`); return; }
+        while (numbers.length < count) {
+            const n = Math.floor(Math.random() * range) + min;
+            if (!numbers.includes(n)) numbers.push(n);
+        }
+    } else {
+        for (let i = 0; i < count; i++) {
+            numbers.push(Math.floor(Math.random() * (max - min + 1)) + min);
+        }
+    }
+
+    showResult('rngResult', count === 1
+        ? `🎲 ${numbers[0]}`
+        : `🎲 ${numbers.join(' · ')}`
+    );
+}
+
+// ========== QUICK NOTES ==========
+let notes = JSON.parse(localStorage.getItem('quickNotes') || '[]');
+
+function saveNote() {
+    const title = document.getElementById('noteTitle').value.trim();
+    const content = document.getElementById('noteContent').value.trim();
+    if (!title && !content) { alert('Please write something!'); return; }
+    notes.unshift({ id: Date.now(), title: title || 'Untitled', content, date: new Date().toLocaleString() });
+    localStorage.setItem('quickNotes', JSON.stringify(notes));
+    clearNoteForm();
+    renderNotes();
+}
+
+function clearNoteForm() {
+    document.getElementById('noteTitle').value = '';
+    document.getElementById('noteContent').value = '';
+}
+
+function deleteNote(id) {
+    if (confirm('Delete this note?')) {
+        notes = notes.filter(n => n.id !== id);
+        localStorage.setItem('quickNotes', JSON.stringify(notes));
+        renderNotes();
+    }
+}
+
+function renderNotes() {
+    const list = document.getElementById('notesList');
+    if (!list) return;
+    if (notes.length === 0) {
+        list.innerHTML = '<div style="text-align:center;padding:20px;color:#999;">No notes yet. Add one above!</div>';
+        return;
+    }
+    list.innerHTML = notes.map(n => `
+        <div class="alarm-item" style="flex-direction:column;align-items:flex-start;gap:6px;">
+            <div style="display:flex;justify-content:space-between;width:100%;align-items:center;">
+                <strong style="font-size:1em;">${n.title}</strong>
+                <button class="delete-btn" onclick="deleteNote(${n.id})">Delete</button>
+            </div>
+            <div style="font-size:0.88em;opacity:0.85;white-space:pre-wrap;">${n.content}</div>
+            <div style="font-size:0.75em;opacity:0.6;">📅 ${n.date}</div>
+        </div>
+    `).join('');
+}
+
+// ========== MORTGAGE CALCULATOR ==========
+function calculateMortgage() {
+    const price = parseFloat(document.getElementById('mortPrice').value);
+    const down = parseFloat(document.getElementById('mortDown').value) || 0;
+    const annualRate = parseFloat(document.getElementById('mortRate').value);
+    const years = parseInt(document.getElementById('mortTerm').value);
+
+    if (!price || !annualRate) { alert('Please fill in required fields!'); return; }
+
+    const principal = price - down;
+    const monthlyRate = annualRate / 100 / 12;
+    const numPayments = years * 12;
+
+    let monthly;
+    if (monthlyRate === 0) {
+        monthly = principal / numPayments;
+    } else {
+        monthly = principal * monthlyRate * Math.pow(1 + monthlyRate, numPayments)
+                  / (Math.pow(1 + monthlyRate, numPayments) - 1);
+    }
+
+    const totalPaid = monthly * numPayments;
+    const totalInterest = totalPaid - principal;
+
+    showResult('mortResult',
+        `🏠 Monthly Payment: $${monthly.toFixed(2)}<br>
+         💵 Total Paid: $${totalPaid.toFixed(2)}<br>
+         💸 Total Interest: $${totalInterest.toFixed(2)}<br>
+         🏦 Loan Amount: $${principal.toFixed(2)}`
+    );
+}
+
+// ========== INIT NEW TOOLS ==========
+window.addEventListener('DOMContentLoaded', () => {
+    convertColor();
+    renderNotes();
+    loadPlannerTasks();
+    loadHabits();
+    loadTTSVoices();
+});
     </script>
 </body>
 </html>
-
