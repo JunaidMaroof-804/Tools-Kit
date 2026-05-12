@@ -1118,33 +1118,214 @@ body.dark-mode .stats-display {
     min-width: 100px;
 }
 
-/* Mobile responsive adjustments */
+/* =============================================
+   MOBILE SMOOTH EFFECTS & ANIMATIONS
+   ============================================= */
+
+/* Smooth scroll globally */
+html { scroll-behavior: smooth; }
+
+/* Remove tap flash on mobile */
+* { -webkit-tap-highlight-color: transparent; }
+
+/* Card scroll-in float animation */
+@keyframes cardFloatIn {
+    0%   { opacity: 0; transform: translateY(40px) scale(0.97); }
+    60%  { opacity: 1; transform: translateY(-6px) scale(1.01); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes cardFloatInLeft {
+    0%   { opacity: 0; transform: translateX(-30px) scale(0.97); }
+    60%  { opacity: 1; transform: translateX(4px) scale(1.01); }
+    100% { opacity: 1; transform: translateX(0) scale(1); }
+}
+
+.tool-card.float-in {
+    animation: cardFloatIn 0.55s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+.tool-card.float-in-left {
+    animation: cardFloatInLeft 0.55s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+/* Ripple effect on buttons */
+.btn { position: relative; overflow: hidden; }
+.ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.4);
+    transform: scale(0);
+    animation: rippleAnim 0.55s linear;
+    pointer-events: none;
+}
+@keyframes rippleAnim {
+    to { transform: scale(4); opacity: 0; }
+}
+
+/* Touch press feedback on cards */
+.tool-card:active {
+    transform: scale(0.985) translateY(-2px);
+    transition: transform 0.12s ease;
+}
+
+/* API result loading pulse */
+@keyframes loadingPulse {
+    0%, 100% { opacity: 0.5; }
+    50%       { opacity: 1; }
+}
+.loading-pulse { animation: loadingPulse 1s ease-in-out infinite; }
+
+/* API badge on cards */
+.api-badge {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    background: linear-gradient(135deg,#43e97b,#38f9d7);
+    color: #1a1a2e;
+    font-size: 0.65em;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 20px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+body.dark-mode .api-badge {
+    background: linear-gradient(135deg,#ffd700,#ffed4e);
+}
+
+/* Weather card special styling */
+.weather-display {
+    border-radius: 14px;
+    padding: 18px;
+    background: linear-gradient(135deg, rgba(102,126,234,0.12), rgba(118,75,162,0.12));
+    margin-top: 12px;
+    text-align: center;
+}
+body.dark-mode .weather-display {
+    background: linear-gradient(135deg, rgba(255,215,0,0.08), rgba(255,237,78,0.05));
+}
+.weather-temp {
+    font-size: 3em;
+    font-weight: 800;
+    color: #667eea;
+    line-height: 1;
+}
+body.dark-mode .weather-temp { color: #ffd700; }
+.weather-desc { font-size: 1.1em; color: #555; margin: 6px 0 12px; }
+body.dark-mode .weather-desc { color: #ccc; }
+.weather-grid {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 8px;
+    margin-top: 10px;
+}
+.weather-item { background: rgba(102,126,234,0.08); border-radius: 10px; padding: 10px 6px; }
+body.dark-mode .weather-item { background: rgba(255,215,0,0.07); }
+.weather-item .wi-val { font-weight: 700; color: #667eea; font-size: 1em; }
+body.dark-mode .weather-item .wi-val { color: #ffd700; }
+.weather-item .wi-label { font-size: 0.72em; color: #888; }
+body.dark-mode .weather-item .wi-label { color: #aaa; }
+
+/* Dictionary result styling */
+.dict-result { text-align: left; }
+.dict-word { font-size: 1.4em; font-weight: 800; color: #667eea; }
+body.dark-mode .dict-word { color: #ffd700; }
+.dict-phonetic { color: #888; font-style: italic; margin-bottom: 10px; }
+body.dark-mode .dict-phonetic { color: #aaa; }
+.dict-pos { font-size: 0.78em; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; background: rgba(102,126,234,0.12); color: #667eea; padding: 2px 8px; border-radius: 12px; display: inline-block; margin: 8px 0 4px; }
+body.dark-mode .dict-pos { background: rgba(255,215,0,0.12); color: #ffd700; }
+.dict-def { font-size: 0.92em; color: #444; margin-bottom: 4px; }
+body.dark-mode .dict-def { color: #ddd; }
+.dict-example { font-size: 0.84em; color: #888; font-style: italic; border-left: 3px solid #667eea; padding-left: 8px; margin-top: 3px; }
+body.dark-mode .dict-example { color: #aaa; border-left-color: #ffd700; }
+
+/* Gradient generator */
+.gradient-preview {
+    height: 80px;
+    border-radius: 12px;
+    margin: 12px 0;
+    transition: background 0.4s ease;
+}
+.gradient-code {
+    background: rgba(102,126,234,0.08);
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-family: monospace;
+    font-size: 0.82em;
+    color: #444;
+    word-break: break-all;
+    cursor: pointer;
+}
+body.dark-mode .gradient-code { background: rgba(255,215,0,0.07); color: #ddd; }
+
+/* QR output */
+#qrOutput img {
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    max-width: 200px;
+}
+
+/* ========================
+   MOBILE MEDIA QUERIES
+   ======================== */
 @media (max-width: 768px) {
-    .timer-controls {
-        flex-direction: column;
-    }
-    
-    .timer-controls .btn {
-        width: 100%;
-    }
-    
-    .two-col {
+    body { padding: 12px; }
+
+    h1 { font-size: 2em !important; }
+    .subtitle { font-size: 1em !important; }
+
+    .tools-grid {
         grid-template-columns: 1fr;
+        gap: 16px;
     }
+
+    .tool-card {
+        padding: 20px 16px;
+        border-radius: 16px;
+        /* No hover lift on mobile — use tap feedback instead */
+        transition: transform 0.12s ease, box-shadow 0.3s ease;
+    }
+    .tool-card:hover { transform: none; box-shadow: 0 8px 32px rgba(0,0,0,0.1); }
+
+    .timer-controls { flex-direction: column; }
+    .timer-controls .btn { width: 100%; }
+    .two-col { grid-template-columns: 1fr; }
+
+    .filter-tags { gap: 7px; }
+    .tag { padding: 8px 14px; font-size: 0.88em; }
+
+    .btn { padding: 16px; font-size: 1.05em; min-height: 52px; }
+    .calc-btn { padding: 18px 8px; font-size: 1.1em; }
+
+    .search-input { padding: 16px 44px; font-size: 1em; }
+
+    .weather-grid { grid-template-columns: repeat(3,1fr); }
+
+    .pass-options { grid-template-columns: 1fr; }
+
+    .sci-display { font-size: 1.2em; }
 }
 
 @media (max-width: 480px) {
-    .habit-card {
-        padding: 12px;
-    }
-    
-    .planner-task {
-        padding: 10px;
-    }
-    
-    input[type="checkbox"] {
-        width: 18px;
-        height: 18px;
+    body { padding: 8px; }
+
+    .tool-card { padding: 16px 12px; }
+    .tool-card h3 { font-size: 1.25em; }
+
+    .habit-card { padding: 12px; }
+    .planner-task { padding: 10px; }
+    input[type="checkbox"] { width: 18px; height: 18px; }
+
+    .weather-temp { font-size: 2.5em; }
+    .stat-num { font-size: 1.5em !important; }
+
+    .calc-grid { gap: 6px; }
+    .calc-btn { padding: 15px 4px; font-size: 1em; }
+
+    .gpa-row, .grade-row {
+        grid-template-columns: 1fr 1fr !important;
+        grid-template-rows: auto auto;
     }
 }
 
@@ -1236,6 +1417,168 @@ body.dark-mode .pass-options label {
     color: #ccc;
 }
 
+/* =============================================
+   MONETIZATION & EARNING STYLES
+   ============================================= */
+
+/* ---- Google AdSense / Ad Slot ---- */
+.ad-slot {
+    grid-column: 1 / -1;
+    background: rgba(255,255,255,0.12);
+    border: 2px dashed rgba(255,255,255,0.3);
+    border-radius: 16px;
+    padding: 18px;
+    text-align: center;
+    color: rgba(255,255,255,0.7);
+    font-size: 0.82em;
+    letter-spacing: 0.5px;
+    position: relative;
+    overflow: hidden;
+    min-height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+body.dark-mode .ad-slot {
+    background: rgba(255,215,0,0.04);
+    border-color: rgba(255,215,0,0.2);
+    color: rgba(255,215,0,0.5);
+}
+.ad-slot-label {
+    position: absolute;
+    top: 6px; left: 12px;
+    font-size: 0.7em;
+    opacity: 0.5;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* ---- Hot / Popular badge ---- */
+.hot-badge {
+    position: absolute;
+    top: 14px; right: 14px;
+    background: linear-gradient(135deg,#f093fb,#f5576c);
+    color: white;
+    font-size: 0.65em;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 20px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    animation: hotPulse 2s ease-in-out infinite;
+}
+@keyframes hotPulse {
+    0%,100% { box-shadow: 0 0 0 0 rgba(245,87,108,0.4); }
+    50% { box-shadow: 0 0 0 6px rgba(245,87,108,0); }
+}
+
+/* ---- Share bar ---- */
+.share-bar {
+    display: flex;
+    gap: 8px;
+    margin-top: 14px;
+    flex-wrap: wrap;
+}
+.share-btn {
+    flex: 1;
+    min-width: 80px;
+    padding: 9px 10px;
+    border: none;
+    border-radius: 10px;
+    font-size: 0.82em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    color: white;
+}
+.share-btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
+.share-btn:active { transform: scale(0.96); }
+.share-wa  { background: #25D366; }
+.share-tw  { background: #1DA1F2; }
+.share-copy{ background: #667eea; }
+.share-more{ background: #888; }
+
+/* ---- Newsletter banner ---- */
+.newsletter-bar {
+    grid-column: 1 / -1;
+    background: linear-gradient(135deg,rgba(255,255,255,0.18),rgba(255,255,255,0.08));
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 20px;
+    padding: 28px 32px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    color: white;
+}
+body.dark-mode .newsletter-bar {
+    background: linear-gradient(135deg,rgba(255,215,0,0.08),rgba(255,215,0,0.03));
+    border-color: rgba(255,215,0,0.2);
+}
+.newsletter-bar h3 { margin: 0 0 4px; font-size: 1.2em; }
+.newsletter-bar p  { margin: 0; font-size: 0.88em; opacity: 0.85; }
+.newsletter-input-wrap {
+    display: flex; gap: 10px; flex: 1; min-width: 240px;
+}
+.newsletter-input-wrap input {
+    flex: 1; padding: 13px 16px; border: none; border-radius: 12px;
+    font-size: 1em; background: rgba(255,255,255,0.9); color: #333; outline: none;
+}
+body.dark-mode .newsletter-input-wrap input {
+    background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,215,0,0.3);
+}
+.newsletter-input-wrap button {
+    padding: 13px 22px; border: none; border-radius: 12px;
+    background: linear-gradient(135deg,#43e97b,#38f9d7);
+    color: #1a1a2e; font-weight: 700; font-size: 1em; cursor: pointer;
+    white-space: nowrap; transition: all 0.25s;
+}
+.newsletter-input-wrap button:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(67,233,123,0.4); }
+
+/* ---- Pro tip box ---- */
+.pro-tip {
+    background: linear-gradient(135deg,rgba(255,215,0,0.12),rgba(255,165,0,0.08));
+    border-left: 4px solid #ffd700;
+    border-radius: 10px;
+    padding: 10px 14px;
+    margin-top: 12px;
+    font-size: 0.85em;
+    color: #665500;
+}
+body.dark-mode .pro-tip { color: #ffd700; }
+
+/* ---- Stat highlight boxes for finance tools ---- */
+.fin-grid {
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 10px;
+    margin-top: 12px;
+}
+.fin-box {
+    background: linear-gradient(135deg,rgba(102,126,234,0.1),rgba(118,75,162,0.08));
+    border-radius: 12px;
+    padding: 14px;
+    text-align: center;
+    border: 1px solid rgba(102,126,234,0.15);
+}
+body.dark-mode .fin-box {
+    background: linear-gradient(135deg,rgba(255,215,0,0.07),rgba(255,165,0,0.05));
+    border-color: rgba(255,215,0,0.15);
+}
+.fin-box .fval { font-size: 1.3em; font-weight: 800; color: #667eea; }
+body.dark-mode .fin-box .fval { color: #ffd700; }
+.fin-box .flabel { font-size: 0.75em; color: #888; margin-top: 2px; }
+body.dark-mode .fin-box .flabel { color: #aaa; }
+
+/* ---- Chart bars (SIP chart) ---- */
+.sip-chart { display:flex; align-items:flex-end; gap:4px; height:80px; margin-top:12px; }
+.sip-bar { flex:1; border-radius:4px 4px 0 0; transition: height 0.6s cubic-bezier(.22,.61,.36,1); min-width:6px; }
+
+@media (max-width:480px) {
+    .newsletter-bar { padding: 20px 16px; }
+    .fin-grid { grid-template-columns: 1fr 1fr; }
+}
     </style>
 </head>
 <body>
@@ -1284,6 +1627,14 @@ body.dark-mode .pass-options label {
                     <span class="tag" onclick="filterByTag('time',this)">⏰ Time</span>
                     <span class="tag" onclick="filterByTag('tools',this)">🔧 Tools</span>
                     <span class="tag" onclick="filterByTag('productivity',this)">📋 Productivity</span>
+                    <span class="tag" onclick="filterByTag('lifestyle',this)">🌿 Lifestyle</span>
+                    <span class="tag" onclick="filterByTag('student',this)">🎓 Student</span>
+                    <span class="tag" onclick="filterByTag('api',this)">🌐 Live / API</span>
+                    <span class="tag" onclick="filterByTag('design',this)">🎨 Design</span>
+                    <span class="tag" onclick="filterByTag('business',this)">🏢 Business</span>
+                    <span class="tag" onclick="filterByTag('seo',this)">📈 SEO</span>
+                    <span class="tag" onclick="filterByTag('utility',this)">⚡ Utility</span>
+                    <span class="tag" onclick="filterByTag('islamic',this)">🕌 Islamic</span>
                 </div>
             </div>
         </header>
@@ -1423,62 +1774,6 @@ body.dark-mode .pass-options label {
                 </div>
                 <button class="btn" onclick="calculateTip()">Calculate Tip</button>
                 <div class="result" id="tipResult"></div>
-            </div>
-
-            <!-- Loan EMI Calculator -->
-            <div class="tool-card" data-category="finance" data-keywords="loan emi calculator interest rate mortgage payment installment finance">
-                <h3><span class="icon">🏦</span> Loan EMI Calculator</h3>
-                <div class="input-group">
-                    <label>Loan Amount</label>
-                    <input type="number" id="loanAmount" placeholder="Enter loan amount">
-                </div>
-                <div class="input-group">
-                    <label>Interest Rate (% per year)</label>
-                    <input type="number" id="interestRate" placeholder="Enter interest rate">
-                </div>
-                <div class="input-group">
-                    <label>Loan Tenure (months)</label>
-                    <input type="number" id="loanTenure" placeholder="Enter tenure in months">
-                </div>
-                <button class="btn" onclick="calculateEMI()">Calculate EMI</button>
-                <div class="result" id="emiResult"></div>
-            </div>
-
-            <!-- Discount Calculator -->
-            <div class="tool-card" data-category="finance" data-keywords="discount calculator sale price savings percentage off shopping">
-                <h3><span class="icon">🏷️</span> Discount Calculator</h3>
-                <div class="input-group">
-                    <label>Original Price</label>
-                    <input type="number" id="origPrice" placeholder="Enter original price">
-                </div>
-                <div class="input-group">
-                    <label>Discount (%)</label>
-                    <input type="number" id="discountPerc" placeholder="Enter discount %">
-                </div>
-                <button class="btn" onclick="calculateDiscount()">Calculate</button>
-                <div class="result" id="discResult"></div>
-            </div>
-
-            <!-- GST/Tax Calculator -->
-            <div class="tool-card" data-category="finance" data-keywords="gst tax calculator vat sales tax goods services finance">
-                <h3><span class="icon">📝</span> GST / Tax Calculator</h3>
-                <div class="input-group">
-                    <label>Amount</label>
-                    <input type="number" id="taxAmount" placeholder="Enter amount">
-                </div>
-                <div class="input-group">
-                    <label>Tax Rate (%)</label>
-                    <input type="number" id="taxRate" placeholder="Enter tax rate">
-                </div>
-                <div class="input-group">
-                    <label>Calculation Type</label>
-                    <select id="taxType">
-                        <option value="add">Add Tax</option>
-                        <option value="remove">Remove Tax</option>
-                    </select>
-                </div>
-                <button class="btn" onclick="calculateTax()">Calculate</button>
-                <div class="result" id="taxResult"></div>
             </div>
 
             <!-- Stopwatch -->
@@ -1999,6 +2294,1412 @@ body.dark-mode .pass-options label {
                 </div>
                 <button class="btn" onclick="calculateMortgage()">🏠 Calculate Mortgage</button>
                 <div class="result" id="mortResult"></div>
+            </div>
+
+            <!-- ===== SLEEP CALCULATOR ===== -->
+            <div class="tool-card" data-category="lifestyle" data-keywords="sleep calculator wake up bedtime rem cycle rest hours tired">
+                <h3><span class="icon">💤</span> Sleep Calculator</h3>
+                <p class="tool-note">Sleep cycles last ~90 min. Wake up at the end of a cycle to feel refreshed.</p>
+                <div class="two-col">
+                    <div class="input-group">
+                        <label>I want to <strong>wake up</strong> at</label>
+                        <input type="time" id="sleepWakeTime" value="07:00">
+                    </div>
+                    <div class="input-group">
+                        <label>I want to <strong>fall asleep</strong> at</label>
+                        <input type="time" id="sleepBedTime" value="23:00">
+                    </div>
+                </div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;">
+                    <button class="btn" onclick="calcSleepFromWake()">⏰ When to sleep?</button>
+                    <button class="btn" onclick="calcSleepFromBed()" style="background:linear-gradient(135deg,#a18cd1,#fbc2eb);">🌅 When to wake?</button>
+                </div>
+                <div class="result" id="sleepResult"></div>
+            </div>
+
+            <!-- ===== WATER INTAKE CALCULATOR ===== -->
+            <div class="tool-card" data-category="lifestyle" data-keywords="water intake daily hydration health drink glasses body weight exercise">
+                <h3><span class="icon">💧</span> Water Intake Calculator</h3>
+                <div class="two-col">
+                    <div class="input-group">
+                        <label>Body Weight (kg)</label>
+                        <input type="number" id="waterWeight" placeholder="e.g. 70">
+                    </div>
+                    <div class="input-group">
+                        <label>Activity Level</label>
+                        <select id="waterActivity">
+                            <option value="0">Sedentary</option>
+                            <option value="350">Light (1-3 days/wk)</option>
+                            <option value="700">Moderate (3-5 days/wk)</option>
+                            <option value="1050">Active (6-7 days/wk)</option>
+                            <option value="1400">Very Active (athlete)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>Climate</label>
+                    <select id="waterClimate">
+                        <option value="0">Temperate / Cool</option>
+                        <option value="250">Hot / Humid</option>
+                        <option value="500">Very Hot / Desert</option>
+                    </select>
+                </div>
+                <button class="btn" onclick="calcWater()">💧 Calculate</button>
+                <div class="result" id="waterResult"></div>
+            </div>
+
+            <!-- ===== FUEL COST CALCULATOR ===== -->
+            <div class="tool-card" data-category="finance" data-keywords="fuel cost calculator petrol diesel trip mileage km litre car travel expense">
+                <h3><span class="icon">⛽</span> Fuel Cost Calculator</h3>
+                <div class="two-col">
+                    <div class="input-group">
+                        <label>Trip Distance (km)</label>
+                        <input type="number" id="fuelDist" placeholder="e.g. 300">
+                    </div>
+                    <div class="input-group">
+                        <label>Fuel Efficiency (km/L)</label>
+                        <input type="number" id="fuelEff" placeholder="e.g. 15">
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>Fuel Price (per litre)</label>
+                    <input type="number" id="fuelPrice" placeholder="e.g. 1.5" step="0.01">
+                </div>
+                <button class="btn" onclick="calcFuelCost()">⛽ Calculate Cost</button>
+                <div class="result" id="fuelResult"></div>
+            </div>
+
+            <!-- ===== BILL SPLITTER ===== -->
+            <div class="tool-card" data-category="finance" data-keywords="bill splitter split restaurant friends party share tip divide equally">
+                <h3><span class="icon">🧾</span> Bill Splitter</h3>
+                <div class="two-col">
+                    <div class="input-group">
+                        <label>Total Bill Amount</label>
+                        <input type="number" id="splitBill" placeholder="e.g. 120">
+                    </div>
+                    <div class="input-group">
+                        <label>Number of People</label>
+                        <input type="number" id="splitPeople" placeholder="e.g. 4" min="1">
+                    </div>
+                </div>
+                <div class="two-col">
+                    <div class="input-group">
+                        <label>Tip (%)</label>
+                        <input type="number" id="splitTip" placeholder="e.g. 10" value="0">
+                    </div>
+                    <div class="input-group">
+                        <label>Tax (%)</label>
+                        <input type="number" id="splitTax" placeholder="e.g. 5" value="0">
+                    </div>
+                </div>
+                <button class="btn" onclick="calcBillSplit()">🧾 Split Bill</button>
+                <div class="result" id="splitResult"></div>
+            </div>
+
+            <!-- ===== NET SALARY CALCULATOR ===== -->
+            <div class="tool-card" data-category="finance" data-keywords="salary calculator net take home tax deduction income monthly yearly paycheck gross">
+                <h3><span class="icon">💼</span> Net Salary Calculator</h3>
+                <div class="two-col">
+                    <div class="input-group">
+                        <label>Gross Salary</label>
+                        <input type="number" id="salGross" placeholder="e.g. 50000">
+                    </div>
+                    <div class="input-group">
+                        <label>Period</label>
+                        <select id="salPeriod">
+                            <option value="month">Monthly</option>
+                            <option value="year">Yearly</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="two-col">
+                    <div class="input-group">
+                        <label>Income Tax (%)</label>
+                        <input type="number" id="salTax" placeholder="e.g. 20" step="0.1">
+                    </div>
+                    <div class="input-group">
+                        <label>Other Deductions (%)</label>
+                        <input type="number" id="salDeduct" placeholder="e.g. 5" step="0.1" value="0">
+                    </div>
+                </div>
+                <button class="btn" onclick="calcSalary()">💼 Calculate</button>
+                <div class="result" id="salResult"></div>
+            </div>
+
+            <!-- ===== TYPING SPEED TEST ===== -->
+            <div class="tool-card" data-category="tools" data-keywords="typing speed test wpm words per minute keyboard accuracy practice">
+                <h3><span class="icon">⌨️</span> Typing Speed Test</h3>
+                <div id="typingPrompt" style="background:rgba(102,126,234,0.08);border-radius:10px;padding:14px;font-size:1em;line-height:1.7;color:#444;margin-bottom:12px;min-height:70px;letter-spacing:0.3px;"></div>
+                <div class="input-group">
+                    <label>Start typing below:</label>
+                    <textarea id="typingInput" rows="3" placeholder="Click 'Start' then type the text above..." oninput="checkTyping()" disabled style="font-size:1em;"></textarea>
+                </div>
+                <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px;">
+                    <div class="stat-box"><div class="stat-num" id="wpmStat">0</div><div class="stat-label">WPM</div></div>
+                    <div class="stat-box"><div class="stat-num" id="accStat">100%</div><div class="stat-label">Accuracy</div></div>
+                    <div class="stat-box"><div class="stat-num" id="timeStat">60</div><div class="stat-label">Seconds</div></div>
+                </div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+                    <button class="btn" id="typingStartBtn" onclick="startTypingTest()">▶️ Start Test</button>
+                    <button class="btn" onclick="resetTypingTest()" style="background:linear-gradient(135deg,#f093fb,#f5576c);">🔄 Reset</button>
+                </div>
+            </div>
+
+            <!-- ===== COUNTDOWN TIMER ===== -->
+            <div class="tool-card" data-category="time" data-keywords="countdown timer event deadline date remaining days hours minutes seconds">
+                <h3><span class="icon">⏳</span> Event Countdown Timer</h3>
+                <div class="input-group">
+                    <label>Event Name</label>
+                    <input type="text" id="cdName" placeholder="e.g. New Year, Exam, Birthday">
+                </div>
+                <div class="input-group">
+                    <label>Event Date & Time</label>
+                    <input type="datetime-local" id="cdDate">
+                </div>
+                <button class="btn" onclick="startCountdown()">⏳ Start Countdown</button>
+                <div id="cdDisplay" style="display:none;margin-top:16px;">
+                    <div id="cdEventName" style="text-align:center;font-weight:700;font-size:1.1em;margin-bottom:12px;color:#667eea;"></div>
+                    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;">
+                        <div class="stat-box"><div class="stat-num" id="cdDays">0</div><div class="stat-label">Days</div></div>
+                        <div class="stat-box"><div class="stat-num" id="cdHours">0</div><div class="stat-label">Hours</div></div>
+                        <div class="stat-box"><div class="stat-num" id="cdMins">0</div><div class="stat-label">Minutes</div></div>
+                        <div class="stat-box"><div class="stat-num" id="cdSecs">0</div><div class="stat-label">Seconds</div></div>
+                    </div>
+                </div>
+                <div class="result" id="cdResult" style="display:none;"></div>
+            </div>
+
+            <!-- ===== TIMEZONE CONVERTER ===== -->
+            <div class="tool-card" data-category="time" data-keywords="timezone converter world clock utc gmt meeting remote international time difference">
+                <h3><span class="icon">🌍</span> Timezone Converter</h3>
+                <div class="input-group">
+                    <label>Your Date & Time</label>
+                    <input type="datetime-local" id="tzInput">
+                </div>
+                <div class="input-group">
+                    <label>From Timezone</label>
+                    <select id="tzFrom"></select>
+                </div>
+                <div class="input-group">
+                    <label>To Timezone</label>
+                    <select id="tzTo"></select>
+                </div>
+                <button class="btn" onclick="convertTimezone()">🌍 Convert</button>
+                <div class="result" id="tzResult"></div>
+            </div>
+
+            <!-- ===== URL ENCODER / DECODER ===== -->
+            <div class="tool-card" data-category="tools" data-keywords="url encode decode percent encoding web link query string developer http">
+                <h3><span class="icon">🔗</span> URL Encoder / Decoder</h3>
+                <div class="input-group">
+                    <label>Input Text or URL</label>
+                    <textarea id="urlInput" rows="3" placeholder="Paste URL or text here..."></textarea>
+                </div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;">
+                    <button class="btn" onclick="encodeURL()">🔒 Encode</button>
+                    <button class="btn" onclick="decodeURL()" style="background:linear-gradient(135deg,#43e97b,#38f9d7);color:#1a1a2e;">🔓 Decode</button>
+                </div>
+                <div class="input-group">
+                    <label>Result</label>
+                    <textarea id="urlOutput" rows="3" placeholder="Result appears here..." readonly></textarea>
+                </div>
+                <button class="btn" onclick="copyURLResult()" style="background:linear-gradient(135deg,#a18cd1,#fbc2eb);">📋 Copy Result</button>
+            </div>
+
+            <!-- ===== GPA CALCULATOR ===== -->
+            <div class="tool-card" data-category="student" data-keywords="gpa calculator grade point average cgpa semester marks college university student">
+                <h3><span class="icon">🎓</span> GPA Calculator</h3>
+                <p class="tool-note">Add your courses, grades and credit hours to calculate your GPA.</p>
+                <div id="gpaRows">
+                    <div class="gpa-row" style="display:grid;grid-template-columns:2fr 1fr 1fr auto;gap:8px;margin-bottom:8px;align-items:center;">
+                        <input type="text" placeholder="Course name" style="padding:8px;border-radius:8px;border:1px solid #e0e0e0;font-size:0.9em;">
+                        <select style="padding:8px;border-radius:8px;border:1px solid #e0e0e0;font-size:0.9em;">
+                            <option value="4.0">A+ / A (4.0)</option>
+                            <option value="3.7">A- (3.7)</option>
+                            <option value="3.3">B+ (3.3)</option>
+                            <option value="3.0">B (3.0)</option>
+                            <option value="2.7">B- (2.7)</option>
+                            <option value="2.3">C+ (2.3)</option>
+                            <option value="2.0">C (2.0)</option>
+                            <option value="1.7">C- (1.7)</option>
+                            <option value="1.3">D+ (1.3)</option>
+                            <option value="1.0">D (1.0)</option>
+                            <option value="0.0">F (0.0)</option>
+                        </select>
+                        <input type="number" placeholder="Credits" min="1" max="6" value="3" style="padding:8px;border-radius:8px;border:1px solid #e0e0e0;font-size:0.9em;">
+                        <button onclick="removeGpaRow(this)" style="background:#ff5f57;color:#fff;border:none;border-radius:8px;padding:8px 12px;cursor:pointer;font-size:1em;">✕</button>
+                    </div>
+                </div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px;">
+                    <button class="btn" onclick="addGpaRow()" style="background:linear-gradient(135deg,#43e97b,#38f9d7);color:#1a1a2e;">+ Add Course</button>
+                    <button class="btn" onclick="calcGPA()">🎓 Calculate GPA</button>
+                </div>
+                <div class="result" id="gpaResult"></div>
+            </div>
+
+            <!-- ===== GRADE CALCULATOR ===== -->
+            <div class="tool-card" data-category="student" data-keywords="grade calculator marks percentage pass fail exam score total subject weighted">
+                <h3><span class="icon">📊</span> Grade / Marks Calculator</h3>
+                <p class="tool-note">Enter your marks and max for each subject to get total percentage and grade.</p>
+                <div id="gradeRows">
+                    <div class="grade-row" style="display:grid;grid-template-columns:2fr 1fr 1fr auto;gap:8px;margin-bottom:8px;align-items:center;">
+                        <input type="text" placeholder="Subject" style="padding:8px;border-radius:8px;border:1px solid #e0e0e0;font-size:0.9em;">
+                        <input type="number" placeholder="Obtained" style="padding:8px;border-radius:8px;border:1px solid #e0e0e0;font-size:0.9em;">
+                        <input type="number" placeholder="Total" value="100" style="padding:8px;border-radius:8px;border:1px solid #e0e0e0;font-size:0.9em;">
+                        <button onclick="removeGradeRow(this)" style="background:#ff5f57;color:#fff;border:none;border-radius:8px;padding:8px 12px;cursor:pointer;font-size:1em;">✕</button>
+                    </div>
+                </div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px;">
+                    <button class="btn" onclick="addGradeRow()" style="background:linear-gradient(135deg,#43e97b,#38f9d7);color:#1a1a2e;">+ Add Subject</button>
+                    <button class="btn" onclick="calcGrade()">📊 Calculate</button>
+                </div>
+                <div class="result" id="gradeResult"></div>
+            </div>
+
+            <!-- ===== ASPECT RATIO CALCULATOR ===== -->
+            <div class="tool-card" data-category="tools" data-keywords="aspect ratio calculator resolution screen size 16:9 4:3 image video width height pixel">
+                <h3><span class="icon">📐</span> Aspect Ratio Calculator</h3>
+                <p class="tool-note">Calculate missing dimension or find the ratio of any resolution.</p>
+                <div class="two-col">
+                    <div class="input-group">
+                        <label>Width (px)</label>
+                        <input type="number" id="arW" placeholder="e.g. 1920">
+                    </div>
+                    <div class="input-group">
+                        <label>Height (px)</label>
+                        <input type="number" id="arH" placeholder="e.g. 1080">
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>Lock Ratio (optional, e.g. 16:9)</label>
+                    <input type="text" id="arRatio" placeholder="e.g. 16:9  —  leave blank to detect">
+                </div>
+                <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px;">
+                    <button class="btn" onclick="calcAspect()" style="font-size:0.85em;">📐 Get Ratio</button>
+                    <button class="btn" onclick="calcAspectH()" style="font-size:0.85em;background:linear-gradient(135deg,#43e97b,#38f9d7);color:#1a1a2e;">↕ Calc Height</button>
+                    <button class="btn" onclick="calcAspectW()" style="font-size:0.85em;background:linear-gradient(135deg,#a18cd1,#fbc2eb);">↔ Calc Width</button>
+                </div>
+                <div class="result" id="arResult"></div>
+            </div>
+
+            <!-- ===== BPM TAPPER ===== -->
+            <div class="tool-card" data-category="tools" data-keywords="bpm tapper beats per minute tempo music drummer musician rhythm tap metronome">
+                <h3><span class="icon">🎵</span> BPM Tapper</h3>
+                <p class="tool-note">Tap the button rhythmically to detect the tempo of any music or beat.</p>
+                <div style="text-align:center;margin:10px 0 16px;">
+                    <div class="stat-num" id="bpmDisplay" style="font-size:3em;color:#667eea;font-weight:800;">--</div>
+                    <div class="stat-label">Beats Per Minute</div>
+                </div>
+                <button class="btn" id="bpmTapBtn" onclick="tapBPM()" style="width:100%;height:70px;font-size:1.3em;letter-spacing:1px;">🥁 TAP</button>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px;">
+                    <div class="stat-box"><div class="stat-num" id="bpmTaps">0</div><div class="stat-label">Taps</div></div>
+                    <button class="btn" onclick="resetBPM()" style="background:linear-gradient(135deg,#f093fb,#f5576c);">🔄 Reset</button>
+                </div>
+            </div>
+
+            <!-- ===== ROMAN NUMERAL CONVERTER ===== -->
+            <div class="tool-card" data-category="conversion" data-keywords="roman numeral converter arabic number I V X L C D M converter history classic">
+                <h3><span class="icon">🏛️</span> Roman Numeral Converter</h3>
+                <div class="input-group">
+                    <label>Arabic Number (1 – 3999)</label>
+                    <input type="number" id="romanArabic" placeholder="e.g. 2024" min="1" max="3999" oninput="arabicToRoman()">
+                </div>
+                <div class="result" id="romanResult" style="font-size:1.5em;letter-spacing:2px;font-weight:700;"></div>
+                <div class="input-group" style="margin-top:14px;">
+                    <label>Roman Numeral</label>
+                    <input type="text" id="romanRoman" placeholder="e.g. MMXXIV" oninput="romanToArabic()" style="font-size:1.1em;letter-spacing:2px;">
+                </div>
+                <div class="result" id="arabicResult" style="font-size:1.5em;font-weight:700;"></div>
+            </div>
+
+            <!-- ===== SCREEN PPI CALCULATOR ===== -->
+            <div class="tool-card" data-category="tools" data-keywords="ppi dpi screen resolution pixels per inch monitor display phone sharpness calculator">
+                <h3><span class="icon">🖥️</span> Screen PPI Calculator</h3>
+                <p class="tool-note">Find how sharp your screen is in pixels per inch (PPI).</p>
+                <div class="two-col">
+                    <div class="input-group">
+                        <label>Width (px)</label>
+                        <input type="number" id="ppiW" placeholder="e.g. 2560">
+                    </div>
+                    <div class="input-group">
+                        <label>Height (px)</label>
+                        <input type="number" id="ppiH" placeholder="e.g. 1600">
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>Screen Diagonal Size (inches)</label>
+                    <input type="number" id="ppiSize" placeholder="e.g. 13.3" step="0.1">
+                </div>
+                <button class="btn" onclick="calcPPI()">🖥️ Calculate PPI</button>
+                <div class="result" id="ppiResult"></div>
+            </div>
+
+            <!-- ===== WEATHER CHECKER (wttr.in API) ===== -->
+            <div class="tool-card" data-category="api" data-keywords="weather today temperature humidity wind rain forecast city live current">
+                <span class="api-badge">🌐 Live API</span>
+                <h3><span class="icon">🌤️</span> Weather Checker</h3>
+                <div class="input-group">
+                    <label>City Name</label>
+                    <input type="text" id="weatherCity" placeholder="e.g. London, Karachi, New York" onkeypress="if(event.key==='Enter')fetchWeather()">
+                </div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+                    <button class="btn" onclick="fetchWeather()">🌤️ Get Weather</button>
+                    <button class="btn" onclick="fetchMyWeather()" style="background:linear-gradient(135deg,#43e97b,#38f9d7);color:#1a1a2e;">📍 My Location</button>
+                </div>
+                <div id="weatherResult" style="display:none;" class="weather-display"></div>
+                <div class="result" id="weatherError" style="display:none;"></div>
+            </div>
+
+            <!-- ===== DICTIONARY LOOKUP (dictionaryapi.dev) ===== -->
+            <div class="tool-card" data-category="api" data-keywords="dictionary word definition meaning synonym example pronunciation english lookup">
+                <span class="api-badge">🌐 Live API</span>
+                <h3><span class="icon">📖</span> Dictionary Lookup</h3>
+                <div class="input-group">
+                    <label>Enter a Word</label>
+                    <input type="text" id="dictWord" placeholder="e.g. serendipity" onkeypress="if(event.key==='Enter')lookupWord()">
+                </div>
+                <button class="btn" onclick="lookupWord()">📖 Define Word</button>
+                <div id="dictResult" style="display:none;margin-top:14px;" class="result dict-result"></div>
+            </div>
+
+            <!-- ===== IP ADDRESS LOOKUP (ipapi.co) ===== -->
+            <div class="tool-card" data-category="api" data-keywords="ip address lookup location country city isp internet network my ip what is">
+                <span class="api-badge">🌐 Live API</span>
+                <h3><span class="icon">🌐</span> IP Address Lookup</h3>
+                <div class="input-group">
+                    <label>IP Address <small style="color:#999;">(leave blank for your own IP)</small></label>
+                    <input type="text" id="ipInput" placeholder="e.g. 8.8.8.8 or leave blank" onkeypress="if(event.key==='Enter')lookupIP()">
+                </div>
+                <button class="btn" onclick="lookupIP()">🌐 Lookup IP</button>
+                <div class="result" id="ipResult"></div>
+            </div>
+
+            <!-- ===== QR CODE GENERATOR (api.qrserver.com) ===== -->
+            <div class="tool-card" data-category="api" data-keywords="qr code generator create link url text share scan barcode">
+                <span class="api-badge">🌐 Live API</span>
+                <h3><span class="icon">📷</span> QR Code Generator</h3>
+                <div class="input-group">
+                    <label>Text or URL to encode</label>
+                    <textarea id="qrText" rows="3" placeholder="Enter URL, text, phone number, email..."></textarea>
+                </div>
+                <div class="two-col">
+                    <div class="input-group">
+                        <label>Size (px)</label>
+                        <select id="qrSize">
+                            <option value="150">150 × 150</option>
+                            <option value="200" selected>200 × 200</option>
+                            <option value="300">300 × 300</option>
+                            <option value="500">500 × 500</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>Error Correction</label>
+                        <select id="qrEcc">
+                            <option value="L">Low (L)</option>
+                            <option value="M" selected>Medium (M)</option>
+                            <option value="Q">Quality (Q)</option>
+                            <option value="H">High (H)</option>
+                        </select>
+                    </div>
+                </div>
+                <button class="btn" onclick="generateQR()">📷 Generate QR Code</button>
+                <div id="qrOutput" style="text-align:center;margin-top:16px;display:none;"></div>
+            </div>
+
+            <!-- ===== LIVE EXCHANGE RATES (frankfurter.app) ===== -->
+            <div class="tool-card" data-category="api" data-keywords="live exchange rate currency converter forex dollar euro pound yen real time">
+                <span class="api-badge">🌐 Live API</span>
+                <h3><span class="icon">💹</span> Live Exchange Rates</h3>
+                <div class="two-col">
+                    <div class="input-group">
+                        <label>Amount</label>
+                        <input type="number" id="liveAmount" value="1" min="0.01" step="any">
+                    </div>
+                    <div class="input-group">
+                        <label>From Currency</label>
+                        <select id="liveCurrFrom">
+                            <option value="USD" selected>USD 🇺🇸</option>
+                            <option value="EUR">EUR 🇪🇺</option>
+                            <option value="GBP">GBP 🇬🇧</option>
+                            <option value="PKR">PKR 🇵🇰</option>
+                            <option value="INR">INR 🇮🇳</option>
+                            <option value="SAR">SAR 🇸🇦</option>
+                            <option value="AED">AED 🇦🇪</option>
+                            <option value="JPY">JPY 🇯🇵</option>
+                            <option value="CNY">CNY 🇨🇳</option>
+                            <option value="CAD">CAD 🇨🇦</option>
+                            <option value="AUD">AUD 🇦🇺</option>
+                            <option value="CHF">CHF 🇨🇭</option>
+                            <option value="TRY">TRY 🇹🇷</option>
+                            <option value="BDT">BDT 🇧🇩</option>
+                            <option value="MYR">MYR 🇲🇾</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>To Currency</label>
+                    <select id="liveCurrTo">
+                        <option value="USD">USD 🇺🇸</option>
+                        <option value="EUR">EUR 🇪🇺</option>
+                        <option value="GBP">GBP 🇬🇧</option>
+                        <option value="PKR" selected>PKR 🇵🇰</option>
+                        <option value="INR">INR 🇮🇳</option>
+                        <option value="SAR">SAR 🇸🇦</option>
+                        <option value="AED">AED 🇦🇪</option>
+                        <option value="JPY">JPY 🇯🇵</option>
+                        <option value="CNY">CNY 🇨🇳</option>
+                        <option value="CAD">CAD 🇨🇦</option>
+                        <option value="AUD">AUD 🇦🇺</option>
+                        <option value="CHF">CHF 🇨🇭</option>
+                        <option value="TRY">TRY 🇹🇷</option>
+                        <option value="BDT">BDT 🇧🇩</option>
+                        <option value="MYR">MYR 🇲🇾</option>
+                    </select>
+                </div>
+                <button class="btn" onclick="fetchLiveRate()">💹 Get Live Rate</button>
+                <div class="result" id="liveRateResult"></div>
+            </div>
+
+            <!-- ===== RANDOM QUOTE (quotable.io) ===== -->
+            <div class="tool-card" data-category="api" data-keywords="random quote inspiration motivation daily wisdom saying author famous">
+                <span class="api-badge">🌐 Live API</span>
+                <h3><span class="icon">💬</span> Random Quote Generator</h3>
+                <div class="input-group">
+                    <label>Category (optional)</label>
+                    <select id="quoteTag">
+                        <option value="">✨ Any Category</option>
+                        <option value="inspirational">💡 Inspirational</option>
+                        <option value="life">🌿 Life</option>
+                        <option value="success">🏆 Success</option>
+                        <option value="motivational">🔥 Motivational</option>
+                        <option value="wisdom">🧠 Wisdom</option>
+                        <option value="happiness">😊 Happiness</option>
+                        <option value="friendship">🤝 Friendship</option>
+                        <option value="love">❤️ Love</option>
+                    </select>
+                </div>
+                <button class="btn" onclick="fetchQuote()">💬 Get Quote</button>
+                <div id="quoteResult" style="display:none;margin-top:14px;background:rgba(102,126,234,0.07);border-radius:14px;padding:18px;border-left:4px solid #667eea;">
+                    <div id="quoteText" style="font-size:1.05em;font-style:italic;color:#333;line-height:1.6;"></div>
+                    <div id="quoteAuthor" style="margin-top:10px;font-weight:700;color:#667eea;font-size:0.92em;"></div>
+                </div>
+                <div class="result" id="quoteError" style="display:none;"></div>
+                <button class="btn" id="copyQuoteBtn" onclick="copyQuote()" style="display:none;margin-top:8px;background:linear-gradient(135deg,#43e97b,#38f9d7);color:#1a1a2e;">📋 Copy Quote</button>
+            </div>
+
+            <!-- ===== COUNTRY INFO (restcountries.com) ===== -->
+            <div class="tool-card" data-category="api" data-keywords="country info capital population currency flag language area region continent">
+                <span class="api-badge">🌐 Live API</span>
+                <h3><span class="icon">🌍</span> Country Info</h3>
+                <div class="input-group">
+                    <label>Country Name</label>
+                    <input type="text" id="countryInput" placeholder="e.g. Pakistan, Germany, Japan" onkeypress="if(event.key==='Enter')fetchCountry()">
+                </div>
+                <button class="btn" onclick="fetchCountry()">🌍 Get Info</button>
+                <div id="countryResult" style="display:none;margin-top:14px;" class="result"></div>
+            </div>
+
+            <!-- ===== CSS GRADIENT GENERATOR ===== -->
+            <div class="tool-card" data-category="design" data-keywords="css gradient generator color design background linear radial web ui">
+                <h3><span class="icon">🎨</span> CSS Gradient Generator</h3>
+                <div class="two-col">
+                    <div class="input-group">
+                        <label>Color 1</label>
+                        <input type="color" id="grad1" value="#667eea" oninput="updateGradient()">
+                    </div>
+                    <div class="input-group">
+                        <label>Color 2</label>
+                        <input type="color" id="grad2" value="#764ba2" oninput="updateGradient()">
+                    </div>
+                </div>
+                <div class="two-col">
+                    <div class="input-group">
+                        <label>Type</label>
+                        <select id="gradType" oninput="updateGradient()">
+                            <option value="linear">Linear</option>
+                            <option value="radial">Radial</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>Angle (linear only)</label>
+                        <input type="range" id="gradAngle" min="0" max="360" value="135" oninput="updateGradient()">
+                    </div>
+                </div>
+                <div class="gradient-preview" id="gradPreview"></div>
+                <div class="gradient-code" id="gradCode" onclick="copyGradient()" title="Click to copy">Click to copy CSS</div>
+                <div class="result" id="gradCopyMsg" style="display:none;margin-top:8px;"></div>
+            </div>
+
+            <!-- ===== TEXT CASE CONVERTER ===== -->
+            <div class="tool-card" data-category="tools" data-keywords="text case converter uppercase lowercase title camel snake kebab pascal sentence">
+                <h3><span class="icon">🔤</span> Text Case Converter</h3>
+                <div class="input-group">
+                    <label>Input Text</label>
+                    <textarea id="caseInput" rows="4" placeholder="Type or paste your text here..."></textarea>
+                </div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;">
+                    <button class="btn" onclick="convertCase('upper')" style="font-size:0.9em;padding:10px;">UPPERCASE</button>
+                    <button class="btn" onclick="convertCase('lower')" style="font-size:0.9em;padding:10px;">lowercase</button>
+                    <button class="btn" onclick="convertCase('title')" style="font-size:0.9em;padding:10px;">Title Case</button>
+                    <button class="btn" onclick="convertCase('sentence')" style="font-size:0.9em;padding:10px;">Sentence case</button>
+                    <button class="btn" onclick="convertCase('camel')" style="font-size:0.9em;padding:10px;">camelCase</button>
+                    <button class="btn" onclick="convertCase('snake')" style="font-size:0.9em;padding:10px;">snake_case</button>
+                    <button class="btn" onclick="convertCase('kebab')" style="font-size:0.9em;padding:10px;">kebab-case</button>
+                    <button class="btn" onclick="convertCase('pascal')" style="font-size:0.9em;padding:10px;">PascalCase</button>
+                </div>
+                <div class="input-group">
+                    <label>Result</label>
+                    <textarea id="caseOutput" rows="4" readonly placeholder="Result appears here..."></textarea>
+                </div>
+                <button class="btn" onclick="copyCaseResult()" style="background:linear-gradient(135deg,#43e97b,#38f9d7);color:#1a1a2e;">📋 Copy Result</button>
+            </div>
+
+            <!-- ===== LOREM IPSUM GENERATOR ===== -->
+            <div class="tool-card" data-category="tools" data-keywords="lorem ipsum placeholder dummy text generator paragraphs words design mockup">
+                <h3><span class="icon">🖋️</span> Lorem Ipsum Generator</h3>
+                <div class="two-col">
+                    <div class="input-group">
+                        <label>Paragraphs</label>
+                        <input type="number" id="loremParas" value="2" min="1" max="10">
+                    </div>
+                    <div class="input-group">
+                        <label>Sentences each</label>
+                        <input type="number" id="loremSents" value="4" min="1" max="10">
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>Start with "Lorem ipsum..."</label>
+                    <select id="loremStart">
+                        <option value="yes">Yes (classic)</option>
+                        <option value="no">No (random)</option>
+                    </select>
+                </div>
+                <button class="btn" onclick="generateLorem()">🖋️ Generate Text</button>
+                <div class="input-group" style="margin-top:12px;">
+                    <textarea id="loremOutput" rows="6" readonly placeholder="Lorem ipsum text will appear here..."></textarea>
+                </div>
+                <button class="btn" onclick="copyLorem()" style="background:linear-gradient(135deg,#43e97b,#38f9d7);color:#1a1a2e;">📋 Copy Text</button>
+            </div>
+
+            <!-- ===== READABILITY SCORE ===== -->
+            <div class="tool-card" data-category="tools" data-keywords="readability score flesch kincaid grade level text analysis reading ease writing clarity">
+                <h3><span class="icon">📊</span> Readability Score</h3>
+                <p class="tool-note">Paste any text to check how easy it is to read (Flesch-Kincaid).</p>
+                <div class="input-group">
+                    <label>Paste your text</label>
+                    <textarea id="readText" rows="6" placeholder="Paste an article, essay, or any text..."></textarea>
+                </div>
+                <button class="btn" onclick="calcReadability()">📊 Analyze</button>
+                <div class="result" id="readResult"></div>
+            </div>
+
+            <!-- ===== MY LOCATION (Geolocation API) ===== -->
+            <div class="tool-card" data-category="api" data-keywords="my location gps coordinates latitude longitude address city country find position">
+                <span class="api-badge">📍 GPS API</span>
+                <h3><span class="icon">📍</span> My Location</h3>
+                <p class="tool-note">Uses your device GPS + OpenStreetMap to find your address.</p>
+                <button class="btn" onclick="getMyLocation()">📍 Find My Location</button>
+                <div class="result" id="locationResult"></div>
+                <div id="locationMap" style="display:none;margin-top:12px;border-radius:12px;overflow:hidden;">
+                    <iframe id="locationIframe" width="100%" height="200" frameborder="0" style="border:0;border-radius:12px;"></iframe>
+                </div>
+            </div>
+
+            <!-- ===== INVOICE GENERATOR ===== -->
+            <div class="tool-card" data-category="finance" data-keywords="invoice generator freelancer billing client total tax amount due professional receipt">
+                <h3><span class="icon">🧾</span> Quick Invoice Calculator</h3>
+                <div class="two-col">
+                    <div class="input-group">
+                        <label>Your Name / Business</label>
+                        <input type="text" id="invFrom" placeholder="Your name">
+                    </div>
+                    <div class="input-group">
+                        <label>Client Name</label>
+                        <input type="text" id="invTo" placeholder="Client name">
+                    </div>
+                </div>
+                <div id="invItems">
+                    <div class="inv-row" style="display:grid;grid-template-columns:2fr 1fr 1fr;gap:8px;margin-bottom:8px;">
+                        <input type="text" placeholder="Service / Item" style="padding:8px;border-radius:8px;border:1px solid #e0e0e0;font-size:0.9em;">
+                        <input type="number" placeholder="Qty" value="1" min="1" style="padding:8px;border-radius:8px;border:1px solid #e0e0e0;font-size:0.9em;">
+                        <input type="number" placeholder="Rate" style="padding:8px;border-radius:8px;border:1px solid #e0e0e0;font-size:0.9em;">
+                    </div>
+                </div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;">
+                    <button class="btn" onclick="addInvRow()" style="background:linear-gradient(135deg,#43e97b,#38f9d7);color:#1a1a2e;padding:10px;">+ Add Item</button>
+                    <div class="input-group" style="margin:0;">
+                        <input type="number" id="invTax" placeholder="Tax %" value="0" style="padding:10px;border-radius:8px;border:1px solid #e0e0e0;font-size:0.9em;">
+                    </div>
+                </div>
+                <button class="btn" onclick="calcInvoice()">🧾 Calculate Invoice</button>
+                <div class="result" id="invResult"></div>
+            </div>
+
+            <!-- ═══════════════════════════════════ -->
+            <!-- TOP AD SLOT — Replace with your AdSense code -->
+            <!-- ═══════════════════════════════════ -->
+            <div class="ad-slot">
+                <span class="ad-slot-label">Advertisement</span>
+                <!-- PASTE YOUR GOOGLE ADSENSE CODE HERE -->
+                <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+                <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto"></ins>
+                <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> -->
+                <div>📢 <strong>Your Ad Here</strong> — Connect Google AdSense to start earning</div>
+            </div>
+
+            <!-- ===== EMI / LOAN CALCULATOR (🔥 highest search tool) ===== -->
+            <div class="tool-card" data-category="finance" data-keywords="emi calculator loan monthly installment interest rate principal tenure home car personal">
+                <span class="hot-badge">🔥 Popular</span>
+                <h3><span class="icon">🏦</span> EMI / Loan Calculator</h3>
+                <div class="input-group">
+                    <label>Loan Amount</label>
+                    <input type="number" id="emiAmount" placeholder="e.g. 500000">
+                </div>
+                <div class="two-col">
+                    <div class="input-group">
+                        <label>Annual Interest Rate (%)</label>
+                        <input type="number" id="emiRate" placeholder="e.g. 10.5" step="0.1">
+                    </div>
+                    <div class="input-group">
+                        <label>Tenure</label>
+                        <select id="emiTenureType">
+                            <option value="months">Months</option>
+                            <option value="years">Years</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>Tenure Value</label>
+                    <input type="number" id="emiTenure" placeholder="e.g. 24">
+                </div>
+                <button class="btn" onclick="calcEMI()">🏦 Calculate EMI</button>
+                <div id="emiFinGrid" class="fin-grid" style="display:none;">
+                    <div class="fin-box"><div class="fval" id="emiMonthly">—</div><div class="flabel">Monthly EMI</div></div>
+                    <div class="fin-box"><div class="fval" id="emiTotal">—</div><div class="flabel">Total Payment</div></div>
+                    <div class="fin-box"><div class="fval" id="emiInterest">—</div><div class="flabel">Total Interest</div></div>
+                    <div class="fin-box"><div class="fval" id="emiPrincipal">—</div><div class="flabel">Principal</div></div>
+                </div>
+                <div class="pro-tip">💡 <strong>Pro Tip:</strong> Even a 0.5% lower rate saves thousands over a long loan!</div>
+            </div>
+
+            <!-- ===== SIP / INVESTMENT CALCULATOR ===== -->
+            <div class="tool-card" data-category="finance" data-keywords="sip investment calculator mutual fund monthly returns wealth growth compound interest savings">
+                <span class="hot-badge">🔥 Popular</span>
+                <h3><span class="icon">📈</span> SIP / Investment Calculator</h3>
+                <div class="two-col">
+                    <div class="input-group">
+                        <label>Monthly Investment</label>
+                        <input type="number" id="sipAmount" placeholder="e.g. 5000">
+                    </div>
+                    <div class="input-group">
+                        <label>Annual Return Rate (%)</label>
+                        <input type="number" id="sipRate" placeholder="e.g. 12" step="0.1">
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>Investment Period (years)</label>
+                    <input type="range" id="sipYears" min="1" max="40" value="10" oninput="document.getElementById('sipYearsVal').textContent=this.value">
+                    <div style="text-align:center;font-weight:700;color:#667eea;font-size:1.1em;" id="sipYearsVal">10 years</div>
+                </div>
+                <button class="btn" onclick="calcSIP()">📈 Calculate Returns</button>
+                <div id="sipFinGrid" class="fin-grid" style="display:none;">
+                    <div class="fin-box"><div class="fval" id="sipInvested">—</div><div class="flabel">Total Invested</div></div>
+                    <div class="fin-box"><div class="fval" id="sipReturns">—</div><div class="flabel">Est. Returns</div></div>
+                    <div class="fin-box"><div class="fval" id="sipTotal">—</div><div class="flabel">Total Value</div></div>
+                    <div class="fin-box"><div class="fval" id="sipMultiple">—</div><div class="flabel">Wealth Multiple</div></div>
+                </div>
+                <div class="sip-chart" id="sipChart"></div>
+            </div>
+
+            <!-- ===== GST / VAT CALCULATOR ===== -->
+            <div class="tool-card" data-category="business" data-keywords="gst vat tax calculator goods services inclusive exclusive rate business invoice percent">
+                <span class="hot-badge">🔥 Popular</span>
+                <h3><span class="icon">🧮</span> GST / VAT Calculator</h3>
+                <div class="input-group">
+                    <label>Amount</label>
+                    <input type="number" id="gstAmount" placeholder="Enter original amount">
+                </div>
+                <div class="two-col">
+                    <div class="input-group">
+                        <label>Tax Rate (%)</label>
+                        <input type="number" id="gstRate" placeholder="e.g. 18" step="0.1">
+                    </div>
+                    <div class="input-group">
+                        <label>Amount Type</label>
+                        <select id="gstType">
+                            <option value="exclusive">Exclusive (add tax)</option>
+                            <option value="inclusive">Inclusive (extract tax)</option>
+                        </select>
+                    </div>
+                </div>
+                <button class="btn" onclick="calcGST()">🧮 Calculate</button>
+                <div id="gstFinGrid" class="fin-grid" style="display:none;">
+                    <div class="fin-box"><div class="fval" id="gstBase">—</div><div class="flabel">Base Amount</div></div>
+                    <div class="fin-box"><div class="fval" id="gstTaxAmt">—</div><div class="flabel">Tax Amount</div></div>
+                    <div class="fin-box" style="grid-column:span 2;"><div class="fval" id="gstTotal">—</div><div class="flabel">Total (incl. Tax)</div></div>
+                </div>
+            </div>
+
+            <!-- ===== DISCOUNT / SALE CALCULATOR ===== -->
+            <div class="tool-card" data-category="finance" data-keywords="discount calculator sale percent off original price savings deal coupon shopping">
+                <h3><span class="icon">🏷️</span> Discount Calculator</h3>
+                <div class="two-col">
+                    <div class="input-group">
+                        <label>Original Price</label>
+                        <input type="number" id="discPrice" placeholder="e.g. 1500">
+                    </div>
+                    <div class="input-group">
+                        <label>Discount (%)</label>
+                        <input type="number" id="discPct" placeholder="e.g. 30">
+                    </div>
+                </div>
+                <button class="btn" onclick="calcDiscount()">🏷️ Calculate Savings</button>
+                <div id="discGrid" class="fin-grid" style="display:none;">
+                    <div class="fin-box"><div class="fval" id="discSave">—</div><div class="flabel">You Save</div></div>
+                    <div class="fin-box"><div class="fval" id="discFinal">—</div><div class="flabel">Final Price</div></div>
+                </div>
+                <div class="input-group" style="margin-top:14px;">
+                    <label>Or: Find what % off</label>
+                    <div style="display:grid;grid-template-columns:1fr 1fr auto;gap:8px;">
+                        <input type="number" id="discOrig2" placeholder="Original">
+                        <input type="number" id="discSale" placeholder="Sale price">
+                        <button class="btn" onclick="calcDiscountPct()" style="width:auto;padding:10px 14px;margin:0;font-size:0.9em;">Find %</button>
+                    </div>
+                </div>
+                <div class="result" id="discPctResult" style="display:none;"></div>
+            </div>
+
+            <!-- ===== SAVINGS GOAL CALCULATOR ===== -->
+            <div class="tool-card" data-category="finance" data-keywords="savings goal calculator target months years deposit money plan future emergency fund">
+                <h3><span class="icon">🎯</span> Savings Goal Calculator</h3>
+                <div class="input-group">
+                    <label>Savings Goal Amount</label>
+                    <input type="number" id="savGoal" placeholder="e.g. 100000">
+                </div>
+                <div class="two-col">
+                    <div class="input-group">
+                        <label>Current Savings</label>
+                        <input type="number" id="savCurrent" placeholder="e.g. 10000" value="0">
+                    </div>
+                    <div class="input-group">
+                        <label>Annual Return (%)</label>
+                        <input type="number" id="savRate" placeholder="e.g. 8" step="0.1" value="8">
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>Monthly Savings Contribution</label>
+                    <input type="number" id="savMonthly" placeholder="e.g. 5000">
+                </div>
+                <button class="btn" onclick="calcSavings()">🎯 Calculate</button>
+                <div class="result" id="savResult"></div>
+            </div>
+
+            <!-- ===== ROI CALCULATOR ===== -->
+            <div class="tool-card" data-category="business" data-keywords="roi return on investment calculator profit business gain loss percentage marketing ads">
+                <h3><span class="icon">📊</span> ROI Calculator</h3>
+                <div class="two-col">
+                    <div class="input-group">
+                        <label>Initial Investment</label>
+                        <input type="number" id="roiCost" placeholder="e.g. 10000">
+                    </div>
+                    <div class="input-group">
+                        <label>Final Value / Revenue</label>
+                        <input type="number" id="roiReturn" placeholder="e.g. 15000">
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>Time Period (months, optional)</label>
+                    <input type="number" id="roiMonths" placeholder="e.g. 12 (leave blank to skip)">
+                </div>
+                <button class="btn" onclick="calcROI()">📊 Calculate ROI</button>
+                <div id="roiGrid" class="fin-grid" style="display:none;">
+                    <div class="fin-box"><div class="fval" id="roiPct">—</div><div class="flabel">ROI %</div></div>
+                    <div class="fin-box"><div class="fval" id="roiProfit">—</div><div class="flabel">Net Profit/Loss</div></div>
+                    <div class="fin-box"><div class="fval" id="roiAnnual">—</div><div class="flabel">Annual ROI</div></div>
+                    <div class="fin-box"><div class="fval" id="roiRating">—</div><div class="flabel">Rating</div></div>
+                </div>
+            </div>
+
+            <!-- ═══════════════ MID-PAGE AD SLOT ═══════════════ -->
+            <div class="ad-slot">
+                <span class="ad-slot-label">Advertisement</span>
+                <!-- PASTE YOUR GOOGLE ADSENSE CODE HERE -->
+                <div>📢 <strong>Mid-Page Ad</strong> — Replace with your AdSense banner (728×90 or responsive)</div>
+            </div>
+
+            <!-- ===== FREELANCER RATE CALCULATOR ===== -->
+            <div class="tool-card" data-category="business" data-keywords="freelancer hourly rate calculator salary income annual monthly charge client project quote">
+                <h3><span class="icon">💻</span> Freelancer Rate Calculator</h3>
+                <div class="two-col">
+                    <div class="input-group">
+                        <label>Desired Annual Income</label>
+                        <input type="number" id="flIncome" placeholder="e.g. 600000">
+                    </div>
+                    <div class="input-group">
+                        <label>Billable Hours / Week</label>
+                        <input type="number" id="flHours" placeholder="e.g. 30" value="30">
+                    </div>
+                </div>
+                <div class="two-col">
+                    <div class="input-group">
+                        <label>Vacation Weeks / Year</label>
+                        <input type="number" id="flVacation" placeholder="e.g. 4" value="4">
+                    </div>
+                    <div class="input-group">
+                        <label>Business Expenses / Month</label>
+                        <input type="number" id="flExpenses" placeholder="e.g. 5000" value="0">
+                    </div>
+                </div>
+                <button class="btn" onclick="calcFreelanceRate()">💻 Calculate My Rate</button>
+                <div id="flGrid" class="fin-grid" style="display:none;">
+                    <div class="fin-box"><div class="fval" id="flHourly">—</div><div class="flabel">Min Hourly Rate</div></div>
+                    <div class="fin-box"><div class="fval" id="flDaily">—</div><div class="flabel">Daily Rate (8h)</div></div>
+                    <div class="fin-box"><div class="fval" id="flProject">—</div><div class="flabel">40-hr Project</div></div>
+                    <div class="fin-box"><div class="fval" id="flMonthly">—</div><div class="flabel">Monthly Target</div></div>
+                </div>
+                <div class="pro-tip">💡 Add 30–40% buffer to your rate to account for taxes, slow months & unpaid work.</div>
+            </div>
+
+            <!-- ===== SALARY HIKE CALCULATOR ===== -->
+            <div class="tool-card" data-category="finance" data-keywords="salary hike raise calculator increment appraisal increase percent new old comparison job">
+                <h3><span class="icon">💰</span> Salary Hike Calculator</h3>
+                <div class="two-col">
+                    <div class="input-group">
+                        <label>Current Salary</label>
+                        <input type="number" id="hikeOld" placeholder="e.g. 50000">
+                    </div>
+                    <div class="input-group">
+                        <label>Calculate by</label>
+                        <select id="hikeBy">
+                            <option value="pct">Hike Percentage</option>
+                            <option value="new">New Salary Amount</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label id="hikeInputLabel">Hike (%)</label>
+                    <input type="number" id="hikeVal" placeholder="e.g. 20">
+                </div>
+                <button class="btn" onclick="calcHike()">💰 Calculate Hike</button>
+                <div id="hikeGrid" class="fin-grid" style="display:none;">
+                    <div class="fin-box"><div class="fval" id="hikeNewSal">—</div><div class="flabel">New Salary</div></div>
+                    <div class="fin-box"><div class="fval" id="hikePctShow">—</div><div class="flabel">Hike %</div></div>
+                    <div class="fin-box"><div class="fval" id="hikeMonthly">—</div><div class="flabel">Monthly Increase</div></div>
+                    <div class="fin-box"><div class="fval" id="hikeYearly">—</div><div class="flabel">Yearly Increase</div></div>
+                </div>
+            </div>
+
+            <!-- ===== KEYWORD DENSITY CHECKER (SEO) ===== -->
+            <div class="tool-card" data-category="seo" data-keywords="keyword density checker seo content analysis text optimization blog article search engine">
+                <h3><span class="icon">🔍</span> Keyword Density Checker</h3>
+                <p class="tool-note">Paste your article and check how often keywords appear — ideal SEO density is 1–3%.</p>
+                <div class="input-group">
+                    <label>Article / Content</label>
+                    <textarea id="kdText" rows="6" placeholder="Paste your article content here..."></textarea>
+                </div>
+                <div class="input-group">
+                    <label>Target Keyword (optional)</label>
+                    <input type="text" id="kdKeyword" placeholder="e.g. digital marketing">
+                </div>
+                <button class="btn" onclick="checkKeywordDensity()">🔍 Analyze</button>
+                <div class="result" id="kdResult"></div>
+            </div>
+
+            <!-- ===== META TAG GENERATOR (SEO) ===== -->
+            <div class="tool-card" data-category="seo" data-keywords="meta tag generator seo title description keywords html head website ranking google search">
+                <h3><span class="icon">🏷️</span> Meta Tag Generator</h3>
+                <div class="input-group">
+                    <label>Page Title <small style="color:#999;">(50–60 chars ideal)</small></label>
+                    <input type="text" id="metaTitle" placeholder="Your page title" oninput="updateMetaPreview()" maxlength="70">
+                    <div style="font-size:0.78em;color:#888;margin-top:3px;" id="metaTitleCount">0 / 60</div>
+                </div>
+                <div class="input-group">
+                    <label>Meta Description <small style="color:#999;">(150–160 chars ideal)</small></label>
+                    <textarea id="metaDesc" rows="3" placeholder="Brief description of your page..." oninput="updateMetaPreview()" maxlength="200"></textarea>
+                    <div style="font-size:0.78em;color:#888;margin-top:3px;" id="metaDescCount">0 / 160</div>
+                </div>
+                <div class="input-group">
+                    <label>Keywords (comma separated)</label>
+                    <input type="text" id="metaKeywords" placeholder="e.g. tools, calculator, free online" oninput="updateMetaPreview()">
+                </div>
+                <button class="btn" onclick="generateMetaTags()">🏷️ Generate Meta Tags</button>
+                <div id="metaOutput" style="display:none;margin-top:12px;">
+                    <div id="metaGooglePreview" style="background:#fff;border:1px solid #e0e0e0;border-radius:10px;padding:14px;margin-bottom:10px;font-family:Arial,sans-serif;"></div>
+                    <textarea id="metaCode" rows="5" readonly style="width:100%;padding:10px;border-radius:10px;border:1px solid #e0e0e0;font-family:monospace;font-size:0.82em;resize:vertical;"></textarea>
+                    <button class="btn" onclick="copyMetaTags()" style="margin-top:8px;background:linear-gradient(135deg,#43e97b,#38f9d7);color:#1a1a2e;">📋 Copy HTML Tags</button>
+                </div>
+            </div>
+
+            <!-- ===== OPEN GRAPH / SOCIAL META GENERATOR (SEO) ===== -->
+            <div class="tool-card" data-category="seo" data-keywords="open graph og meta social media preview facebook twitter card url image generator">
+                <h3><span class="icon">📱</span> Social Media Meta Generator</h3>
+                <p class="tool-note">Generate Open Graph tags for rich previews on Facebook, Twitter & WhatsApp.</p>
+                <div class="input-group">
+                    <label>Page URL</label>
+                    <input type="text" id="ogUrl" placeholder="https://yoursite.com/page">
+                </div>
+                <div class="input-group">
+                    <label>Title</label>
+                    <input type="text" id="ogTitle" placeholder="Post or page title">
+                </div>
+                <div class="input-group">
+                    <label>Description</label>
+                    <textarea id="ogDesc" rows="2" placeholder="Short description..."></textarea>
+                </div>
+                <div class="input-group">
+                    <label>Image URL</label>
+                    <input type="text" id="ogImage" placeholder="https://yoursite.com/image.jpg">
+                </div>
+                <div class="two-col">
+                    <div class="input-group">
+                        <label>Type</label>
+                        <select id="ogType">
+                            <option value="website">Website</option>
+                            <option value="article">Article</option>
+                            <option value="product">Product</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>Twitter Card</label>
+                        <select id="twCard">
+                            <option value="summary_large_image">Large Image</option>
+                            <option value="summary">Summary</option>
+                        </select>
+                    </div>
+                </div>
+                <button class="btn" onclick="generateOG()">📱 Generate Tags</button>
+                <div id="ogOutput" style="display:none;margin-top:12px;">
+                    <textarea id="ogCode" rows="8" readonly style="width:100%;padding:10px;border-radius:10px;border:1px solid #e0e0e0;font-family:monospace;font-size:0.8em;resize:vertical;"></textarea>
+                    <button class="btn" onclick="copyOG()" style="margin-top:8px;background:linear-gradient(135deg,#43e97b,#38f9d7);color:#1a1a2e;">📋 Copy All Tags</button>
+                </div>
+            </div>
+
+            <!-- ===== BREAK-EVEN CALCULATOR ===== -->
+            <div class="tool-card" data-category="business" data-keywords="break even calculator business fixed cost variable cost revenue units profit sales">
+                <h3><span class="icon">⚖️</span> Break-Even Calculator</h3>
+                <div class="input-group">
+                    <label>Fixed Costs (monthly/total)</label>
+                    <input type="number" id="beFixed" placeholder="e.g. 50000">
+                </div>
+                <div class="two-col">
+                    <div class="input-group">
+                        <label>Selling Price / Unit</label>
+                        <input type="number" id="beSell" placeholder="e.g. 500">
+                    </div>
+                    <div class="input-group">
+                        <label>Variable Cost / Unit</label>
+                        <input type="number" id="beVar" placeholder="e.g. 200">
+                    </div>
+                </div>
+                <button class="btn" onclick="calcBreakEven()">⚖️ Calculate</button>
+                <div id="beGrid" class="fin-grid" style="display:none;">
+                    <div class="fin-box"><div class="fval" id="beUnits">—</div><div class="flabel">Break-Even Units</div></div>
+                    <div class="fin-box"><div class="fval" id="beRevenue">—</div><div class="flabel">Break-Even Revenue</div></div>
+                    <div class="fin-box"><div class="fval" id="beMargin">—</div><div class="flabel">Contribution Margin</div></div>
+                    <div class="fin-box"><div class="fval" id="beMarginPct">—</div><div class="flabel">Margin %</div></div>
+                </div>
+            </div>
+
+            <!-- ===== PERCENTAGE MULTI-TOOL ===== -->
+            <div class="tool-card" data-category="math" data-keywords="percentage calculator percent of number increase decrease change difference ratio">
+                <h3><span class="icon">%</span> Percentage Multi-Tool</h3>
+                <div style="display:grid;grid-template-columns:1fr;gap:14px;">
+                    <div style="background:rgba(102,126,234,0.06);border-radius:12px;padding:14px;">
+                        <div style="font-weight:600;margin-bottom:8px;color:#667eea;">① What is X% of Y?</div>
+                        <div style="display:grid;grid-template-columns:1fr 1fr auto;gap:8px;align-items:center;">
+                            <input type="number" id="pct1X" placeholder="%" style="padding:8px;border-radius:8px;border:1px solid #e0e0e0;font-size:0.9em;">
+                            <input type="number" id="pct1Y" placeholder="of number" style="padding:8px;border-radius:8px;border:1px solid #e0e0e0;font-size:0.9em;">
+                            <button class="btn" onclick="calcPct1()" style="width:auto;padding:9px 14px;margin:0;font-size:0.85em;">Go</button>
+                        </div>
+                        <div class="result" id="pct1Res" style="margin-top:8px;display:none;font-size:1em;padding:10px 14px;"></div>
+                    </div>
+                    <div style="background:rgba(102,126,234,0.06);border-radius:12px;padding:14px;">
+                        <div style="font-weight:600;margin-bottom:8px;color:#667eea;">② X is what % of Y?</div>
+                        <div style="display:grid;grid-template-columns:1fr 1fr auto;gap:8px;align-items:center;">
+                            <input type="number" id="pct2X" placeholder="X value" style="padding:8px;border-radius:8px;border:1px solid #e0e0e0;font-size:0.9em;">
+                            <input type="number" id="pct2Y" placeholder="Y value" style="padding:8px;border-radius:8px;border:1px solid #e0e0e0;font-size:0.9em;">
+                            <button class="btn" onclick="calcPct2()" style="width:auto;padding:9px 14px;margin:0;font-size:0.85em;">Go</button>
+                        </div>
+                        <div class="result" id="pct2Res" style="margin-top:8px;display:none;font-size:1em;padding:10px 14px;"></div>
+                    </div>
+                    <div style="background:rgba(102,126,234,0.06);border-radius:12px;padding:14px;">
+                        <div style="font-weight:600;margin-bottom:8px;color:#667eea;">③ % Change (from → to)</div>
+                        <div style="display:grid;grid-template-columns:1fr 1fr auto;gap:8px;align-items:center;">
+                            <input type="number" id="pct3From" placeholder="From" style="padding:8px;border-radius:8px;border:1px solid #e0e0e0;font-size:0.9em;">
+                            <input type="number" id="pct3To" placeholder="To" style="padding:8px;border-radius:8px;border:1px solid #e0e0e0;font-size:0.9em;">
+                            <button class="btn" onclick="calcPct3()" style="width:auto;padding:9px 14px;margin:0;font-size:0.85em;">Go</button>
+                        </div>
+                        <div class="result" id="pct3Res" style="margin-top:8px;display:none;font-size:1em;padding:10px 14px;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== BODY FAT CALCULATOR ===== -->
+            <div class="tool-card" data-category="health" data-keywords="body fat calculator percentage fitness health bmi waist neck navy method ideal weight">
+                <h3><span class="icon">💪</span> Body Fat Calculator</h3>
+                <p class="tool-note">Uses the US Navy method (height, waist, neck measurements).</p>
+                <div class="two-col">
+                    <div class="input-group">
+                        <label>Gender</label>
+                        <select id="bfGender">
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>Height (cm)</label>
+                        <input type="number" id="bfHeight" placeholder="e.g. 175">
+                    </div>
+                </div>
+                <div class="two-col">
+                    <div class="input-group">
+                        <label>Waist (cm)</label>
+                        <input type="number" id="bfWaist" placeholder="at navel">
+                    </div>
+                    <div class="input-group">
+                        <label>Neck (cm)</label>
+                        <input type="number" id="bfNeck" placeholder="below larynx">
+                    </div>
+                </div>
+                <div class="input-group" id="bfHipGroup" style="display:none;">
+                    <label>Hip (cm) — women only</label>
+                    <input type="number" id="bfHip" placeholder="at widest point">
+                </div>
+                <button class="btn" onclick="calcBodyFat()">💪 Calculate Body Fat</button>
+                <div class="result" id="bfResult"></div>
+            </div>
+
+            <!-- ═══════════ NEWSLETTER SIGNUP SECTION ═══════════ -->
+            <div class="newsletter-bar">
+                <div style="flex:1;min-width:200px;">
+                    <h3>📬 Stay Updated with New Tools!</h3>
+                    <p>Get notified when we add new calculators & features — no spam ever.</p>
+                </div>
+                <div class="newsletter-input-wrap">
+                    <input type="email" id="newsletterEmail" placeholder="Enter your email address">
+                    <button onclick="subscribeNewsletter()">Subscribe ✨</button>
+                </div>
+            </div>
+
+            <!-- ===== SHARE THIS WEBSITE ===== -->
+            <div class="tool-card" data-category="tools" data-keywords="share website tools kit link social whatsapp twitter facebook">
+                <h3><span class="icon">🚀</span> Share This Website</h3>
+                <p class="tool-note">Love these tools? Share with friends and help them too!</p>
+                <div style="background:rgba(102,126,234,0.07);border-radius:12px;padding:14px;text-align:center;font-size:1.1em;font-weight:700;margin-bottom:14px;color:#667eea;word-break:break-all;" id="siteUrl"></div>
+                <div class="share-bar">
+                    <button class="share-btn share-wa" onclick="shareWA()">💬 WhatsApp</button>
+                    <button class="share-btn share-tw" onclick="shareTW()">🐦 Twitter</button>
+                    <button class="share-btn share-copy" onclick="shareCopy()">📋 Copy Link</button>
+                    <button class="share-btn share-more" onclick="shareMore()">⬆️ More</button>
+                </div>
+                <div class="result" id="shareResult" style="display:none;margin-top:10px;font-size:0.95em;"></div>
+            </div>
+
+            <!-- ═══════════════ BOTTOM AD SLOT ═══════════════ -->
+            <div class="ad-slot">
+                <span class="ad-slot-label">Advertisement</span>
+                <!-- PASTE YOUR GOOGLE ADSENSE CODE HERE -->
+                <div>📢 <strong>Bottom Ad Slot</strong> — Best performing position for AdSense</div>
+            </div>
+
+            <!-- ===== BATCH 1 — 10 NEW TOOLS ===== -->
+
+            <!-- 1. PROFIT MARGIN CALCULATOR -->
+            <div class="tool-card" data-category="business" data-keywords="profit margin calculator cost price selling revenue gross net business markup">
+                <span class="hot-badge">🔥 Popular</span>
+                <h3><span class="icon">💹</span> Profit Margin Calculator</h3>
+                <div class="two-col">
+                    <div class="input-group">
+                        <label>Cost Price</label>
+                        <input type="number" id="pmCost" placeholder="e.g. 500">
+                    </div>
+                    <div class="input-group">
+                        <label>Selling Price</label>
+                        <input type="number" id="pmSell" placeholder="e.g. 800">
+                    </div>
+                </div>
+                <button class="btn" onclick="calcProfitMargin()">💹 Calculate</button>
+                <div id="pmGrid" class="fin-grid" style="display:none;">
+                    <div class="fin-box"><div class="fval" id="pmProfit">—</div><div class="flabel">Profit</div></div>
+                    <div class="fin-box"><div class="fval" id="pmMargin">—</div><div class="flabel">Margin %</div></div>
+                    <div class="fin-box"><div class="fval" id="pmMarkup">—</div><div class="flabel">Markup %</div></div>
+                    <div class="fin-box"><div class="fval" id="pmRevenue">—</div><div class="flabel">Revenue</div></div>
+                </div>
+                <div class="pro-tip">💡 Margin = profit ÷ selling price. Markup = profit ÷ cost price.</div>
+            </div>
+
+            <!-- 2. INVOICE NUMBER GENERATOR + TRACKER -->
+            <div class="tool-card" data-category="business" data-keywords="invoice number generator tracker freelancer client billing professional receipt serial">
+                <h3><span class="icon">🧾</span> Invoice Number Generator</h3>
+                <p class="tool-note">Generate professional invoice numbers and track your billing history.</p>
+                <div class="two-col">
+                    <div class="input-group">
+                        <label>Prefix (e.g. INV, BILL)</label>
+                        <input type="text" id="invPrefix" value="INV" maxlength="6">
+                    </div>
+                    <div class="input-group">
+                        <label>Starting Number</label>
+                        <input type="number" id="invStart" value="1001">
+                    </div>
+                </div>
+                <div class="two-col">
+                    <div class="input-group">
+                        <label>Client Name</label>
+                        <input type="text" id="invClient" placeholder="Client / Project name">
+                    </div>
+                    <div class="input-group">
+                        <label>Amount</label>
+                        <input type="number" id="invAmt" placeholder="e.g. 25000">
+                    </div>
+                </div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+                    <button class="btn" onclick="generateInvNum()">🧾 Generate</button>
+                    <button class="btn" onclick="clearInvHistory()" style="background:linear-gradient(135deg,#f093fb,#f5576c);">🗑️ Clear History</button>
+                </div>
+                <div class="result" id="invNumResult"></div>
+                <div class="alarm-list" id="invHistory" style="max-height:200px;margin-top:10px;"></div>
+            </div>
+
+            <!-- 3. UNIT PRICE COMPARATOR (Best Buy Calculator) -->
+            <div class="tool-card" data-category="finance" data-keywords="unit price comparator best buy deal cheapest value money product compare shopping grocery">
+                <span class="hot-badge">🔥 Popular</span>
+                <h3><span class="icon">🛒</span> Best Deal Finder</h3>
+                <p class="tool-note">Compare 2–3 products to find which gives the best value per unit.</p>
+                <div id="dealRows">
+                    <div class="deal-row" style="display:grid;grid-template-columns:2fr 1fr 1fr;gap:8px;margin-bottom:8px;align-items:center;">
+                        <input type="text" placeholder="Product A name" value="Small Pack" style="padding:9px;border-radius:8px;border:1px solid #e0e0e0;font-size:0.9em;">
+                        <input type="number" placeholder="Price" style="padding:9px;border-radius:8px;border:1px solid #e0e0e0;font-size:0.9em;">
+                        <input type="number" placeholder="Quantity/g" style="padding:9px;border-radius:8px;border:1px solid #e0e0e0;font-size:0.9em;">
+                    </div>
+                    <div class="deal-row" style="display:grid;grid-template-columns:2fr 1fr 1fr;gap:8px;margin-bottom:8px;align-items:center;">
+                        <input type="text" placeholder="Product B name" value="Large Pack" style="padding:9px;border-radius:8px;border:1px solid #e0e0e0;font-size:0.9em;">
+                        <input type="number" placeholder="Price" style="padding:9px;border-radius:8px;border:1px solid #e0e0e0;font-size:0.9em;">
+                        <input type="number" placeholder="Quantity/g" style="padding:9px;border-radius:8px;border:1px solid #e0e0e0;font-size:0.9em;">
+                    </div>
+                </div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;">
+                    <button class="btn" onclick="addDealRow()" style="background:linear-gradient(135deg,#43e97b,#38f9d7);color:#1a1a2e;">+ Add Product</button>
+                    <button class="btn" onclick="findBestDeal()">🛒 Find Best Deal</button>
+                </div>
+                <div class="result" id="dealResult"></div>
+            </div>
+
+            <!-- 4. COMPOUND INTEREST CALCULATOR -->
+            <div class="tool-card" data-category="finance" data-keywords="compound interest calculator investment savings growth principal annual rate years future value">
+                <span class="hot-badge">🔥 Popular</span>
+                <h3><span class="icon">📊</span> Compound Interest Calculator</h3>
+                <div class="two-col">
+                    <div class="input-group">
+                        <label>Principal Amount</label>
+                        <input type="number" id="ciPrincipal" placeholder="e.g. 100000">
+                    </div>
+                    <div class="input-group">
+                        <label>Annual Rate (%)</label>
+                        <input type="number" id="ciRate" placeholder="e.g. 10" step="0.1">
+                    </div>
+                </div>
+                <div class="two-col">
+                    <div class="input-group">
+                        <label>Time (years)</label>
+                        <input type="number" id="ciYears" placeholder="e.g. 5">
+                    </div>
+                    <div class="input-group">
+                        <label>Compounded</label>
+                        <select id="ciFreq">
+                            <option value="1">Annually</option>
+                            <option value="2">Semi-Annually</option>
+                            <option value="4">Quarterly</option>
+                            <option value="12" selected>Monthly</option>
+                            <option value="365">Daily</option>
+                        </select>
+                    </div>
+                </div>
+                <button class="btn" onclick="calcCompoundInterest()">📊 Calculate</button>
+                <div id="ciGrid" class="fin-grid" style="display:none;">
+                    <div class="fin-box"><div class="fval" id="ciFinal">—</div><div class="flabel">Final Amount</div></div>
+                    <div class="fin-box"><div class="fval" id="ciEarned">—</div><div class="flabel">Interest Earned</div></div>
+                    <div class="fin-box"><div class="fval" id="ciDouble">—</div><div class="flabel">Doubles In</div></div>
+                    <div class="fin-box"><div class="fval" id="ciGrowth">—</div><div class="flabel">Growth %</div></div>
+                </div>
+            </div>
+
+            <!-- 5. ZAKAT CALCULATOR (Islamic — huge audience) -->
+            <div class="tool-card" data-category="islamic" data-keywords="zakat calculator nisab gold silver savings islam muslim annual due charity purification">
+                <span class="hot-badge">🕌 Islamic</span>
+                <h3><span class="icon">🕌</span> Zakat Calculator</h3>
+                <p class="tool-note">Calculate your annual Zakat (2.5% on wealth above Nisab threshold).</p>
+                <div class="input-group">
+                    <label>Cash & Bank Savings</label>
+                    <input type="number" id="zakCash" placeholder="e.g. 500000" value="0">
+                </div>
+                <div class="input-group">
+                    <label>Gold Value (market price)</label>
+                    <input type="number" id="zakGold" placeholder="e.g. 200000" value="0">
+                </div>
+                <div class="input-group">
+                    <label>Silver Value</label>
+                    <input type="number" id="zakSilver" placeholder="e.g. 50000" value="0">
+                </div>
+                <div class="input-group">
+                    <label>Business Goods / Stock</label>
+                    <input type="number" id="zakBusiness" placeholder="e.g. 100000" value="0">
+                </div>
+                <div class="input-group">
+                    <label>Receivables (money owed to you)</label>
+                    <input type="number" id="zakReceivable" placeholder="e.g. 30000" value="0">
+                </div>
+                <div class="input-group">
+                    <label>Debts / Liabilities (deduct)</label>
+                    <input type="number" id="zakDebts" placeholder="e.g. 20000" value="0">
+                </div>
+                <button class="btn" onclick="calcZakat()" style="background:linear-gradient(135deg,#2ecc71,#27ae60);">🕌 Calculate Zakat</button>
+                <div class="result" id="zakResult"></div>
+            </div>
+
+            <!-- 6. PRAYER TIMES (Islamic — API) -->
+            <div class="tool-card" data-category="islamic" data-keywords="prayer times namaz salah fajr dhuhr asr maghrib isha city daily muslim islamic schedule">
+                <span class="api-badge">🌐 Live API</span>
+                <span class="hot-badge" style="right:90px;">🕌 Islamic</span>
+                <h3><span class="icon">🕋</span> Prayer Times</h3>
+                <div class="two-col">
+                    <div class="input-group">
+                        <label>City</label>
+                        <input type="text" id="prayCity" placeholder="e.g. Karachi" value="Karachi">
+                    </div>
+                    <div class="input-group">
+                        <label>Country</label>
+                        <input type="text" id="prayCountry" placeholder="e.g. Pakistan" value="Pakistan">
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>Calculation Method</label>
+                    <select id="prayMethod">
+                        <option value="1">University of Islamic Sciences, Karachi</option>
+                        <option value="2">Islamic Society of North America</option>
+                        <option value="3">Muslim World League</option>
+                        <option value="4">Umm Al-Qura, Makkah</option>
+                        <option value="5">Egyptian General Authority</option>
+                    </select>
+                </div>
+                <button class="btn" onclick="fetchPrayerTimes()" style="background:linear-gradient(135deg,#2ecc71,#27ae60);">🕋 Get Prayer Times</button>
+                <div id="prayResult" style="display:none;margin-top:14px;"></div>
+                <div class="result" id="prayError" style="display:none;"></div>
+            </div>
+
+            <!-- 7. HASHTAG GENERATOR (Social Media) -->
+            <div class="tool-card" data-category="seo" data-keywords="hashtag generator instagram facebook twitter tiktok social media viral trending tag post reach">
+                <span class="hot-badge">🔥 Popular</span>
+                <h3><span class="icon">#️⃣</span> Hashtag Generator</h3>
+                <p class="tool-note">Enter your topic and get ready-to-copy hashtags for max reach.</p>
+                <div class="input-group">
+                    <label>Your Topic / Niche</label>
+                    <input type="text" id="hashTopic" placeholder="e.g. digital marketing, food, travel, fashion">
+                </div>
+                <div class="two-col">
+                    <div class="input-group">
+                        <label>Platform</label>
+                        <select id="hashPlatform">
+                            <option value="instagram">Instagram</option>
+                            <option value="tiktok">TikTok</option>
+                            <option value="twitter">Twitter / X</option>
+                            <option value="facebook">Facebook</option>
+                            <option value="youtube">YouTube</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>Count</label>
+                        <select id="hashCount">
+                            <option value="10">10 hashtags</option>
+                            <option value="20" selected>20 hashtags</option>
+                            <option value="30">30 hashtags</option>
+                        </select>
+                    </div>
+                </div>
+                <button class="btn" onclick="generateHashtags()">🚀 Generate Hashtags</button>
+                <div id="hashResult" style="display:none;margin-top:12px;"></div>
+            </div>
+
+            <!-- 8. CHARACTER LIMIT CHECKER (Social Media) -->
+            <div class="tool-card" data-category="seo" data-keywords="character limit checker twitter facebook instagram linkedin sms bio post caption word count social media">
+                <h3><span class="icon">✍️</span> Social Media Character Checker</h3>
+                <p class="tool-note">Know exactly how many characters you have left for each platform.</p>
+                <div class="input-group">
+                    <label>Your Text / Post / Caption</label>
+                    <textarea id="charText" rows="5" placeholder="Type or paste your post here..." oninput="checkCharLimits()"></textarea>
+                </div>
+                <div id="charLimits" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px;"></div>
+            </div>
+
+            <!-- 9. RETIREMENT CALCULATOR -->
+            <div class="tool-card" data-category="finance" data-keywords="retirement calculator age pension savings corpus fund future planning monthly years goal financial independence">
+                <span class="hot-badge">🔥 Popular</span>
+                <h3><span class="icon">🏖️</span> Retirement Calculator</h3>
+                <div class="two-col">
+                    <div class="input-group">
+                        <label>Current Age</label>
+                        <input type="number" id="retAge" placeholder="e.g. 30">
+                    </div>
+                    <div class="input-group">
+                        <label>Retirement Age</label>
+                        <input type="number" id="retRetireAge" placeholder="e.g. 60" value="60">
+                    </div>
+                </div>
+                <div class="two-col">
+                    <div class="input-group">
+                        <label>Monthly Savings</label>
+                        <input type="number" id="retMonthly" placeholder="e.g. 10000">
+                    </div>
+                    <div class="input-group">
+                        <label>Expected Return (%/yr)</label>
+                        <input type="number" id="retRate" placeholder="e.g. 10" step="0.1" value="10">
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>Current Savings Already Saved</label>
+                    <input type="number" id="retCurrent" placeholder="e.g. 50000" value="0">
+                </div>
+                <button class="btn" onclick="calcRetirement()">🏖️ Calculate</button>
+                <div id="retGrid" class="fin-grid" style="display:none;">
+                    <div class="fin-box"><div class="fval" id="retYears">—</div><div class="flabel">Years to Retire</div></div>
+                    <div class="fin-box"><div class="fval" id="retCorpus">—</div><div class="flabel">Retirement Corpus</div></div>
+                    <div class="fin-box"><div class="fval" id="retInvested">—</div><div class="flabel">Total Invested</div></div>
+                    <div class="fin-box"><div class="fval" id="retGains">—</div><div class="flabel">Investment Gains</div></div>
+                </div>
+            </div>
+
+            <!-- 10. LOAN ELIGIBILITY CHECKER -->
+            <div class="tool-card" data-category="finance" data-keywords="loan eligibility calculator salary income personal home car bank afford maximum borrow credit">
+                <span class="hot-badge">🔥 Popular</span>
+                <h3><span class="icon">🏧</span> Loan Eligibility Checker</h3>
+                <p class="tool-note">Find out how much loan you can get based on your income.</p>
+                <div class="two-col">
+                    <div class="input-group">
+                        <label>Net Monthly Income</label>
+                        <input type="number" id="eligIncome" placeholder="e.g. 80000">
+                    </div>
+                    <div class="input-group">
+                        <label>Existing EMI Obligations</label>
+                        <input type="number" id="eligExistingEmi" placeholder="e.g. 5000" value="0">
+                    </div>
+                </div>
+                <div class="two-col">
+                    <div class="input-group">
+                        <label>Annual Interest Rate (%)</label>
+                        <input type="number" id="eligRate" placeholder="e.g. 12" step="0.1" value="12">
+                    </div>
+                    <div class="input-group">
+                        <label>Loan Tenure (years)</label>
+                        <input type="number" id="eligTenure" placeholder="e.g. 5" value="5">
+                    </div>
+                </div>
+                <button class="btn" onclick="calcLoanEligibility()">🏧 Check Eligibility</button>
+                <div id="eligGrid" class="fin-grid" style="display:none;">
+                    <div class="fin-box"><div class="fval" id="eligMax">—</div><div class="flabel">Max Loan Amount</div></div>
+                    <div class="fin-box"><div class="fval" id="eligEmi">—</div><div class="flabel">Max EMI (50% rule)</div></div>
+                    <div class="fin-box"><div class="fval" id="eligMonthly">—</div><div class="flabel">Monthly Payment</div></div>
+                    <div class="fin-box"><div class="fval" id="eligTotal">—</div><div class="flabel">Total Payback</div></div>
+                </div>
+                <div class="pro-tip">💡 Most banks allow max EMI = 40–50% of net monthly income.</div>
             </div>
 
             <div class="no-results" id="noResults">
@@ -3388,14 +5089,1337 @@ function calculateMortgage() {
     );
 }
 
-// ========== INIT NEW TOOLS ==========
+// ==========================================
+// NEW EVERYDAY TOOLS — JAVASCRIPT
+// ==========================================
+
+// ===== SLEEP CALCULATOR =====
+function calcSleepFromWake() {
+    const wake = document.getElementById('sleepWakeTime').value;
+    if (!wake) { alert('Set a wake-up time!'); return; }
+    const [wH, wM] = wake.split(':').map(Number);
+    const wakeMinutes = wH * 60 + wM;
+    const times = [];
+    // 14-min avg time to fall asleep, subtract from target wake
+    for (let cycles = 6; cycles >= 3; cycles--) {
+        let sleep = wakeMinutes - cycles * 90 - 14;
+        if (sleep < 0) sleep += 1440;
+        const sh = Math.floor(sleep / 60) % 24;
+        const sm = sleep % 60;
+        const ampm = sh >= 12 ? 'PM' : 'AM';
+        const disp = `${sh % 12 || 12}:${sm.toString().padStart(2, '0')} ${ampm}`;
+        times.push(`<span style="font-weight:700;color:#667eea;">${disp}</span> <span style="font-size:0.82em;opacity:0.8;">(${cycles} cycles / ${cycles * 1.5} hrs)</span>`);
+    }
+    showResult('sleepResult', `😴 Sleep at one of these times to wake at ${wake}:<br><br>${times.join('<br>')}<br><br><small>⏰ Includes ~14 min to fall asleep</small>`);
+}
+
+function calcSleepFromBed() {
+    const bed = document.getElementById('sleepBedTime').value;
+    if (!bed) { alert('Set a bedtime!'); return; }
+    const [bH, bM] = bed.split(':').map(Number);
+    const bedMinutes = bH * 60 + bM + 14; // +14 to fall asleep
+    const times = [];
+    for (let cycles = 6; cycles >= 3; cycles--) {
+        let wake = bedMinutes + cycles * 90;
+        wake %= 1440;
+        const wh = Math.floor(wake / 60) % 24;
+        const wm = wake % 60;
+        const ampm = wh >= 12 ? 'PM' : 'AM';
+        const disp = `${wh % 12 || 12}:${wm.toString().padStart(2, '0')} ${ampm}`;
+        times.push(`<span style="font-weight:700;color:#667eea;">${disp}</span> <span style="font-size:0.82em;opacity:0.8;">(${cycles} cycles / ${cycles * 1.5} hrs)</span>`);
+    }
+    showResult('sleepResult', `🌅 Wake up at one of these times if you sleep at ${bed}:<br><br>${times.join('<br>')}`);
+}
+
+// ===== WATER INTAKE =====
+function calcWater() {
+    const weight = parseFloat(document.getElementById('waterWeight').value);
+    if (!weight || weight <= 0) { alert('Enter your weight!'); return; }
+    const activity = parseFloat(document.getElementById('waterActivity').value);
+    const climate = parseFloat(document.getElementById('waterClimate').value);
+    const base = weight * 35; // ml
+    const total = base + activity + climate;
+    const glasses = (total / 250).toFixed(1);
+    const litres = (total / 1000).toFixed(2);
+    showResult('waterResult',
+        `💧 Daily Water Need: <strong>${litres} Litres</strong><br>
+         🥛 That's about <strong>${glasses} glasses</strong> (250ml each)<br>
+         📊 Base: ${(base/1000).toFixed(2)}L + Activity: ${(activity/1000).toFixed(2)}L + Climate: ${(climate/1000).toFixed(2)}L`
+    );
+}
+
+// ===== FUEL COST =====
+function calcFuelCost() {
+    const dist = parseFloat(document.getElementById('fuelDist').value);
+    const eff = parseFloat(document.getElementById('fuelEff').value);
+    const price = parseFloat(document.getElementById('fuelPrice').value);
+    if (!dist || !eff || !price) { alert('Please fill all fields!'); return; }
+    const litres = dist / eff;
+    const cost = litres * price;
+    const costPer100 = (100 / eff) * price;
+    showResult('fuelResult',
+        `⛽ Fuel Required: <strong>${litres.toFixed(2)} Litres</strong><br>
+         💰 Total Cost: <strong>${cost.toFixed(2)}</strong><br>
+         📊 Cost per 100km: ${costPer100.toFixed(2)}`
+    );
+}
+
+// ===== BILL SPLITTER =====
+function calcBillSplit() {
+    const bill = parseFloat(document.getElementById('splitBill').value);
+    const people = parseInt(document.getElementById('splitPeople').value);
+    const tip = parseFloat(document.getElementById('splitTip').value) || 0;
+    const tax = parseFloat(document.getElementById('splitTax').value) || 0;
+    if (!bill || !people || people < 1) { alert('Enter bill amount and number of people!'); return; }
+    const taxAmt = bill * tax / 100;
+    const tipAmt = bill * tip / 100;
+    const total = bill + taxAmt + tipAmt;
+    const perPerson = total / people;
+    showResult('splitResult',
+        `🧾 Subtotal: ${bill.toFixed(2)}<br>
+         💸 Tax (${tax}%): ${taxAmt.toFixed(2)}<br>
+         🎁 Tip (${tip}%): ${tipAmt.toFixed(2)}<br>
+         ─────────────<br>
+         💵 Total: <strong>${total.toFixed(2)}</strong><br>
+         👤 Per Person: <strong>${perPerson.toFixed(2)}</strong>`
+    );
+}
+
+// ===== NET SALARY =====
+function calcSalary() {
+    const gross = parseFloat(document.getElementById('salGross').value);
+    const period = document.getElementById('salPeriod').value;
+    const taxPct = parseFloat(document.getElementById('salTax').value) || 0;
+    const deductPct = parseFloat(document.getElementById('salDeduct').value) || 0;
+    if (!gross) { alert('Enter gross salary!'); return; }
+
+    const taxAmt = gross * taxPct / 100;
+    const deductAmt = gross * deductPct / 100;
+    const net = gross - taxAmt - deductAmt;
+    const label = period === 'month' ? 'month' : 'year';
+    const monthly = period === 'year' ? net / 12 : net;
+    const yearly = period === 'year' ? net : net * 12;
+
+    showResult('salResult',
+        `💼 Gross: ${gross.toFixed(2)} / ${label}<br>
+         📉 Tax (${taxPct}%): -${taxAmt.toFixed(2)}<br>
+         📉 Deductions (${deductPct}%): -${deductAmt.toFixed(2)}<br>
+         ─────────────<br>
+         ✅ Net Take-Home: <strong>${net.toFixed(2)} / ${label}</strong><br>
+         📅 Monthly: ${monthly.toFixed(2)} | Yearly: ${yearly.toFixed(2)}`
+    );
+}
+
+// ===== TYPING SPEED TEST =====
+const typingTexts = [
+    "The quick brown fox jumps over the lazy dog near the river bank.",
+    "Success is not final, failure is not fatal: it is the courage to continue that counts.",
+    "Technology is best when it brings people together and makes life easier for everyone.",
+    "Practice makes perfect, and every expert was once a beginner who refused to give up.",
+    "The only way to do great work is to love what you do and keep pushing your limits."
+];
+let typingTimer = null, typingStart = null, typingActive = false, typingSeconds = 60;
+
+function startTypingTest() {
+    const text = typingTexts[Math.floor(Math.random() * typingTexts.length)];
+    document.getElementById('typingPrompt').textContent = text;
+    document.getElementById('typingInput').value = '';
+    document.getElementById('typingInput').disabled = false;
+    document.getElementById('typingInput').focus();
+    document.getElementById('wpmStat').textContent = '0';
+    document.getElementById('accStat').textContent = '100%';
+    document.getElementById('timeStat').textContent = '60';
+    typingActive = true;
+    typingStart = null;
+    typingSeconds = 60;
+    clearInterval(typingTimer);
+    document.getElementById('typingStartBtn').textContent = '⏱️ Running...';
+    document.getElementById('typingStartBtn').disabled = true;
+}
+
+function checkTyping() {
+    if (!typingActive) return;
+    const input = document.getElementById('typingInput').value;
+    if (!typingStart && input.length > 0) {
+        typingStart = Date.now();
+        typingTimer = setInterval(() => {
+            typingSeconds--;
+            document.getElementById('timeStat').textContent = typingSeconds;
+            if (typingSeconds <= 0) {
+                clearInterval(typingTimer);
+                typingActive = false;
+                document.getElementById('typingInput').disabled = true;
+                document.getElementById('typingStartBtn').textContent = '▶️ Start Test';
+                document.getElementById('typingStartBtn').disabled = false;
+            }
+        }, 1000);
+    }
+    const prompt = document.getElementById('typingPrompt').textContent;
+    const words = input.trim().split(/\s+/).filter(Boolean).length;
+    const elapsed = typingStart ? (Date.now() - typingStart) / 60000 : 0;
+    const wpm = elapsed > 0 ? Math.round(words / elapsed) : 0;
+    // Accuracy
+    let correct = 0;
+    for (let i = 0; i < input.length; i++) {
+        if (input[i] === prompt[i]) correct++;
+    }
+    const acc = input.length > 0 ? Math.round((correct / input.length) * 100) : 100;
+    document.getElementById('wpmStat').textContent = wpm;
+    document.getElementById('accStat').textContent = acc + '%';
+}
+
+function resetTypingTest() {
+    clearInterval(typingTimer);
+    typingActive = false;
+    typingStart = null;
+    typingSeconds = 60;
+    document.getElementById('typingPrompt').textContent = 'Press Start to begin the test.';
+    document.getElementById('typingInput').value = '';
+    document.getElementById('typingInput').disabled = true;
+    document.getElementById('wpmStat').textContent = '0';
+    document.getElementById('accStat').textContent = '100%';
+    document.getElementById('timeStat').textContent = '60';
+    document.getElementById('typingStartBtn').textContent = '▶️ Start Test';
+    document.getElementById('typingStartBtn').disabled = false;
+}
+
+// ===== COUNTDOWN TIMER =====
+let cdInterval = null;
+
+function startCountdown() {
+    const name = document.getElementById('cdName').value.trim() || 'Event';
+    const dateVal = document.getElementById('cdDate').value;
+    if (!dateVal) { alert('Please select an event date!'); return; }
+    const target = new Date(dateVal).getTime();
+    if (target < Date.now()) { showResult('cdResult', '⚠️ That date is in the past!'); return; }
+    document.getElementById('cdDisplay').style.display = 'block';
+    document.getElementById('cdResult').style.display = 'none';
+    document.getElementById('cdEventName').textContent = '🎯 ' + name;
+    clearInterval(cdInterval);
+    function tick() {
+        const now = Date.now();
+        const diff = target - now;
+        if (diff <= 0) {
+            clearInterval(cdInterval);
+            document.getElementById('cdDays').textContent = '0';
+            document.getElementById('cdHours').textContent = '0';
+            document.getElementById('cdMins').textContent = '0';
+            document.getElementById('cdSecs').textContent = '0';
+            document.getElementById('cdEventName').textContent = '🎉 ' + name + ' has arrived!';
+            return;
+        }
+        document.getElementById('cdDays').textContent = Math.floor(diff / 86400000);
+        document.getElementById('cdHours').textContent = Math.floor((diff % 86400000) / 3600000);
+        document.getElementById('cdMins').textContent = Math.floor((diff % 3600000) / 60000);
+        document.getElementById('cdSecs').textContent = Math.floor((diff % 60000) / 1000);
+    }
+    tick();
+    cdInterval = setInterval(tick, 1000);
+}
+
+// ===== TIMEZONE CONVERTER =====
+const tzZones = [
+    'UTC', 'America/New_York', 'America/Chicago', 'America/Denver', 'America/Los_Angeles',
+    'America/Sao_Paulo', 'Europe/London', 'Europe/Paris', 'Europe/Moscow',
+    'Africa/Cairo', 'Africa/Lagos', 'Asia/Dubai', 'Asia/Karachi', 'Asia/Kolkata',
+    'Asia/Dhaka', 'Asia/Bangkok', 'Asia/Singapore', 'Asia/Shanghai', 'Asia/Tokyo',
+    'Asia/Seoul', 'Australia/Sydney', 'Pacific/Auckland'
+];
+
+function initTimezones() {
+    const fromSel = document.getElementById('tzFrom');
+    const toSel = document.getElementById('tzTo');
+    if (!fromSel || !toSel) return;
+    fromSel.innerHTML = '';
+    toSel.innerHTML = '';
+    tzZones.forEach(tz => {
+        fromSel.innerHTML += `<option value="${tz}">${tz.replace('_', ' ')}</option>`;
+        toSel.innerHTML += `<option value="${tz}">${tz.replace('_', ' ')}</option>`;
+    });
+    fromSel.value = 'Asia/Karachi';
+    toSel.value = 'America/New_York';
+    // Set default datetime
+    const now = new Date();
+    const pad = n => String(n).padStart(2, '0');
+    document.getElementById('tzInput').value =
+        `${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())}T${pad(now.getHours())}:${pad(now.getMinutes())}`;
+}
+
+function convertTimezone() {
+    const dtVal = document.getElementById('tzInput').value;
+    const from = document.getElementById('tzFrom').value;
+    const to = document.getElementById('tzTo').value;
+    if (!dtVal) { alert('Enter a date and time!'); return; }
+    try {
+        // Parse as local, then reinterpret in source timezone via Intl
+        const inputDate = new Date(dtVal);
+        // Format in source timezone to get the same wall clock time there
+        const sourceFormatter = new Intl.DateTimeFormat('en-CA', {
+            timeZone: from, year: 'numeric', month: '2-digit', day: '2-digit',
+            hour: '2-digit', minute: '2-digit', hour12: false
+        });
+        const targetFormatter = new Intl.DateTimeFormat('en-US', {
+            timeZone: to, weekday: 'short', year: 'numeric', month: 'short',
+            day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit',
+            hour12: true, timeZoneName: 'short'
+        });
+        const converted = targetFormatter.format(inputDate);
+        showResult('tzResult',
+            `🌍 <strong>${from.split('/').pop().replace('_',' ')}</strong> → <strong>${to.split('/').pop().replace('_',' ')}</strong><br><br>` +
+            `📅 Converted: <strong>${converted}</strong>`
+        );
+    } catch(e) {
+        showResult('tzResult', '❌ Could not convert. Check your inputs.');
+    }
+}
+
+// ===== URL ENCODER / DECODER =====
+function encodeURL() {
+    const input = document.getElementById('urlInput').value;
+    if (!input.trim()) { alert('Enter a URL or text to encode!'); return; }
+    document.getElementById('urlOutput').value = encodeURIComponent(input);
+}
+
+function decodeURL() {
+    const input = document.getElementById('urlInput').value;
+    if (!input.trim()) { alert('Enter a URL or text to decode!'); return; }
+    try {
+        document.getElementById('urlOutput').value = decodeURIComponent(input);
+    } catch(e) {
+        document.getElementById('urlOutput').value = 'Invalid encoded string!';
+    }
+}
+
+function copyURLResult() {
+    const val = document.getElementById('urlOutput').value;
+    if (!val) { alert('Nothing to copy!'); return; }
+    navigator.clipboard.writeText(val).catch(() => {
+        document.getElementById('urlOutput').select();
+        document.execCommand('copy');
+    });
+    alert('✅ Copied to clipboard!');
+}
+
+// ===== GPA CALCULATOR =====
+function addGpaRow() {
+    const row = document.createElement('div');
+    row.className = 'gpa-row';
+    row.style.cssText = 'display:grid;grid-template-columns:2fr 1fr 1fr auto;gap:8px;margin-bottom:8px;align-items:center;';
+    row.innerHTML = `
+        <input type="text" placeholder="Course name" style="padding:8px;border-radius:8px;border:1px solid #e0e0e0;font-size:0.9em;">
+        <select style="padding:8px;border-radius:8px;border:1px solid #e0e0e0;font-size:0.9em;">
+            <option value="4.0">A+ / A (4.0)</option>
+            <option value="3.7">A- (3.7)</option>
+            <option value="3.3">B+ (3.3)</option>
+            <option value="3.0">B (3.0)</option>
+            <option value="2.7">B- (2.7)</option>
+            <option value="2.3">C+ (2.3)</option>
+            <option value="2.0">C (2.0)</option>
+            <option value="1.7">C- (1.7)</option>
+            <option value="1.3">D+ (1.3)</option>
+            <option value="1.0">D (1.0)</option>
+            <option value="0.0">F (0.0)</option>
+        </select>
+        <input type="number" placeholder="Credits" min="1" max="6" value="3" style="padding:8px;border-radius:8px;border:1px solid #e0e0e0;font-size:0.9em;">
+        <button onclick="removeGpaRow(this)" style="background:#ff5f57;color:#fff;border:none;border-radius:8px;padding:8px 12px;cursor:pointer;font-size:1em;">✕</button>
+    `;
+    document.getElementById('gpaRows').appendChild(row);
+}
+
+function removeGpaRow(btn) {
+    const rows = document.querySelectorAll('.gpa-row');
+    if (rows.length > 1) btn.parentElement.remove();
+}
+
+function calcGPA() {
+    const rows = document.querySelectorAll('.gpa-row');
+    let totalPoints = 0, totalCredits = 0;
+    rows.forEach(row => {
+        const gradeVal = parseFloat(row.querySelectorAll('select')[0].value);
+        const credits = parseFloat(row.querySelectorAll('input[type="number"]')[0].value) || 0;
+        totalPoints += gradeVal * credits;
+        totalCredits += credits;
+    });
+    if (totalCredits === 0) { alert('Add at least one course with credits!'); return; }
+    const gpa = totalPoints / totalCredits;
+    const letter = gpa >= 3.7 ? 'A' : gpa >= 3.3 ? 'A-' : gpa >= 3.0 ? 'B+' : gpa >= 2.7 ? 'B' : gpa >= 2.3 ? 'B-' : gpa >= 2.0 ? 'C' : gpa >= 1.0 ? 'D' : 'F';
+    const emoji = gpa >= 3.5 ? '🏆' : gpa >= 3.0 ? '🌟' : gpa >= 2.0 ? '👍' : '📚';
+    showResult('gpaResult', `${emoji} GPA: <strong>${gpa.toFixed(2)} / 4.00</strong>  (${letter})<br>Total Credits: ${totalCredits}`);
+}
+
+// ===== GRADE CALCULATOR =====
+function addGradeRow() {
+    const row = document.createElement('div');
+    row.className = 'grade-row';
+    row.style.cssText = 'display:grid;grid-template-columns:2fr 1fr 1fr auto;gap:8px;margin-bottom:8px;align-items:center;';
+    row.innerHTML = `
+        <input type="text" placeholder="Subject" style="padding:8px;border-radius:8px;border:1px solid #e0e0e0;font-size:0.9em;">
+        <input type="number" placeholder="Obtained" style="padding:8px;border-radius:8px;border:1px solid #e0e0e0;font-size:0.9em;">
+        <input type="number" placeholder="Total" value="100" style="padding:8px;border-radius:8px;border:1px solid #e0e0e0;font-size:0.9em;">
+        <button onclick="removeGradeRow(this)" style="background:#ff5f57;color:#fff;border:none;border-radius:8px;padding:8px 12px;cursor:pointer;font-size:1em;">✕</button>
+    `;
+    document.getElementById('gradeRows').appendChild(row);
+}
+
+function removeGradeRow(btn) {
+    const rows = document.querySelectorAll('.grade-row');
+    if (rows.length > 1) btn.parentElement.remove();
+}
+
+function calcGrade() {
+    const rows = document.querySelectorAll('.grade-row');
+    let totalObtained = 0, totalMax = 0;
+    let breakdown = '';
+    rows.forEach(row => {
+        const inputs = row.querySelectorAll('input[type="number"]');
+        const name = row.querySelectorAll('input[type="text"]')[0].value || 'Subject';
+        const obtained = parseFloat(inputs[0].value) || 0;
+        const max = parseFloat(inputs[1].value) || 100;
+        const pct = max > 0 ? (obtained / max * 100).toFixed(1) : 0;
+        totalObtained += obtained;
+        totalMax += max;
+        breakdown += `• ${name}: ${obtained}/${max} (${pct}%)<br>`;
+    });
+    if (totalMax === 0) { alert('Add subject marks!'); return; }
+    const pct = (totalObtained / totalMax * 100);
+    const grade = pct >= 90 ? 'A+' : pct >= 80 ? 'A' : pct >= 70 ? 'B' : pct >= 60 ? 'C' : pct >= 50 ? 'D' : 'F';
+    const emoji = pct >= 80 ? '🏆' : pct >= 60 ? '✅' : pct >= 50 ? '⚠️' : '❌';
+    showResult('gradeResult',
+        `${breakdown}<br>📊 Total: ${totalObtained} / ${totalMax}<br>${emoji} Percentage: <strong>${pct.toFixed(2)}%</strong>  Grade: <strong>${grade}</strong>`
+    );
+}
+
+// ===== ASPECT RATIO =====
+function gcd(a, b) { return b === 0 ? a : gcd(b, a % b); }
+
+function calcAspect() {
+    const w = parseFloat(document.getElementById('arW').value);
+    const h = parseFloat(document.getElementById('arH').value);
+    if (!w || !h) { alert('Enter width and height!'); return; }
+    const d = gcd(Math.round(w), Math.round(h));
+    showResult('arResult', `📐 Ratio: <strong>${w/d}:${h/d}</strong>  (${w} × ${h} pixels)  Decimal: ${(w/h).toFixed(4)}`);
+}
+
+function calcAspectH() {
+    const w = parseFloat(document.getElementById('arW').value);
+    const ratio = document.getElementById('arRatio').value.trim();
+    if (!w || !ratio || !ratio.includes(':')) { alert('Enter width and ratio (e.g. 16:9)!'); return; }
+    const [rW, rH] = ratio.split(':').map(Number);
+    const h = Math.round(w * rH / rW);
+    document.getElementById('arH').value = h;
+    showResult('arResult', `↕ Height: <strong>${h} px</strong>  (${w} × ${h} at ${ratio})`);
+}
+
+function calcAspectW() {
+    const h = parseFloat(document.getElementById('arH').value);
+    const ratio = document.getElementById('arRatio').value.trim();
+    if (!h || !ratio || !ratio.includes(':')) { alert('Enter height and ratio (e.g. 16:9)!'); return; }
+    const [rW, rH] = ratio.split(':').map(Number);
+    const w = Math.round(h * rW / rH);
+    document.getElementById('arW').value = w;
+    showResult('arResult', `↔ Width: <strong>${w} px</strong>  (${w} × ${h} at ${ratio})`);
+}
+
+// ===== BPM TAPPER =====
+let bpmTaps = [], bpmResetTimer = null;
+
+function tapBPM() {
+    clearTimeout(bpmResetTimer);
+    bpmResetTimer = setTimeout(resetBPM, 3000);
+    const now = Date.now();
+    bpmTaps.push(now);
+    if (bpmTaps.length < 2) {
+        document.getElementById('bpmDisplay').textContent = '...';
+        document.getElementById('bpmTaps').textContent = bpmTaps.length;
+        return;
+    }
+    const intervals = [];
+    for (let i = 1; i < bpmTaps.length; i++) {
+        intervals.push(bpmTaps[i] - bpmTaps[i - 1]);
+    }
+    const avg = intervals.reduce((a, b) => a + b, 0) / intervals.length;
+    const bpm = Math.round(60000 / avg);
+    document.getElementById('bpmDisplay').textContent = bpm;
+    document.getElementById('bpmTaps').textContent = bpmTaps.length;
+}
+
+function resetBPM() {
+    bpmTaps = [];
+    document.getElementById('bpmDisplay').textContent = '--';
+    document.getElementById('bpmTaps').textContent = '0';
+}
+
+// ===== ROMAN NUMERALS =====
+const romanMap = [
+    [1000,'M'],[900,'CM'],[500,'D'],[400,'CD'],
+    [100,'C'],[90,'XC'],[50,'L'],[40,'XL'],
+    [10,'X'],[9,'IX'],[5,'V'],[4,'IV'],[1,'I']
+];
+
+function arabicToRoman() {
+    let num = parseInt(document.getElementById('romanArabic').value);
+    if (!num || num < 1 || num > 3999) { showResult('romanResult', '⚠️ Enter 1–3999'); return; }
+    let result = '';
+    for (const [val, sym] of romanMap) {
+        while (num >= val) { result += sym; num -= val; }
+    }
+    showResult('romanResult', `🏛️ <strong>${result}</strong>`);
+}
+
+function romanToArabic() {
+    const input = document.getElementById('romanRoman').value.toUpperCase().trim();
+    if (!input) return;
+    const romanValues = { I:1, V:5, X:10, L:50, C:100, D:500, M:1000 };
+    let total = 0;
+    for (let i = 0; i < input.length; i++) {
+        const curr = romanValues[input[i]];
+        const next = romanValues[input[i+1]];
+        if (!curr) { showResult('arabicResult', '❌ Invalid Roman numeral'); return; }
+        if (next && curr < next) total -= curr;
+        else total += curr;
+    }
+    showResult('arabicResult', `🔢 <strong>${total}</strong>`);
+}
+
+// ===== SCREEN PPI =====
+function calcPPI() {
+    const w = parseFloat(document.getElementById('ppiW').value);
+    const h = parseFloat(document.getElementById('ppiH').value);
+    const size = parseFloat(document.getElementById('ppiSize').value);
+    if (!w || !h || !size) { alert('Fill all fields!'); return; }
+    const ppi = Math.sqrt(w*w + h*h) / size;
+    const quality = ppi >= 400 ? '📱 Retina / Ultra HD' : ppi >= 220 ? '✅ Sharp / High-DPI' : ppi >= 100 ? '👍 Standard' : '🔍 Low Density';
+    showResult('ppiResult',
+        `🖥️ PPI: <strong>${ppi.toFixed(1)} pixels/inch</strong><br>
+         📐 Diagonal: ${Math.sqrt(w*w+h*h).toFixed(0)} px<br>
+         ${quality}`
+    );
+}
+
+// ===== INIT ALL NEW TOOLS ON LOAD =====
 window.addEventListener('DOMContentLoaded', () => {
-    convertColor();
-    renderNotes();
-    loadPlannerTasks();
-    loadHabits();
-    loadTTSVoices();
+    initTimezones();
+    resetTypingTest();
 });
+
+// ==============================================
+// MOBILE SMOOTH EFFECTS
+// ==============================================
+
+// Ripple effect on all .btn clicks
+document.addEventListener('click', function(e) {
+    const btn = e.target.closest('.btn');
+    if (!btn) return;
+    const rect = btn.getBoundingClientRect();
+    const size = Math.max(rect.width, rect.height);
+    const x = e.clientX - rect.left - size / 2;
+    const y = e.clientY - rect.top - size / 2;
+    const ripple = document.createElement('span');
+    ripple.className = 'ripple';
+    ripple.style.cssText = `width:${size}px;height:${size}px;left:${x}px;top:${y}px`;
+    btn.appendChild(ripple);
+    setTimeout(() => ripple.remove(), 600);
+}, true);
+
+// Intersection Observer — float cards in on scroll
+const cardObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+            const card = entry.target;
+            setTimeout(() => {
+                card.classList.add('float-in');
+            }, i * 60);
+            cardObserver.unobserve(card);
+        }
+    });
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+function observeCards() {
+    document.querySelectorAll('.tool-card:not(.float-in)').forEach(card => {
+        cardObserver.observe(card);
+    });
+}
+
+window.addEventListener('DOMContentLoaded', observeCards);
+
+// Re-observe newly visible cards after any filter
+document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('tag')) {
+        setTimeout(() => {
+            document.querySelectorAll('.tool-card:not(.hidden):not(.float-in)').forEach(card => {
+                cardObserver.observe(card);
+            });
+        }, 60);
+    }
+}, true);
+
+// ==============================================
+// API: WEATHER (wttr.in — no key needed)
+// ==============================================
+async function fetchWeather(city) {
+    const cityName = city || document.getElementById('weatherCity').value.trim();
+    if (!cityName) { showResult('weatherError', '⚠️ Please enter a city name!'); return; }
+    document.getElementById('weatherResult').style.display = 'none';
+    document.getElementById('weatherError').innerHTML = '🌐 Fetching weather... <span class="loading-pulse">⏳</span>';
+    document.getElementById('weatherError').classList.add('show');
+    try {
+        const res = await fetch(`https://wttr.in/${encodeURIComponent(cityName)}?format=j1`);
+        if (!res.ok) throw new Error('City not found');
+        const data = await res.json();
+        const cur = data.current_condition[0];
+        const area = data.nearest_area[0];
+        const areaName = area.areaName[0].value + ', ' + area.country[0].value;
+        const temp = cur.temp_C;
+        const feels = cur.FeelsLikeC;
+        const desc = cur.weatherDesc[0].value;
+        const humidity = cur.humidity;
+        const wind = cur.windspeedKmph;
+        const vis = cur.visibility;
+        const uvIndex = cur.uvIndex;
+        const weatherEmoji = getWeatherEmoji(desc);
+
+        document.getElementById('weatherError').style.display = 'none';
+        document.getElementById('weatherError').classList.remove('show');
+        const wr = document.getElementById('weatherResult');
+        wr.style.display = 'block';
+        wr.innerHTML = `
+            <div style="font-size:0.85em;color:#888;margin-bottom:6px;">📍 ${areaName}</div>
+            <div class="weather-temp">${weatherEmoji} ${temp}°C</div>
+            <div class="weather-desc">${desc}</div>
+            <div style="font-size:0.82em;color:#888;">Feels like ${feels}°C</div>
+            <div class="weather-grid" style="margin-top:14px;">
+                <div class="weather-item"><div class="wi-val">${humidity}%</div><div class="wi-label">Humidity</div></div>
+                <div class="weather-item"><div class="wi-val">${wind} km/h</div><div class="wi-label">Wind</div></div>
+                <div class="weather-item"><div class="wi-val">${vis} km</div><div class="wi-label">Visibility</div></div>
+                <div class="weather-item"><div class="wi-val">UV ${uvIndex}</div><div class="wi-label">UV Index</div></div>
+                <div class="weather-item" style="grid-column:span 2;"><div class="wi-val" style="font-size:0.85em;">${new Date().toLocaleString()}</div><div class="wi-label">Last Updated</div></div>
+            </div>`;
+    } catch (e) {
+        showResult('weatherError', `❌ Could not get weather for "${cityName}". Check spelling or try another city.`);
+        document.getElementById('weatherResult').style.display = 'none';
+    }
+}
+
+function getWeatherEmoji(desc) {
+    desc = desc.toLowerCase();
+    if (desc.includes('sun') || desc.includes('clear')) return '☀️';
+    if (desc.includes('cloud')) return '☁️';
+    if (desc.includes('rain') || desc.includes('drizzle')) return '🌧️';
+    if (desc.includes('thunder') || desc.includes('storm')) return '⛈️';
+    if (desc.includes('snow') || desc.includes('bliz')) return '❄️';
+    if (desc.includes('fog') || desc.includes('mist') || desc.includes('haze')) return '🌫️';
+    if (desc.includes('wind')) return '💨';
+    if (desc.includes('partly')) return '⛅';
+    return '🌤️';
+}
+
+async function fetchMyWeather() {
+    if (!navigator.geolocation) { showResult('weatherError', '❌ Geolocation not supported on this device.'); return; }
+    document.getElementById('weatherError').innerHTML = '📍 Getting your location... <span class="loading-pulse">⏳</span>';
+    document.getElementById('weatherError').classList.add('show');
+    navigator.geolocation.getCurrentPosition(async (pos) => {
+        const { latitude, longitude } = pos.coords;
+        await fetchWeather(`${latitude},${longitude}`);
+    }, () => {
+        showResult('weatherError', '❌ Location access denied. Try typing a city name.');
+    });
+}
+
+// ==============================================
+// API: DICTIONARY (dictionaryapi.dev — no key)
+// ==============================================
+async function lookupWord() {
+    const word = document.getElementById('dictWord').value.trim();
+    if (!word) { alert('Enter a word!'); return; }
+    const el = document.getElementById('dictResult');
+    el.style.display = 'block';
+    el.className = 'result dict-result show';
+    el.innerHTML = `🔍 Looking up "<strong>${word}</strong>"... <span class="loading-pulse">⏳</span>`;
+    try {
+        const res = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${encodeURIComponent(word)}`);
+        if (!res.ok) throw new Error('Not found');
+        const data = await res.json();
+        const entry = data[0];
+        const phonetic = entry.phonetic || (entry.phonetics.find(p => p.text) || {}).text || '';
+        let html = `<div class="dict-word">${entry.word}</div>`;
+        if (phonetic) html += `<div class="dict-phonetic">${phonetic}</div>`;
+        entry.meanings.slice(0,3).forEach(m => {
+            html += `<div class="dict-pos">${m.partOfSpeech}</div>`;
+            m.definitions.slice(0,2).forEach(d => {
+                html += `<div class="dict-def">• ${d.definition}</div>`;
+                if (d.example) html += `<div class="dict-example">"${d.example}"</div>`;
+            });
+        });
+        el.innerHTML = html;
+    } catch (e) {
+        el.innerHTML = `❌ No definition found for "<strong>${word}</strong>". Try another word.`;
+    }
+}
+
+// ==============================================
+// API: IP LOOKUP (ipapi.co — no key, 1000/day free)
+// ==============================================
+async function lookupIP() {
+    const ip = document.getElementById('ipInput').value.trim();
+    const url = ip ? `https://ipapi.co/${ip}/json/` : `https://ipapi.co/json/`;
+    showResult('ipResult', `🌐 Looking up IP... <span class="loading-pulse">⏳</span>`);
+    try {
+        const res = await fetch(url);
+        const d = await res.json();
+        if (d.error) throw new Error(d.reason || 'Invalid IP');
+        showResult('ipResult',
+            `🌐 IP: <strong>${d.ip}</strong><br>
+             📍 Location: ${d.city || '—'}, ${d.region || '—'}, ${d.country_name || '—'}<br>
+             🗺️ Coordinates: ${d.latitude}, ${d.longitude}<br>
+             🏢 ISP / Org: ${d.org || d.isp || '—'}<br>
+             ⏰ Timezone: ${d.timezone || '—'}<br>
+             💱 Currency: ${d.currency || '—'}`
+        );
+    } catch (e) {
+        showResult('ipResult', `❌ Could not look up IP: ${e.message}`);
+    }
+}
+
+// ==============================================
+// API: QR CODE (api.qrserver.com — no key)
+// ==============================================
+function generateQR() {
+    const text = document.getElementById('qrText').value.trim();
+    if (!text) { alert('Enter text or a URL to generate a QR code!'); return; }
+    const size = document.getElementById('qrSize').value;
+    const ecc = document.getElementById('qrEcc').value;
+    const url = `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(text)}&size=${size}x${size}&ecc=${ecc}&margin=10`;
+    const out = document.getElementById('qrOutput');
+    out.style.display = 'block';
+    out.innerHTML = `<div class="loading-pulse" style="padding:20px;color:#667eea;">⏳ Generating...</div>`;
+    const img = new Image();
+    img.onload = () => {
+        out.innerHTML = `
+            <img src="${url}" alt="QR Code" style="border-radius:12px;box-shadow:0 8px 25px rgba(0,0,0,0.15);max-width:${Math.min(size,280)}px;">
+            <br><a href="${url}" download="qrcode.png" class="btn" style="display:inline-block;margin-top:12px;width:auto;padding:10px 24px;text-decoration:none;">⬇️ Download QR</a>`;
+    };
+    img.onerror = () => { out.innerHTML = '❌ Failed to generate QR code.'; };
+    img.src = url;
+}
+
+// ==============================================
+// API: LIVE EXCHANGE RATES (frankfurter.app — free)
+// ==============================================
+async function fetchLiveRate() {
+    const amount = parseFloat(document.getElementById('liveAmount').value) || 1;
+    const from = document.getElementById('liveCurrFrom').value;
+    const to = document.getElementById('liveCurrTo').value;
+    if (from === to) { showResult('liveRateResult', '⚠️ From and To currencies are the same!'); return; }
+    showResult('liveRateResult', `🌐 Fetching live rate... <span class="loading-pulse">⏳</span>`);
+    try {
+        const res = await fetch(`https://api.frankfurter.app/latest?amount=${amount}&from=${from}&to=${to}`);
+        if (!res.ok) throw new Error('API error');
+        const data = await res.json();
+        const rate = data.rates[to];
+        const unitRate = data.rates[to] / amount;
+        showResult('liveRateResult',
+            `💹 <strong>${amount} ${from}</strong> = <strong>${rate.toFixed(4)} ${to}</strong><br>
+             📊 1 ${from} = ${unitRate.toFixed(6)} ${to}<br>
+             📅 Rate date: ${data.date}`
+        );
+    } catch (e) {
+        showResult('liveRateResult', `❌ Could not fetch live rate. Please try again.`);
+    }
+}
+
+// ==============================================
+// API: RANDOM QUOTE (quotable.io — free)
+// ==============================================
+let currentQuote = '';
+async function fetchQuote() {
+    const tag = document.getElementById('quoteTag').value;
+    const url = tag ? `https://api.quotable.io/random?tags=${tag}` : `https://api.quotable.io/random`;
+    document.getElementById('quoteResult').style.display = 'none';
+    document.getElementById('quoteError').classList.remove('show');
+    document.getElementById('quoteError').innerHTML = `💬 Fetching quote... <span class="loading-pulse">⏳</span>`;
+    document.getElementById('quoteError').classList.add('show');
+    try {
+        const res = await fetch(url);
+        if (!res.ok) throw new Error('No quote found');
+        const data = await res.json();
+        currentQuote = `"${data.content}" — ${data.author}`;
+        document.getElementById('quoteError').classList.remove('show');
+        document.getElementById('quoteResult').style.display = 'block';
+        document.getElementById('quoteText').textContent = `"${data.content}"`;
+        document.getElementById('quoteAuthor').textContent = `— ${data.author}`;
+        document.getElementById('copyQuoteBtn').style.display = 'block';
+    } catch (e) {
+        document.getElementById('quoteError').classList.remove('show');
+        showResult('quoteError', `❌ Could not fetch quote. Try again!`);
+    }
+}
+
+function copyQuote() {
+    if (!currentQuote) return;
+    navigator.clipboard.writeText(currentQuote).catch(() => {});
+    showResult('quoteError', '✅ Quote copied!');
+}
+
+// ==============================================
+// API: COUNTRY INFO (restcountries.com — free)
+// ==============================================
+async function fetchCountry() {
+    const name = document.getElementById('countryInput').value.trim();
+    if (!name) { alert('Enter a country name!'); return; }
+    const el = document.getElementById('countryResult');
+    el.style.display = 'block';
+    el.className = 'result show';
+    el.innerHTML = `🌍 Searching for "${name}"... <span class="loading-pulse">⏳</span>`;
+    try {
+        const res = await fetch(`https://restcountries.com/v3.1/name/${encodeURIComponent(name)}?fullText=false`);
+        if (!res.ok) throw new Error('Not found');
+        const data = await res.json();
+        const c = data[0];
+        const capital = (c.capital || ['N/A'])[0];
+        const pop = c.population.toLocaleString();
+        const area = c.area ? c.area.toLocaleString() + ' km²' : 'N/A';
+        const region = c.region;
+        const subregion = c.subregion || '';
+        const currencies = Object.values(c.currencies || {}).map(cur => `${cur.name} (${cur.symbol || ''})`).join(', ') || 'N/A';
+        const languages = Object.values(c.languages || {}).join(', ') || 'N/A';
+        const flag = c.flag || '';
+        const timezones = (c.timezones || []).join(', ');
+        el.innerHTML = `
+            <div style="font-size:2.5em;margin-bottom:8px;">${flag}</div>
+            <strong style="font-size:1.2em;">${c.name.common}</strong>
+            <div style="font-size:0.85em;opacity:0.85;">${c.name.official}</div><br>
+            🏙️ Capital: <strong>${capital}</strong><br>
+            👥 Population: <strong>${pop}</strong><br>
+            📐 Area: <strong>${area}</strong><br>
+            🌍 Region: <strong>${region}${subregion ? ' — ' + subregion : ''}</strong><br>
+            💱 Currency: <strong>${currencies}</strong><br>
+            🗣️ Languages: <strong>${languages}</strong><br>
+            ⏰ Timezone: ${timezones}`;
+    } catch (e) {
+        el.innerHTML = `❌ Country not found. Try full name like "Pakistan" or "United States".`;
+    }
+}
+
+// ==============================================
+// CSS GRADIENT GENERATOR
+// ==============================================
+function updateGradient() {
+    const c1 = document.getElementById('grad1').value;
+    const c2 = document.getElementById('grad2').value;
+    const type = document.getElementById('gradType').value;
+    const angle = document.getElementById('gradAngle').value;
+    let css;
+    if (type === 'radial') {
+        css = `radial-gradient(circle, ${c1}, ${c2})`;
+    } else {
+        css = `linear-gradient(${angle}deg, ${c1}, ${c2})`;
+    }
+    document.getElementById('gradPreview').style.background = css;
+    const fullCSS = `background: ${css};`;
+    document.getElementById('gradCode').textContent = fullCSS;
+}
+
+function copyGradient() {
+    const code = document.getElementById('gradCode').textContent;
+    navigator.clipboard.writeText(code).then(() => {
+        showResult('gradCopyMsg', '✅ CSS copied to clipboard!');
+    }).catch(() => {
+        showResult('gradCopyMsg', '✅ ' + code);
+    });
+}
+
+// ==============================================
+// TEXT CASE CONVERTER
+// ==============================================
+function convertCase(type) {
+    const input = document.getElementById('caseInput').value;
+    if (!input.trim()) { alert('Enter some text!'); return; }
+    let result = '';
+    switch (type) {
+        case 'upper':    result = input.toUpperCase(); break;
+        case 'lower':    result = input.toLowerCase(); break;
+        case 'title':    result = input.toLowerCase().replace(/\b\w/g, c => c.toUpperCase()); break;
+        case 'sentence': result = input.toLowerCase().replace(/(^\s*\w|[.!?]\s*\w)/g, c => c.toUpperCase()); break;
+        case 'camel':    result = input.toLowerCase().replace(/[^a-zA-Z0-9]+(.)/g, (m, c) => c.toUpperCase()); break;
+        case 'snake':    result = input.toLowerCase().trim().replace(/\s+/g, '_').replace(/[^a-z0-9_]/g, ''); break;
+        case 'kebab':    result = input.toLowerCase().trim().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, ''); break;
+        case 'pascal':   result = input.toLowerCase().replace(/(^\w|[^a-zA-Z0-9]\w)/g, (m) => m.replace(/[^a-zA-Z0-9]/g, '').toUpperCase()); break;
+    }
+    document.getElementById('caseOutput').value = result;
+}
+
+function copyCaseResult() {
+    const val = document.getElementById('caseOutput').value;
+    if (!val) { alert('Nothing to copy!'); return; }
+    navigator.clipboard.writeText(val).catch(() => {
+        document.getElementById('caseOutput').select();
+        document.execCommand('copy');
+    });
+    alert('✅ Copied!');
+}
+
+// ==============================================
+// LOREM IPSUM GENERATOR
+// ==============================================
+const loremWords = ['lorem','ipsum','dolor','sit','amet','consectetur','adipiscing','elit','sed','do','eiusmod','tempor','incididunt','ut','labore','et','dolore','magna','aliqua','enim','ad','minim','veniam','quis','nostrud','exercitation','ullamco','laboris','nisi','aliquip','ex','ea','commodo','consequat','duis','aute','irure','in','reprehenderit','voluptate','velit','esse','cillum','eu','fugiat','nulla','pariatur','excepteur','sint','occaecat','cupidatat','non','proident','sunt','culpa','qui','officia','deserunt','mollit','anim','id','est','laborum','praesent','sapien','massa','eget','suscipit','urna','sem','fringilla','felis','egestas','semper','aenean','ultricies','mi','quis','hendrerit','dolor','magna','eget','est','lorem'];
+
+function loremSentence() {
+    const len = Math.floor(Math.random() * 10) + 8;
+    const words = [];
+    for (let i = 0; i < len; i++) {
+        words.push(loremWords[Math.floor(Math.random() * loremWords.length)]);
+    }
+    words[0] = words[0].charAt(0).toUpperCase() + words[0].slice(1);
+    return words.join(' ') + '.';
+}
+
+function generateLorem() {
+    const paras = parseInt(document.getElementById('loremParas').value) || 2;
+    const sents = parseInt(document.getElementById('loremSents').value) || 4;
+    const classic = document.getElementById('loremStart').value === 'yes';
+    const paragraphs = [];
+    for (let p = 0; p < paras; p++) {
+        const sentences = [];
+        for (let s = 0; s < sents; s++) {
+            sentences.push(loremSentence());
+        }
+        if (p === 0 && classic) {
+            sentences[0] = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
+        }
+        paragraphs.push(sentences.join(' '));
+    }
+    document.getElementById('loremOutput').value = paragraphs.join('\n\n');
+}
+
+function copyLorem() {
+    const val = document.getElementById('loremOutput').value;
+    if (!val) { alert('Generate text first!'); return; }
+    navigator.clipboard.writeText(val).catch(() => {
+        document.getElementById('loremOutput').select();
+        document.execCommand('copy');
+    });
+    alert('✅ Copied!');
+}
+
+// ==============================================
+// READABILITY SCORE (Flesch-Kincaid)
+// ==============================================
+function syllableCount(word) {
+    word = word.toLowerCase().replace(/[^a-z]/g, '');
+    if (word.length <= 3) return 1;
+    word = word.replace(/(?:[^laeiouy]es|ed|[^laeiouy]e)$/, '').replace(/^y/, '');
+    const m = word.match(/[aeiouy]{1,2}/g);
+    return m ? m.length : 1;
+}
+
+function calcReadability() {
+    const text = document.getElementById('readText').value.trim();
+    if (!text) { alert('Paste some text!'); return; }
+    const sentences = (text.match(/[.!?]+/g) || []).length || 1;
+    const words = text.trim().split(/\s+/).filter(Boolean);
+    const wordCount = words.length;
+    const totalSyllables = words.reduce((acc, w) => acc + syllableCount(w), 0);
+    if (wordCount < 10) { showResult('readResult', '⚠️ Please paste more text for an accurate score.'); return; }
+    const fre = 206.835 - 1.015 * (wordCount / sentences) - 84.6 * (totalSyllables / wordCount);
+    const fkgl = 0.39 * (wordCount / sentences) + 11.8 * (totalSyllables / wordCount) - 15.59;
+    const score = Math.max(0, Math.min(100, fre));
+    const level = score >= 90 ? '👶 Very Easy (5th grade)' : score >= 80 ? '😊 Easy (6th grade)' : score >= 70 ? '🙂 Fairly Easy (7th grade)' : score >= 60 ? '📚 Standard (8-9th grade)' : score >= 50 ? '🎓 Fairly Difficult (10-12th)' : score >= 30 ? '🔬 Difficult (College)' : '🧪 Very Difficult (Expert)';
+    showResult('readResult',
+        `📊 Flesch Reading Ease: <strong>${score.toFixed(1)} / 100</strong><br>
+         🎓 Grade Level: ${Math.max(1, fkgl.toFixed(1))}<br>
+         ${level}<br>
+         ─────────────<br>
+         📝 Words: ${wordCount} | Sentences: ${sentences}<br>
+         🔤 Avg sentence: ${(wordCount/sentences).toFixed(1)} words`
+    );
+}
+
+// ==============================================
+// MY LOCATION (Geolocation + Nominatim)
+// ==============================================
+async function getMyLocation() {
+    if (!navigator.geolocation) {
+        showResult('locationResult', '❌ Geolocation not supported on this device.');
+        return;
+    }
+    showResult('locationResult', `📍 Getting your location... <span class="loading-pulse">⏳</span>`);
+    navigator.geolocation.getCurrentPosition(async (pos) => {
+        const { latitude, longitude, accuracy } = pos.coords;
+        try {
+            const res = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`, {
+                headers: { 'Accept-Language': 'en' }
+            });
+            const data = await res.json();
+            const addr = data.address;
+            const place = [addr.road, addr.suburb, addr.city || addr.town || addr.village, addr.state, addr.country].filter(Boolean).join(', ');
+            showResult('locationResult',
+                `📍 <strong>${place}</strong><br>
+                 🌐 Lat: ${latitude.toFixed(5)} | Lon: ${longitude.toFixed(5)}<br>
+                 📏 Accuracy: ~${Math.round(accuracy)}m`
+            );
+            const mapEl = document.getElementById('locationMap');
+            mapEl.style.display = 'block';
+            document.getElementById('locationIframe').src =
+                `https://www.openstreetmap.org/export/embed.html?bbox=${longitude-0.01},${latitude-0.01},${longitude+0.01},${latitude+0.01}&layer=mapnik&marker=${latitude},${longitude}`;
+        } catch (e) {
+            showResult('locationResult',
+                `📍 Lat: ${latitude.toFixed(5)}, Lon: ${longitude.toFixed(5)}<br>Accuracy: ~${Math.round(accuracy)}m`
+            );
+        }
+    }, (err) => {
+        showResult('locationResult', `❌ Location denied or unavailable. Please allow location access.`);
+    }, { enableHighAccuracy: true, timeout: 10000 });
+}
+
+// ==============================================
+// INVOICE CALCULATOR
+// ==============================================
+function addInvRow() {
+    const row = document.createElement('div');
+    row.className = 'inv-row';
+    row.style.cssText = 'display:grid;grid-template-columns:2fr 1fr 1fr;gap:8px;margin-bottom:8px;';
+    row.innerHTML = `
+        <input type="text" placeholder="Service / Item" style="padding:8px;border-radius:8px;border:1px solid #e0e0e0;font-size:0.9em;">
+        <input type="number" placeholder="Qty" value="1" min="1" style="padding:8px;border-radius:8px;border:1px solid #e0e0e0;font-size:0.9em;">
+        <input type="number" placeholder="Rate" style="padding:8px;border-radius:8px;border:1px solid #e0e0e0;font-size:0.9em;">
+    `;
+    document.getElementById('invItems').appendChild(row);
+}
+
+function calcInvoice() {
+    const from = document.getElementById('invFrom').value.trim() || 'You';
+    const to = document.getElementById('invTo').value.trim() || 'Client';
+    const taxPct = parseFloat(document.getElementById('invTax').value) || 0;
+    const rows = document.querySelectorAll('.inv-row');
+    let subtotal = 0;
+    let breakdown = '';
+    rows.forEach(row => {
+        const inputs = row.querySelectorAll('input');
+        const item = inputs[0].value.trim() || 'Item';
+        const qty = parseFloat(inputs[1].value) || 1;
+        const rate = parseFloat(inputs[2].value) || 0;
+        const total = qty * rate;
+        subtotal += total;
+        if (rate > 0) breakdown += `• ${item}: ${qty} × ${rate.toFixed(2)} = <strong>${total.toFixed(2)}</strong><br>`;
+    });
+    if (subtotal === 0) { alert('Add at least one item with a rate!'); return; }
+    const tax = subtotal * taxPct / 100;
+    const grand = subtotal + tax;
+    showResult('invResult',
+        `🧾 <strong>Invoice</strong><br>
+         From: ${from} → To: ${to}<br>─────────────<br>
+         ${breakdown}─────────────<br>
+         Subtotal: ${subtotal.toFixed(2)}<br>
+         Tax (${taxPct}%): ${tax.toFixed(2)}<br>
+         💵 <strong>Total Due: ${grand.toFixed(2)}</strong>`
+    );
+}
+
+// ==============================================
+// INIT ALL API TOOLS
+// ==============================================
+window.addEventListener('DOMContentLoaded', () => {
+    updateGradient();
+    generateLorem();
+});
+
+// ==============================================
+// 💰 EARNING-FOCUSED TOOLS JAVASCRIPT
+// ==============================================
+
+function formatNum(n) {
+    if (isNaN(n) || !isFinite(n)) return '—';
+    if (n >= 10000000) return (n/10000000).toFixed(2)+' Cr';
+    if (n >= 100000)   return (n/100000).toFixed(2)+' L';
+    if (n >= 1000)     return n.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,',');
+    return n.toFixed(2);
+}
+
+// ---- EMI / LOAN ----
+function calcEMI() {
+    const P = parseFloat(document.getElementById('emiAmount').value);
+    const annualR = parseFloat(document.getElementById('emiRate').value);
+    const tenureVal = parseFloat(document.getElementById('emiTenure').value);
+    const tenureType = document.getElementById('emiTenureType').value;
+    if (!P || !annualR || !tenureVal) { alert('Please fill all fields!'); return; }
+    const n = tenureType === 'years' ? tenureVal*12 : tenureVal;
+    const r = annualR/100/12;
+    const emi = r===0 ? P/n : P*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1);
+    const total = emi*n;
+    document.getElementById('emiMonthly').textContent = formatNum(emi);
+    document.getElementById('emiTotal').textContent   = formatNum(total);
+    document.getElementById('emiInterest').textContent= formatNum(total-P);
+    document.getElementById('emiPrincipal').textContent=formatNum(P);
+    document.getElementById('emiFinGrid').style.display='grid';
+}
+
+// ---- SIP ----
+function calcSIP() {
+    const monthly = parseFloat(document.getElementById('sipAmount').value);
+    const annualRate = parseFloat(document.getElementById('sipRate').value);
+    const years = parseInt(document.getElementById('sipYears').value);
+    if (!monthly || !annualRate) { alert('Fill all fields!'); return; }
+    const r=annualRate/100/12, n=years*12;
+    const invested=monthly*n;
+    const totalValue=monthly*((Math.pow(1+r,n)-1)/r)*(1+r);
+    const returns=totalValue-invested;
+    document.getElementById('sipInvested').textContent=formatNum(invested);
+    document.getElementById('sipReturns').textContent =formatNum(returns);
+    document.getElementById('sipTotal').textContent   =formatNum(totalValue);
+    document.getElementById('sipMultiple').textContent=(totalValue/invested).toFixed(2)+'x';
+    document.getElementById('sipFinGrid').style.display='grid';
+    const chartEl=document.getElementById('sipChart');
+    chartEl.innerHTML='';
+    const steps=Math.min(years,10);
+    for(let y=1;y<=steps;y++){
+        const yr=Math.round(years*y/steps), nY=yr*12;
+        const inv=monthly*nY;
+        const val=monthly*((Math.pow(1+r,nY)-1)/r)*(1+r);
+        const invH=Math.round((inv/totalValue)*70);
+        const valH=Math.round((val/totalValue)*70);
+        chartEl.innerHTML+=`<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;">
+            <div style="width:100%;display:flex;align-items:flex-end;justify-content:center;gap:2px;">
+                <div class="sip-bar" style="height:${invH}px;background:rgba(102,126,234,0.4);"></div>
+                <div class="sip-bar" style="height:${valH}px;background:linear-gradient(180deg,#43e97b,#38f9d7);"></div>
+            </div>
+            <div style="font-size:0.6em;color:#888;">Yr${yr}</div></div>`;
+    }
+}
+window.addEventListener('DOMContentLoaded',()=>{
+    const sl=document.getElementById('sipYears');
+    if(sl) sl.oninput=()=>{ document.getElementById('sipYearsVal').textContent=sl.value+' years'; };
+    const gsel=document.getElementById('bfGender');
+    if(gsel) gsel.onchange=()=>{ document.getElementById('bfHipGroup').style.display=gsel.value==='female'?'block':'none'; };
+    const hikeBy=document.getElementById('hikeBy');
+    if(hikeBy) hikeBy.onchange=()=>{
+        document.getElementById('hikeInputLabel').textContent=hikeBy.value==='pct'?'Hike (%)':'New Salary Amount';
+        document.getElementById('hikeVal').placeholder=hikeBy.value==='pct'?'e.g. 20':'e.g. 60000';
+    };
+    const urlEl=document.getElementById('siteUrl');
+    if(urlEl) urlEl.textContent=window.location.href;
+});
+
+// ---- GST ----
+function calcGST() {
+    const amount=parseFloat(document.getElementById('gstAmount').value);
+    const rate=parseFloat(document.getElementById('gstRate').value);
+    const type=document.getElementById('gstType').value;
+    if(!amount||isNaN(rate)){alert('Enter amount and rate!');return;}
+    let base,tax,total;
+    if(type==='exclusive'){base=amount;tax=amount*rate/100;total=amount+tax;}
+    else{total=amount;base=amount/(1+rate/100);tax=total-base;}
+    document.getElementById('gstBase').textContent=formatNum(base);
+    document.getElementById('gstTaxAmt').textContent=formatNum(tax);
+    document.getElementById('gstTotal').textContent=formatNum(total);
+    document.getElementById('gstFinGrid').style.display='grid';
+}
+
+// ---- DISCOUNT ----
+function calcDiscount() {
+    const price=parseFloat(document.getElementById('discPrice').value);
+    const pct=parseFloat(document.getElementById('discPct').value);
+    if(!price||isNaN(pct)){alert('Enter price and discount!');return;}
+    const save=price*pct/100;
+    document.getElementById('discSave').textContent=formatNum(save);
+    document.getElementById('discFinal').textContent=formatNum(price-save);
+    document.getElementById('discGrid').style.display='grid';
+}
+function calcDiscountPct() {
+    const orig=parseFloat(document.getElementById('discOrig2').value);
+    const sale=parseFloat(document.getElementById('discSale').value);
+    if(!orig||!sale){alert('Enter both prices!');return;}
+    showResult('discPctResult',`🏷️ That's a <strong>${((orig-sale)/orig*100).toFixed(2)}%</strong> discount (saving ${formatNum(orig-sale)})`);
+}
+
+// ---- SAVINGS GOAL ----
+function calcSavings() {
+    const goal=parseFloat(document.getElementById('savGoal').value);
+    const current=parseFloat(document.getElementById('savCurrent').value)||0;
+    const annual=parseFloat(document.getElementById('savRate').value)||0;
+    const monthly=parseFloat(document.getElementById('savMonthly').value);
+    if(!goal||!monthly){alert('Enter savings goal and monthly contribution!');return;}
+    const remaining=goal-current;
+    if(remaining<=0){showResult('savResult','🎉 You already reached your goal!');return;}
+    const r=annual/100/12;
+    const months=r===0?Math.ceil(remaining/monthly):Math.ceil(Math.log(1+(remaining*r/monthly))/Math.log(1+r));
+    if(!isFinite(months)||months>1200){showResult('savResult','⚠️ Increase monthly savings to reach goal in a reasonable time.');return;}
+    const yrs=Math.floor(months/12), mos=months%12;
+    showResult('savResult',
+        `🎯 Goal: ${formatNum(goal)}<br>⏱️ Time: <strong>${yrs>0?yrs+' yr ':''} ${mos} months</strong><br>💵 Total contributed: ${formatNum(monthly*months)}<br>📈 Est. interest: ~${formatNum(Math.max(0,goal-current-monthly*months))}`);
+}
+
+// ---- ROI ----
+function calcROI() {
+    const cost=parseFloat(document.getElementById('roiCost').value);
+    const ret=parseFloat(document.getElementById('roiReturn').value);
+    const months=parseFloat(document.getElementById('roiMonths').value);
+    if(!cost||!ret){alert('Enter values!');return;}
+    const profit=ret-cost, roi=(profit/cost)*100;
+    const annualROI=months?(roi/months)*12:null;
+    const rating=roi>=100?'🏆 Excellent':roi>=50?'🌟 Great':roi>=20?'✅ Good':roi>=0?'👍 Positive':'❌ Loss';
+    document.getElementById('roiPct').textContent=roi.toFixed(2)+'%';
+    document.getElementById('roiProfit').textContent=(profit>=0?'+':'')+formatNum(profit);
+    document.getElementById('roiAnnual').textContent=annualROI!==null?annualROI.toFixed(2)+'%':'N/A';
+    document.getElementById('roiRating').textContent=rating;
+    document.getElementById('roiGrid').style.display='grid';
+}
+
+// ---- FREELANCER RATE ----
+function calcFreelanceRate() {
+    const income=parseFloat(document.getElementById('flIncome').value);
+    const hoursWk=parseFloat(document.getElementById('flHours').value)||30;
+    const vacWks=parseFloat(document.getElementById('flVacation').value)||4;
+    const expMonthly=parseFloat(document.getElementById('flExpenses').value)||0;
+    if(!income){alert('Enter desired annual income!');return;}
+    const workWeeks=52-vacWks;
+    const totalNeeded=income+(expMonthly*12);
+    const hourly=totalNeeded/(workWeeks*hoursWk);
+    document.getElementById('flHourly').textContent=formatNum(hourly);
+    document.getElementById('flDaily').textContent=formatNum(hourly*8);
+    document.getElementById('flProject').textContent=formatNum(hourly*40);
+    document.getElementById('flMonthly').textContent=formatNum(totalNeeded/12);
+    document.getElementById('flGrid').style.display='grid';
+}
+
+// ---- SALARY HIKE ----
+function calcHike() {
+    const old=parseFloat(document.getElementById('hikeOld').value);
+    const by=document.getElementById('hikeBy').value;
+    const val=parseFloat(document.getElementById('hikeVal').value);
+    if(!old||!val){alert('Enter current salary and hike value!');return;}
+    let newSal,pct;
+    if(by==='pct'){newSal=old*(1+val/100);pct=val;}
+    else{newSal=val;pct=(newSal-old)/old*100;}
+    document.getElementById('hikeNewSal').textContent=formatNum(newSal);
+    document.getElementById('hikePctShow').textContent=pct.toFixed(2)+'%';
+    document.getElementById('hikeMonthly').textContent='+'+formatNum((newSal-old)/12);
+    document.getElementById('hikeYearly').textContent='+'+formatNum(newSal-old);
+    document.getElementById('hikeGrid').style.display='grid';
+}
+
+// ---- KEYWORD DENSITY ----
+function checkKeywordDensity() {
+    const text=document.getElementById('kdText').value.trim();
+    const keyword=document.getElementById('kdKeyword').value.trim().toLowerCase();
+    if(!text){alert('Paste some content!');return;}
+    const words=text.toLowerCase().split(/\s+/).filter(Boolean);
+    const total=words.length;
+    const stop=new Set(['the','a','an','and','or','but','in','on','at','to','for','of','with','by','from','is','are','was','were','be','been','has','have','had','do','does','did','will','would','could','should','may','might','this','that','these','those','it','its','he','she','they','we','you','i','my','your','his','her','our','their','as','if','when','then','than','so','not','no','can']);
+    const freq={};
+    words.forEach(w=>{const c=w.replace(/[^a-z]/g,'');if(c.length>1&&!stop.has(c))freq[c]=(freq[c]||0)+1;});
+    const sorted=Object.entries(freq).sort((a,b)=>b[1]-a[1]).slice(0,10);
+    let html=`📝 Total Words: <strong>${total}</strong><br><br>🏆 Top Keywords:<br>`;
+    sorted.forEach(([w,c])=>{
+        const pct=(c/total*100).toFixed(2);
+        const color=pct>=1&&pct<=3?'#43e97b':pct>3?'#f5576c':'#667eea';
+        html+=`<div style="margin:4px 0;font-size:0.88em;"><div style="display:flex;justify-content:space-between;"><span>${w}</span><span>${c}× (${pct}%)</span></div>
+            <div style="height:5px;background:rgba(0,0,0,0.08);border-radius:3px;margin-top:2px;"><div style="height:100%;width:${Math.min(parseFloat(pct)*10,100)}%;background:${color};border-radius:3px;"></div></div></div>`;
+    });
+    if(keyword){
+        const kCount=words.filter(w=>w.includes(keyword.split(' ')[0])).length;
+        const kPct=(kCount/total*100).toFixed(2);
+        const msg=kPct>=1&&kPct<=3?'✅ Good density!':kPct<1?'⚠️ Too low':'🔴 Too high — reduce';
+        html+=`<br>🎯 "<strong>${keyword}</strong>": ${kCount}× = <strong>${kPct}%</strong> — ${msg}`;
+    }
+    showResult('kdResult',html);
+}
+
+// ---- META TAG GENERATOR ----
+function updateMetaPreview(){
+    const t=document.getElementById('metaTitle').value;
+    const d=document.getElementById('metaDesc').value;
+    document.getElementById('metaTitleCount').textContent=`${t.length} / 60`;
+    document.getElementById('metaDescCount').textContent=`${d.length} / 160`;
+    document.getElementById('metaTitleCount').style.color=t.length>60?'#f5576c':'#888';
+    document.getElementById('metaDescCount').style.color=d.length>160?'#f5576c':'#888';
+}
+function generateMetaTags(){
+    const title=document.getElementById('metaTitle').value;
+    const desc=document.getElementById('metaDesc').value;
+    const kw=document.getElementById('metaKeywords').value;
+    if(!title){alert('Enter a page title!');return;}
+    const code=`<meta charset="UTF-8">\n<meta name="viewport" content="width=device-width, initial-scale=1.0">\n<title>${title}</title>\n<meta name="description" content="${desc}">\n<meta name="keywords" content="${kw}">\n<meta name="robots" content="index, follow">\n<link rel="canonical" href="">`;
+    document.getElementById('metaGooglePreview').innerHTML=`<div style="font-size:0.78em;color:#202124;max-width:600px;"><div style="color:#1a0dab;font-size:1.1em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${title}</div><div style="color:#006621;font-size:0.85em;">yoursite.com › page</div><div style="color:#4d5156;font-size:0.95em;margin-top:2px;">${(desc||'Meta description...').substring(0,160)}</div></div><div style="font-size:0.72em;color:#888;margin-top:6px;">👆 Google preview</div>`;
+    document.getElementById('metaCode').value=code;
+    document.getElementById('metaOutput').style.display='block';
+}
+function copyMetaTags(){
+    const c=document.getElementById('metaCode').value;
+    navigator.clipboard.writeText(c).catch(()=>{document.getElementById('metaCode').select();document.execCommand('copy');});
+    alert('✅ Meta tags copied!');
+}
+
+// ---- OPEN GRAPH ----
+function generateOG(){
+    const url=document.getElementById('ogUrl').value;
+    const title=document.getElementById('ogTitle').value;
+    const desc=document.getElementById('ogDesc').value;
+    const image=document.getElementById('ogImage').value;
+    const type=document.getElementById('ogType').value;
+    const card=document.getElementById('twCard').value;
+    if(!title){alert('Enter a title!');return;}
+    const code=`<!-- Open Graph -->\n<meta property="og:type" content="${type}">\n<meta property="og:url" content="${url}">\n<meta property="og:title" content="${title}">\n<meta property="og:description" content="${desc}">\n<meta property="og:image" content="${image}">\n<!-- Twitter Card -->\n<meta name="twitter:card" content="${card}">\n<meta name="twitter:url" content="${url}">\n<meta name="twitter:title" content="${title}">\n<meta name="twitter:description" content="${desc}">\n<meta name="twitter:image" content="${image}">`;
+    document.getElementById('ogCode').value=code;
+    document.getElementById('ogOutput').style.display='block';
+}
+function copyOG(){
+    const c=document.getElementById('ogCode').value;
+    navigator.clipboard.writeText(c).catch(()=>{document.getElementById('ogCode').select();document.execCommand('copy');});
+    alert('✅ OG tags copied!');
+}
+
+// ---- BREAK-EVEN ----
+function calcBreakEven(){
+    const fixed=parseFloat(document.getElementById('beFixed').value);
+    const sell=parseFloat(document.getElementById('beSell').value);
+    const variable=parseFloat(document.getElementById('beVar').value);
+    if(!fixed||!sell||isNaN(variable)){alert('Fill all fields!');return;}
+    if(sell<=variable){alert('Selling price must be higher than variable cost!');return;}
+    const contrib=sell-variable;
+    const units=Math.ceil(fixed/contrib);
+    document.getElementById('beUnits').textContent=units.toLocaleString();
+    document.getElementById('beRevenue').textContent=formatNum(units*sell);
+    document.getElementById('beMargin').textContent=formatNum(contrib);
+    document.getElementById('beMarginPct').textContent=(contrib/sell*100).toFixed(1)+'%';
+    document.getElementById('beGrid').style.display='grid';
+}
+
+// ---- PERCENTAGE MULTI ----
+function calcPct1(){const x=parseFloat(document.getElementById('pct1X').value),y=parseFloat(document.getElementById('pct1Y').value);if(isNaN(x)||isNaN(y)){alert('Enter both!');return;}showResult('pct1Res',`${x}% of ${y} = <strong>${+(x*y/100).toFixed(6)}</strong>`);}
+function calcPct2(){const x=parseFloat(document.getElementById('pct2X').value),y=parseFloat(document.getElementById('pct2Y').value);if(!y){alert('Enter both!');return;}showResult('pct2Res',`${x} is <strong>${+(x/y*100).toFixed(4)}%</strong> of ${y}`);}
+function calcPct3(){const f=parseFloat(document.getElementById('pct3From').value),t=parseFloat(document.getElementById('pct3To').value);if(!f){alert('Enter both!');return;}const ch=(t-f)/Math.abs(f)*100;showResult('pct3Res',`${ch>=0?'📈 Increase':'📉 Decrease'} of <strong>${Math.abs(ch).toFixed(4)}%</strong>`);}
+
+// ---- BODY FAT ----
+function calcBodyFat(){
+    const gender=document.getElementById('bfGender').value;
+    const height=parseFloat(document.getElementById('bfHeight').value);
+    const waist=parseFloat(document.getElementById('bfWaist').value);
+    const neck=parseFloat(document.getElementById('bfNeck').value);
+    const hip=parseFloat(document.getElementById('bfHip').value)||0;
+    if(!height||!waist||!neck){alert('Fill required fields!');return;}
+    let bf;
+    if(gender==='male'){bf=495/(1.0324-0.19077*Math.log10(waist-neck)+0.15456*Math.log10(height))-450;}
+    else{if(!hip){alert('Enter hip for females!');return;}bf=495/(1.29579-0.35004*Math.log10(waist+hip-neck)+0.22100*Math.log10(height))-450;}
+    bf=Math.max(0,Math.min(60,bf));
+    const cats=gender==='male'?[[6,'Essential Fat 💧'],[13,'Athlete 🏅'],[17,'Fitness 💪'],[24,'Average ✅'],[100,'Obese ⚠️']]:[[13,'Essential Fat 💧'],[20,'Athlete 🏅'],[24,'Fitness 💪'],[31,'Average ✅'],[100,'Obese ⚠️']];
+    const cat=cats.find(c=>bf<=c[0]);
+    showResult('bfResult',`💪 Body Fat: <strong>${bf.toFixed(1)}%</strong><br>Category: <strong>${cat?cat[1]:'—'}</strong>`);
+}
+
+// ---- NEWSLETTER ----
+function subscribeNewsletter(){
+    const email=document.getElementById('newsletterEmail').value.trim();
+    if(!email||!email.includes('@')){alert('Enter a valid email!');return;}
+    document.getElementById('newsletterEmail').value='';
+    alert(`✅ Subscribed: ${email}\n\n💡 Connect Mailchimp/ConvertKit to collect real emails.`);
+}
+
+// ---- SHARE ----
+function shareWA(){window.open(`https://wa.me/?text=${encodeURIComponent('Check out this awesome free tools website! '+window.location.href)}`,'_blank');}
+function shareTW(){window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent('Amazing free tools! 🔥')}&url=${encodeURIComponent(window.location.href)}`,'_blank');}
+function shareCopy(){navigator.clipboard.writeText(window.location.href).then(()=>showResult('shareResult','✅ Link copied!')).catch(()=>showResult('shareResult','🔗 '+window.location.href));}
+function shareMore(){if(navigator.share){navigator.share({title:'Tools Kit',text:'Amazing free tools!',url:window.location.href});}else{shareCopy();}}
+
     </script>
 </body>
 </html>
